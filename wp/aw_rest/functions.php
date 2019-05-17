@@ -42,4 +42,98 @@ if ( ! function_exists( 'setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'setup' );
 
+// 固定ページ投稿時の処理
+function createJsonPage($post_id) {
+ // ドキュメントルート
+ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+ // JSON格納ディレクトリ 
+ $JSON_DIR = $DOCUMENT_ROOT . 'json/page/';
+
+ // JSON出力ディレクトリ
+ $outputDir = '';
+ // JSON出力判定
+ $isOutput = false;
+
+ // 配列データ
+ $dataArray = '';
+ // JSONデータ
+ $dataJson = '';
+
+ // データを取得
+ $post = get_post($post_id);
+ // タイトル
+ $title = $post->post_title;
+
+ // トップページの場合
+ if($title == 'INDEX') {
+
+  // カスタムフィールドを取得
+  $smartCustomFields = $_POST['smart-custom-fields'];
+
+  $dataArray = array(
+   'id' => $post_id,
+   'title' => $title,
+   'createDate' => mysql2date('Y/m/d H:i:s', $post->post_date),
+   'updateDate' => mysql2date('Y/m/d H:i:s', $post->post_modified),
+   'message' => $smartCustomFields['indexMessage'][0]
+  );
+  // JSON出力ディレクトリを設定
+  $outputUrl = $JSON_DIR . 'index.json';
+  $isOutput = true;
+ }
+
+/*
+$arr = array(
+"res" => array(
+"blogData" => array(
+[
+"author" => "鈴木1",
+"days" => array(
+[
+"day" => "01",
+"month" => "01",
+"year" => "2000"
+]
+),
+"id" => "1",
+"content" => "1の内容内容内容内容内容内容内容内容内容内容内容内容",
+"category" => array(
+"日記"
+),
+"title" => "タイトル１"
+],
+[
+"author" => "田中",
+"days" => array(
+[
+"day" => "02",
+"month" => "01",
+"year" => "2010"
+]
+),
+"id" => "2",
+"content" => "2の内容内容内容内容内容内容内容内容内容内容内容内容",
+"category" => array(
+"旅行"
+),
+"title" => "タイトル２"
+]
+)
+)
+);
+*/
+ 
+ // JSON出力を行う場合
+ if($isOutput) {
+  // JSON生成
+  $dataJson = json_encode($dataArray);
+  // JSON出力
+  file_put_contents($outputUrl , $dataJson);
+ }
+
+}
+
+add_action('publish_news', 'createJsonPage');
+add_action('publish_page', 'createJsonPage');
+
 ?>
