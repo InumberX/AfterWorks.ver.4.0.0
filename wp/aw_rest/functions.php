@@ -49,6 +49,14 @@ function createJsonPage($post_id) {
  // JSON格納ディレクトリ 
  $JSON_DIR = $DOCUMENT_ROOT . 'json/page/';
 
+ // JSONを出力するページのタイトル
+ $PAGE_TITLE_ARRAY = array(
+  'INDEX',
+  'ABOUT',
+  'WORKS'
+ );
+ $PAGE_TITLE_ARRAY_LENGTH = count($PAGE_TITLE_ARRAY);
+
  // JSON出力ディレクトリ
  $outputDir = '';
  // JSON出力判定
@@ -64,64 +72,27 @@ function createJsonPage($post_id) {
  // タイトル
  $title = $post->post_title;
 
- // トップページの場合
- if($title == 'INDEX') {
+ for($i = 0; $i < $PAGE_TITLE_ARRAY_LENGTH; $i++) {
+  // JSON出力を行うページの場合
+  if($PAGE_TITLE_ARRAY[$i] == $title) {
+   // カスタムフィールドを取得
+   $smartCustomFields = getCustomFields($_POST['smart-custom-fields']);
 
-  // カスタムフィールドを取得
-  $smartCustomFields = $_POST['smart-custom-fields'];
+   $dataArray = array(
+    'id' => $post_id,
+    'title' => $title,
+    'createDate' => mysql2date('Y/m/d H:i:s', $post->post_date),
+    'updateDate' => mysql2date('Y/m/d H:i:s', $post->post_modified),
+    'countents' => $smartCustomFields
+   );
 
-  $dataArray = array(
-   'id' => $post_id,
-   'title' => $title,
-   'createDate' => mysql2date('Y/m/d H:i:s', $post->post_date),
-   'updateDate' => mysql2date('Y/m/d H:i:s', $post->post_modified),
-   'message' => $smartCustomFields['indexMessage'][0]
-  );
-  // JSON出力ディレクトリを設定
-  $outputUrl = $JSON_DIR . 'index.json';
-  $isOutput = true;
+   // JSON出力ディレクトリを設定
+   $outputUrl = $JSON_DIR . mb_strtolower($title) . '.json';
+   $isOutput = true;
+
+   break;
+  }
  }
-
-/*
-$arr = array(
-"res" => array(
-"blogData" => array(
-[
-"author" => "鈴木1",
-"days" => array(
-[
-"day" => "01",
-"month" => "01",
-"year" => "2000"
-]
-),
-"id" => "1",
-"content" => "1の内容内容内容内容内容内容内容内容内容内容内容内容",
-"category" => array(
-"日記"
-),
-"title" => "タイトル１"
-],
-[
-"author" => "田中",
-"days" => array(
-[
-"day" => "02",
-"month" => "01",
-"year" => "2010"
-]
-),
-"id" => "2",
-"content" => "2の内容内容内容内容内容内容内容内容内容内容内容内容",
-"category" => array(
-"旅行"
-),
-"title" => "タイトル２"
-]
-)
-)
-);
-*/
  
  // JSON出力を行う場合
  if($isOutput) {
@@ -133,7 +104,29 @@ $arr = array(
 
 }
 
-add_action('publish_news', 'createJsonPage');
+// カスタムフィールドを加工する処理
+function getCustomFields($customFields) {
+
+ foreach($customFields as $key => $value){
+  // 末尾が「Img」の場合
+  if(mb_substr($key, -3) == 'Img') {
+   $length = count($customFields[$key]);
+   // 画像IDをパスに変換
+   for($i = 0; $i < $length; $i++) {
+    $imageId = $customFields[$key][$i];
+    $imageSrc = wp_get_attachment_image_src($imageId);
+    if($imageSrc) {
+      $customFields[$key][$i] = $imageSrc[0];
+    }
+   }
+  }
+ }
+
+ return $customFields;
+
+}
+
+// 固定ページ更新時
 add_action('publish_page', 'createJsonPage');
 
 ?>
