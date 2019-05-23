@@ -1,55 +1,183 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+<div class="wrap-all">
+<nuxt />
+</div><!-- /.wrap-all -->
 </template>
 
-<style>
+<style lang="scss">
+
+/* SP
+*************************************************/
+
+/* 基本設定
+*************************************************/
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+ height: 100%;
+ line-height: 1;
+ background: #ffffff;
+ color: #2E2E2E;
+ font-size: 62.5%;
+}
+body {
+ margin: 0;
+ padding: 0;
+ border: 0;
+ font-size: 1.4rem;
+ line-height: 1.4;
+ overflow-y: scroll;
+ font-family: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', HGS明朝E, メイリオ, Meiryo, serif;
+ word-break: normal;
+ -webkit-text-size-adjust:100%;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
+article, aside, details, figcaption, include, footer, header, hgroup, main, nav, section, summary {
+ display:block;
+ margin:0;
+ padding:0;
+}
+h1, h2, h3, h4, h5, h6, dl, dt, dd, p, blockquote, ul, ol, li {
+ margin: 16px 0 0;
+ padding: 0;
+ font-size: 1.4rem;
+ vertical-align: baseline;
+ -webkit-overflow-wrap: break-word;
+ -ms-overflow-wrap: break-word;
+ overflow-wrap: break-word;
+ -webkit-word-wrap: break-word;
+ -ms-word-wrap: break-word;
+ word-wrap: break-word;
+}
+figcaption, span {
+ -webkit-overflow-wrap: break-word;
+ -ms-overflow-wrap: break-word;
+ overflow-wrap: break-word;
+ -webkit-word-wrap: break-word;
+ -ms-word-wrap: break-word;
+ word-wrap: break-word;
+}
+audio, canvas, progress, video {
+ display: inline-block;
+ vertical-align: baseline;
+}
+audio:not([controls]) {
+ display: none;
+ height: 0;
+}
+[hidden], template {
+ display: none;
+}
+abbr[title] {
+ border-bottom: 1px dotted;
+}
+i {
+ font-style: italic;
+}
+em {
+ font-style:normal;
+}
+b, strong, em {
+ font-weight: bold;
+}
+dfn {
+ font-style: italic;
+}
+mark {
+ background: #fffd30;
+ color: #3c3c3c;
+}
+small {
+ font-size: 100%;
+}
+sub,sup {
+ font-size: 75%;
+ line-height: 0;
+ position: relative;
+ vertical-align: baseline;
+}
+sup {
+ top: -0.5em;
+}
+sub {
+ bottom: -0.25em;
+}
+ul, ol {
+ margin: 16px 0 0;
+ padding: 0 0 0 2em;
+}
+li {
+ margin: 8px 0 0;
+}
+img {
+ border: 0;
+ vertical-align: top;
+}
+img {
+ -ms-interpolation-mode: bicubic;
+}
+svg:not(:root) {
+ overflow: hidden;
+}
+hr {
+ -moz-box-sizing: content-box;
+ box-sizing: content-box;
+ height: 0;
+}
+pre {
+ overflow: auto;
+}
+code, kbd, pre, samp {
+ font-family: monospace, monospace;
+ font-size: 1em;
+}
+q{
+ &:before,
+ &:after {
+  display: none;
+ }
+}
+legend {
+ border: 0;
+ padding: 0;
+}
+optgroup {
+ font-weight: bold;
+}
+table {
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+td, th {
+ padding: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+/* 共通設定
+*************************************************/
+.pc-obj {
+ display: none;
+}
+.sp-obj {
+ display: block;
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
+/* clearfix */
+.clearfix {
+ *zoom: 1;
+ &:before,
+ &:after {
+  content: '';
+  display: table;
+ }
+ &:after {
+  clear: both;
+ }
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
+/* コンテンツ */
+.inner {
+padding: 0 3%;
+margin: 0 auto;
+width: 100%;
+box-sizing: border-box;
 }
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
 </style>
