@@ -1,8 +1,30 @@
 <template>
 <div class="wrap-all">
+
+<Header />
+
+<main class="main-wrap">
 <nuxt />
+</main><!-- /.main-wrap -->
+
+<Footer />
+
 </div><!-- /.wrap-all -->
 </template>
+
+<script>
+// コンポーネント読み込み
+import Header from '~/components/common/Header.vue'
+import Footer from '~/components/common/Footer.vue'
+
+export default {
+ // コンポーネント設定
+ components: {
+  Header: Header,
+  Footer: Footer
+ }
+}
+</script>
 
 <style lang="scss">
 
@@ -178,6 +200,11 @@ padding: 0 3%;
 margin: 0 auto;
 width: 100%;
 box-sizing: border-box;
+}
+
+.main-wrap {
+margin: 0 auto;
+padding: 56px 0 0;
 }
 
 </style>
