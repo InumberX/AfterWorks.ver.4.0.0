@@ -26,6 +26,10 @@ export default {
  components: {
   Header: Header,
   Footer: Footer
+ },
+ created: function() {
+  console.log('created')
+  this.$store.dispatch('getContents')
  }
 }
 </script>

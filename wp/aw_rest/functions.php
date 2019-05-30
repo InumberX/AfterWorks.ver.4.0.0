@@ -41,7 +41,7 @@ function createJsonPage($post_id) {
     'title' => $title,
     'createDate' => mysql2date('Y/m/d H:i:s', $post->post_date),
     'updateDate' => mysql2date('Y/m/d H:i:s', $post->post_modified),
-    'countents' => $smartCustomFields
+    'contents' => $smartCustomFields
    );
 
    // JSON出力ディレクトリを設定

@@ -1,6 +1,6 @@
 <template>
 <section style="margin-top: 100px;">
-INDEX
+INDEX：{{ this.$store.state.contents.index }}
 </section>
 </template>
 
