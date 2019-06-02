@@ -3,8 +3,17 @@ export default {
  isLoading: false,
  // レスポンスデータ
  contents: {
-   index: {},
-   about: {},
-   works: {}
+   index: {
+    isGet: '',
+    data: {}
+   },
+   about: {
+    isGet: '',
+    data: {}
+   },
+   works: {
+    isGet: '',
+    data: {}
+   }
  }
 }

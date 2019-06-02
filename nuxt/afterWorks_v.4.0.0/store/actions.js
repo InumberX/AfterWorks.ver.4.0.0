@@ -3,25 +3,39 @@ import axios from 'axios'
 export default {
  getContents({commit}, payload) {
   // isLoadingをtrueに設定
-  commit('showLoading');
+  commit('showLoading')
+
+  // JSONファイル名
+  const jsonNameArray = [
+   'index',
+   'about',
+   'works'
+  ]
+  const jsonNameArrayLength = jsonNameArray.length
+
   // データ取得
-  axios
-  .get('/json/page/index.json', {
-   headers: { 'Content-Type': 'application/json'},
-   timeout: 15000
-  })
-  .then(function(response) {
-   // listsにレスポンスを設定
-   commit('setContents', {data: response.data, name: 'index'})
-   // isLoadingをfalseに設定
-   commit('hideLoading')
-  })
-  .catch(function(error) {
-   console.error(error)
-   // isLoadingをfalseに設定
-   commit('hideLoading');
-   // エラー画面に遷移
-   this.$router.push('/error');
-  })
+  for(let i = 0; i < jsonNameArrayLength; i++) {
+   const jsonName = jsonNameArray[i]
+     axios
+    .get('/json/page/' + jsonName + '.json', {
+     headers: { 'Content-Type': 'application/json'},
+     timeout: 15000
+    })
+    .then(function(response) {
+     // レスポンスをストアに格納
+     commit('setContents', {data: response.data, name: jsonName})
+     // isLoadingをfalseに設定
+     commit('hideLoading')
+    })
+    .catch(function(error) {
+     console.error(error)
+     // レスポンスをストアに格納
+     commit('setContentsFail', {data: response.data, name: jsonName})
+     // isLoadingをfalseに設定
+     commit('hideLoading')
+     // エラーアラートを表示
+     alert('データの取得に失敗しました。再読み込みしてください。');
+    })
+  }
   }
 }

@@ -28,7 +28,7 @@ export default {
   Footer: Footer
  },
  created: function() {
-  console.log('created')
+  // コンテンツデータを取得
   this.$store.dispatch('getContents')
  }
 }
