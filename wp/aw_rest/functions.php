@@ -55,7 +55,7 @@ function createJsonPage($post_id) {
  // JSON出力を行う場合
  if($isOutput) {
   // JSON生成
-  $dataJson = json_encode($dataArray);
+  $dataJson = json_encode($dataArray, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
   // JSON出力
   file_put_contents($outputUrl , $dataJson);
  }
@@ -65,10 +65,10 @@ function createJsonPage($post_id) {
 // カスタムフィールドを加工する処理
 function getCustomFields($customFields) {
 
- foreach($customFields as $key => $value){
+ foreach($customFields as $key => $value) {
+  $length = count($customFields[$key]);
   // 末尾が「Img」の場合
   if(mb_substr($key, -3) == 'Img') {
-   $length = count($customFields[$key]);
    // 画像IDをパスに変換
    for($i = 0; $i < $length; $i++) {
     $imageId = $customFields[$key][$i];
@@ -76,6 +76,15 @@ function getCustomFields($customFields) {
     if($imageSrc) {
       $customFields[$key][$i] = $imageSrc[0];
     }
+   }
+  } else {
+   // 末尾が「Img」以外の場合
+   // ダブルクォーテーションをエスケープ
+   for($i = 0; $i < $length; $i++) {
+    $value = $customFields[$key][$i];
+    $value = str_replace('"', "&quot;", $value);
+    $value = str_replace('\\', "", $value);
+    $customFields[$key][$i] = $value;
    }
   }
  }

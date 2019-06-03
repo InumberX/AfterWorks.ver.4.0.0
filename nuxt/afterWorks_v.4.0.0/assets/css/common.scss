@@ -159,6 +159,10 @@ transition: opacity 0.8s ease;
 .page-transition-leave-active {
 opacity: 0;
 }
+.page-transition-enter-to,
+.page-transition-leave {
+opacity: 1;
+}
 
 /* 共通設定
 *************************************************/
