@@ -13,12 +13,17 @@
 
 <div class="head-menu">
 <div class="head-menu-btn">
-<button v-on:click="toggleMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']">
+<button v-on:click="toggleMenu">
 <span><i></i><i></i><i></i></span>
 </button>
 </div>
 <transition name="header-menu">
 <div class="groval-nav" v-if="!isSp || isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']">
+<div class="head-close-btn">
+<button v-on:click="toggleMenu">
+<span><i></i><i></i></span>
+</button>
+</div>
 <nav>
 <ul>
 <li><nuxt-link to="/" exact v-on:click.native="closeMenu">Top</nuxt-link></li>
@@ -29,29 +34,38 @@
 </nav>
 </div><!-- /.groval-nav -->
 </transition>
+
+<div class="header-menu-bg-box">
+<transition name="header-menu-bg1">
+<div class="groval-nav-bg" v-if="isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']"></div>
+</transition>
+<transition name="header-menu-bg2">
+<div class="groval-nav-bg" v-if="isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']"></div>
+</transition>
+</div>
+
 </div><!-- /.head-menu -->
 
 </div><!-- /.head-box -->
 
 </div><!-- /.inner -->
+
+<transition name="overlay">
+<div class="h-overlay" v-if="isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']" v-on:click="toggleMenu"></div>
+</transition>
+
 </header>
 
 </template>
 
 <script>
-/*------------------------------------------
- グローバル変数
---------------------------------------------*/
-// SP判定
-let isSp = false
-// ブレイクポイント
-const bp = 767
-
 export default {
  data: function() {
   return {
    // SP判定フラグ
    isSp: false,
+   // ブレイクポイント
+   bp: 767,
    // メニュー表示フラグ
    isHeaderMenu: false
   }
@@ -69,7 +83,7 @@ export default {
  methods: {
   // ウィンドウサイズを更新する処理
   checkSp: function() {
-   if(window.innerWidth > bp) {
+   if(window.innerWidth > this.bp) {
     if(this.isSp) {
      this.isSp = false
     }
@@ -93,35 +107,27 @@ export default {
   openMenu: function() {
    this.winY = document.documentElement.scrollTop || document.body.scrollTop
    this.isHeaderMenu = true
-   this.isOverlay = true
    let $body = document.body
    $body.classList.add('h-op')
-   $body.setAttribute('style', 'top: -' + this.winY + 'px;')
   },
   // メニューを閉じる処理
   closeMenu: function() {
    this.isHeaderMenu = false
-   this.isOverlay = false
    let $body = document.body
    $body.classList.remove('h-op')
-   $body.removeAttribute('style')
-   window.scrollTo(0, this.winY)
   }
  },
  // 監視プロパティ
  watch: {
   isSp: function() {
-   isSp = this.isSp
    // PC表示になった場合
    if(!this.isSp) {
     // メニューが開いている場合
     if(this.isHeaderMenu) {
      // メニュー表示フラグを初期化する
      this.isHeaderMenu = false
-     this.isOverlay = false
      let $body = document.body
      $body.classList.remove('h-op')
-     $body.removeAttribute('style')
     }
    }
 
@@ -135,8 +141,11 @@ export default {
 
 /* ヘッダー
 *************************************************/
+
+/* SP
+*************************************************/
 .header-wrap {
- background: #fff;
+ background: rgba(255, 255, 255, 0.9);
  box-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
  position: fixed;
  top: 0;
@@ -189,7 +198,7 @@ export default {
    display: block;
    padding: 20px 16px;
    margin: 0;
-   background-color: #fff;
+   background-color: transparent;
    z-index: 101;
    border: none;
    outline: none;
@@ -204,7 +213,7 @@ export default {
      width: 100%;
      height: 2px;
      left: 0;;
-     background-color: #EC4A4A;
+     background-color: #002984;
      transition: 0.3s all;
      &:nth-child(1) {
       top: 0;
@@ -218,34 +227,17 @@ export default {
      }
     }
    }
-   &.on {
-    span {
-     i {
-      &:nth-child(1) {
-       -webkit-transform: translateY(7px) rotate(-45deg);
-       transform: translateY(7px) rotate(-45deg);
-      }
-      &:nth-child(2) {
-       opacity: 0;
-      }
-      &:nth-child(3) {
-       -webkit-transform: translateY(-7px) rotate(45deg);
-       transform: translateY(-7px) rotate(45deg);
-      }
-     }
-    }
-   }
   }
  }
  .groval-nav {
   display: none;
   position: fixed;
-  top: 56px;
-  left: 20%;
-  width: 80%;
-  height: calc(100% - 56px);
-  background-color: #fff;
-  border-top: 1px solid #f1f1f1;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #002984;
+  z-index: 1000;
   &.on {
    display: block;
   }
@@ -265,31 +257,221 @@ export default {
       margin: 0;
       padding: 16px;
       text-align: center;
-      color: #3c3c3c;
+      color: #fff;
       text-decoration: none;
-      border-bottom: 1px solid #ffb6b6;
+      border-bottom: 1px solid #fff;
       &:hover {
-       color: #EC4A4A;
+       color: #fff;
+      }
+     }
+    }
+   }
+  }
+  .head-close-btn {
+   width: 100%;
+   height: 56px;
+   button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 16px;
+    margin: 0;
+    background-color: transparent;
+    z-index: 101;
+    border: none;
+    outline: none;
+    span {
+     position: relative;
+     display: block;
+     width: 24px;
+     height: 16px;
+     i {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 2px;
+      left: 0;;
+      background-color: #fff;
+      &:nth-child(1) {
+       top: 0;
+       -webkit-transform: translateY(7px) rotate(-45deg);
+       transform: translateY(7px) rotate(-45deg);
+      }
+      &:nth-child(2) {
+       bottom: 0;
+       -webkit-transform: translateY(-7px) rotate(45deg);
+        transform: translateY(-7px) rotate(45deg);
       }
      }
     }
    }
   }
  }
+ .header-menu-bg-box {
+  .groval-nav-bg {
+   display: none;
+   position: fixed;
+   top: 0;
+   right: 0;
+   width: 300px;
+   height: 100%;
+   &.on {
+    display: block;
+   }
+   &:nth-of-type(1) {
+    z-index: 998;
+    background-color: #004aef;
+    width: 308px;
+   }
+   &:nth-of-type(2) {
+    z-index: 999;
+    background-color: #003cc1;
+    width: 304px;
+   }
+  }
+ }
+}
+
+.h-overlay {
+ display: block;
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0, 0, 0, 0.5);
+ z-index: 700;
 }
 
 /* ヘッダーアニメーション */
-.header-menu-enter-active,
+.header-menu-enter-active {
+transition: all 0.3s;
+transition-delay: 0.1s;
+}
 .header-menu-leave-active {
 transition: all 0.3s;
 }
 .header-menu-enter,
 .header-menu-leave-to {
-left: 100% !important;
+right: -300px !important;
 }
 .header-menu-enter-to,
 .header-menu-leave {
-left: 20% !important;
+right: 0 !important;
+}
+
+.header-menu-bg1-enter-active {
+transition: all 0.3s;
+}
+.header-menu-bg1-leave-active {
+transition: all 0.3s;
+transition-delay: 0.1s;
+}
+.header-menu-bg1-enter,
+.header-menu-bg1-leave-to {
+right: -300px !important;
+}
+.header-menu-bg1-enter-to,
+.header-menu-bg1-leave {
+right: 0 !important;
+}
+
+.header-menu-bg2-enter-active,
+.header-menu-bg2-leave-active {
+transition: all 0.3s;
+transition-delay: 0.05s;
+}
+.header-menu-bg2-enter,
+.header-menu-bg2-leave-to {
+right: -300px !important;
+}
+.header-menu-bg2-enter-to,
+.header-menu-bg2-leave {
+right: 0 !important;
+}
+
+/* オーバレイアニメーション */
+.overlay-enter-active,
+.overlay-leave-active {
+transition: opacity 0.3s ease;
+}
+.overlay-enter,
+.overlay-leave-active {
+opacity: 0;
+}
+.overlay-enter-to,
+.overlay-leave {
+opacity: 1;
+}
+
+/* PC
+*************************************************/
+@media screen and (min-width: 768px) {
+
+.header-wrap {
+ height: 80px;
+ .head-box {
+  align-items: center;
+ }
+}
+
+.head-logo .logo-box {
+ height: 80px;
+ h1 {
+  margin: 0;
+  img {
+   width: 200px;
+   min-width: auto;
+   max-width: none;
+  }
+ }
+}
+
+.head-menu {
+ position: relative;
+ .head-menu-btn {
+  display: none;
+ }
+ .groval-nav {
+  display: block;
+  position: relative;
+  top: auto;
+  right: auto;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  nav {
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   ul {
+    display: flex;
+    align-items: center;
+    li {
+     a {
+      display: block;
+      margin: 0;
+      padding: 0 12px;
+      color: #2E2E2E;
+      border-bottom: none;
+      &:hover {
+       color: #4466B1;
+      }
+     }
+    }
+   }
+  }
+  .head-close-btn {
+   display: none;
+  }
+ }
+ .header-menu-bg-box {
+  display: none;
+ }
+}
+
 }
 
 </style>

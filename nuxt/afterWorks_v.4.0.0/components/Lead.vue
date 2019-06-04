@@ -23,13 +23,32 @@ export default {
 
 /* ページタイトル
 *************************************************/
+
+/* SP
+*************************************************/
 .lead-box {
  p {
-  margin: 64px auto 0;
-  padding: 0;
+  margin: 80px auto 0;
+  padding: 0 16px;
   font-size: 1.8rem;
+  line-height: 1.7;
   text-align: center;
  }
+}
+
+/* PC
+*************************************************/
+@media screen and (min-width: 768px) {
+
+.lead-box {
+ p {
+  margin-top: 120px;
+  padding: 0;
+  font-size: 2.4rem;
+  line-height: 1.8;
+ }
+}
+
 }
 
 </style>

@@ -3,7 +3,12 @@ export default {
  
  router: {
   linkActiveClass: 'active',
-  linkExactActiveClass: 'exact-active'
+  linkExactActiveClass: 'exact-active',
+  // ページ遷移時の設定
+  scrollBehavior: function (to, from, savedPosition) {
+   // トップまでスクロールする
+   return { x: 0, y: 0 }
+  }
  },
  
  /*
