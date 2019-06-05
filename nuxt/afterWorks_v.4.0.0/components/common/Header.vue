@@ -259,7 +259,7 @@ export default {
       text-align: center;
       color: #fff;
       text-decoration: none;
-      border-bottom: 1px solid #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
       &:hover {
        color: #fff;
       }
@@ -411,14 +411,14 @@ opacity: 1;
 @media screen and (min-width: 768px) {
 
 .header-wrap {
- height: 80px;
+ height: 64px;
  .head-box {
   align-items: center;
  }
 }
 
 .head-logo .logo-box {
- height: 80px;
+ height: 64px;
  h1 {
   margin: 0;
   img {

@@ -1,11 +1,50 @@
 <template>
 <div class="index-wrap">
+
 <mainVisual></mainVisual>
-<lead v-if="this.$store.state.contents.index.isGet" v-bind:text="this.$store.state.contents.index.data.contents.indexMessage[0]"></lead>
-<section style="margin-top: 100px;">
-INDEX：{{ this.$store.state.contents.index }}
-ABOUT：{{ this.$store.state.contents.about }}
-WORKS：{{ this.$store.state.contents.works }}
+
+<lead
+ v-if="this.$store.state.contents.index.isGet"
+ v-bind:text="this.$store.state.contents.index.data.contents.indexMessage[0]"
+>
+</lead>
+
+<section>
+
+<contentsTitle
+ titleEn="Service"
+ title="提供サービス"
+>
+</contentsTitle>
+
+<cardList
+ v-if="this.$store.state.contents.index.isGet"
+ v-bind:titles="this.$store.state.contents.index.data.contents.indexServiceTitle"
+ v-bind:texts="this.$store.state.contents.index.data.contents.indexServiceText"
+ v-bind:classes="this.$store.state.contents.index.data.contents.indexServiceClass"
+>
+</cardList>
+
+</section>
+
+<section>
+
+<contentsTitle
+ titleEn="Contents"
+ title="コンテンツ"
+>
+</contentsTitle>
+
+<cardList
+ v-if="this.$store.state.contents.index.isGet"
+ v-bind:titles="this.$store.state.contents.index.data.contents.indexContentsTitle"
+ v-bind:texts="this.$store.state.contents.index.data.contents.indexContentsText"
+ v-bind:classes="this.$store.state.contents.index.data.contents.indexContentsClass"
+ v-bind:links="this.$store.state.contents.index.data.contents.indexContentsLink"
+ v-bind:linkTexts="this.$store.state.contents.index.data.contents.indexContentsLinkText"
+>
+</cardList>
+
 </section>
 </div>
 </template>
@@ -13,6 +52,8 @@ WORKS：{{ this.$store.state.contents.works }}
 <script>
 import MainVisual from '~/components/MainVisual.vue'
 import Lead from '~/components/Lead.vue'
+import ContentsTitle from '~/components/ContentsTitle.vue'
+import CardList from '~/components/CardList.vue'
 
 export default {
  head: {
@@ -20,7 +61,9 @@ export default {
  },
  components: {
   MainVisual: MainVisual,
-  Lead: Lead
+  Lead: Lead,
+  ContentsTitle: ContentsTitle,
+  CardList: CardList
  },
 }
 </script>

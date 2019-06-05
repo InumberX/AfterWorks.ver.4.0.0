@@ -1,12 +1,9 @@
 <template>
-<div class="page-title-box">
+<div class="title-box">
 <div class="inner">
-<h2>{{ titleEn }}<em>{{ title }}</em></h2>
-INDEX：{{ this.$store.state.contents.index }}
-ABOUT：{{ this.$store.state.contents.about }}
-WORKS：{{ this.$store.state.contents.works }}
+<h3>{{ titleEn }}<em>{{ title }}</em></h3>
 </div><!-- /.inner -->
-</div><!-- /.page-title-box -->
+</div><!-- /.title-box -->
 </template>
 
 <script>
@@ -20,29 +17,31 @@ export default {
 
 <style lang="scss" scoped>
 
-/* ページタイトル
+/* コンテンツタイトル
 *************************************************/
 
 /* SP
 *************************************************/
-.page-title-box {
- h2 {
-  margin: 24px auto 0;
+.title-box {
+ h3 {
+  margin: 80px auto 0;
   padding: 0 0 10px;
   position: relative;
   font-size: 4.8rem;
   color: #F2F2F2;
   line-height: 1;
   font-weight: bold;
+  text-align: center;
   em {
    position: absolute;
    font-size: 2.4rem;
    color: #2E2E2E;
    z-index: 1;
-   left: 16px;
+   left: 0;
    bottom: 0;
    font-weight: bold;
    font-style: normal;
+   width: 100%;
   }
  }
 }
@@ -51,9 +50,9 @@ export default {
 *************************************************/
 @media screen and (min-width: 768px) {
 
-.page-title-box {
- h2 {
-  margin-top: 40px;
+.title-box {
+ h3 {
+  margin-top: 120px;
   font-size: 8.0rem;
   em {
    font-size: 4.0rem;
