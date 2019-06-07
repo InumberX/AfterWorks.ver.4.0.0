@@ -2,9 +2,6 @@
 <div class="page-title-box">
 <div class="inner">
 <h2>{{ titleEn }}<em>{{ title }}</em></h2>
-INDEX：{{ this.$store.state.contents.index }}
-ABOUT：{{ this.$store.state.contents.about }}
-WORKS：{{ this.$store.state.contents.works }}
 </div><!-- /.inner -->
 </div><!-- /.page-title-box -->
 </template>

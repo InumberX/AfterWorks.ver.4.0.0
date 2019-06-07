@@ -3,11 +3,11 @@
 
 <mainVisual></mainVisual>
 
-<lead
+<contentsLead
  v-if="this.$store.state.contents.index.isGet"
  v-bind:text="this.$store.state.contents.index.data.contents.indexMessage[0]"
 >
-</lead>
+</contentsLead>
 
 <section>
 
@@ -51,7 +51,7 @@
 
 <script>
 import MainVisual from '~/components/MainVisual.vue'
-import Lead from '~/components/Lead.vue'
+import ContentsLead from '~/components/ContentsLead.vue'
 import ContentsTitle from '~/components/ContentsTitle.vue'
 import CardList from '~/components/CardList.vue'
 
@@ -61,7 +61,7 @@ export default {
  },
  components: {
   MainVisual: MainVisual,
-  Lead: Lead,
+  ContentsLead: ContentsLead,
   ContentsTitle: ContentsTitle,
   CardList: CardList
  },
