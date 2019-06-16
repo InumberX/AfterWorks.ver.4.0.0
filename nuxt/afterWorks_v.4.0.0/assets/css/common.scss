@@ -146,11 +146,13 @@ td, th {
 
 /* リンク
 *************************************************/
-a{
+a {
+ color: #002984;
+ text-decoration: none;
+ transition: 0.3s all;
  &:link {
   color: #002984;
   text-decoration: none;
-  transition: 0.3s all;
  }
  &:visited {
   color: #002984;

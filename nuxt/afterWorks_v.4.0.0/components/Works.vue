@@ -110,7 +110,7 @@ export default {
       dt {
        margin: 24px 0 0;
        a {
-        display: block;
+        display: inline-block;
         color: #2E2E2E;
         font-size: 1.6rem;
         .icon-blank {
