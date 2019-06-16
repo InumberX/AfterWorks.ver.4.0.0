@@ -39,13 +39,13 @@ export default {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
     el.style.width = ''
-   }, 600)
+   }, 1500)
   },
   pageSubTitleEnter: function(el) {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
     el.style.width = ''
-   }, 800)
+   }, 1500)
   }
  }
 }
@@ -91,12 +91,12 @@ export default {
 /* ページタイトル表示用アニメーション */
 .page-title-enter-active,
 .page-title-leave-active {
-transition: 0.4s width;
+transition: 0.6s width;
 transition-delay: 0.2s;
 }
 .page-sub-title-enter-active,
 .page-sub-title-leave-active {
-transition: 0.4s width;
+transition: 0.6s width;
 transition-delay: 0.4s;
 }
 

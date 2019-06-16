@@ -45,9 +45,18 @@ export default {
   ],
   link: [
    {
-    rel: 'icon',
+    rel: 'shortcut icon',
     type: 'image/x-icon',
     href: '/img/favicon.ico'
+   },
+   {
+    rel: 'icon',
+    type: 'image/png',
+    href: '/img/favicon.png'
+   },
+   {
+    rel: 'apple-touch-icon',
+    href: '/img/favicon.png'
    }
   ],
   script: [

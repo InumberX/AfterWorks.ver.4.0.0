@@ -5,15 +5,11 @@
  appear
 >
 
-<div class="profile-box">
+<div class="history-box">
 <div class="inner">
-<div class="profile-in">
+<div class="history-in">
 
-<div class="profile-image">
-<span><img src="/img/img_logo_nine.svg" alt="N/NE"></span>
-</div><!-- /.profile-image -->
-
-<div class="profile-info">
+<div class="history-list">
 
 <dl class="name">
 <dt>Name</dt>
@@ -54,11 +50,11 @@
 <dd><snsList></snsList></dd>
 </dl>
 
-</div><!-- /.profile-info -->
+</div><!-- /.history-list -->
 
-</div><!-- /.profile-in -->
+</div><!-- /.history-in -->
 </div><!-- /.inner -->
-</div><!-- /.profile-box -->
+</div><!-- /.history-box -->
 
 </transition>
 
@@ -69,10 +65,10 @@ import SnsList from '~/components/SnsList.vue';
 
 export default {
  props: [
-  'name',
-  'certificateNames',
-  'certificateUrls',
-  'skills'
+  'dates',
+  'titles',
+  'positions',
+  'tools'
  ],
  components: {
   SnsList: SnsList
@@ -82,7 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 
-/* プロフィール
+/* 経歴
 *************************************************/
 
 /* SP

@@ -20,7 +20,12 @@
  v-bind:name="this.$store.state.contents.about.data.contents.aboutName[0]"
  v-bind:certificateNames="this.$store.state.contents.about.data.contents.aboutCertificateName"
  v-bind:certificateUrls="this.$store.state.contents.about.data.contents.aboutCertificateUrl"
- v-bind:skills="[this.$store.state.contents.about.data.contents.aboutSkillFrontendProgrammingLanguage[0], this.$store.state.contents.about.data.contents.aboutSkillCms[0], this.$store.state.contents.about.data.contents.aboutSkillServerSideProgrammingLanguage[0], this.$store.state.contents.about.data.contents.aboutSkillSoftware[0]]"
+ v-bind:skills="[
+  this.$store.state.contents.about.data.contents.aboutSkillFrontendProgrammingLanguage[0],
+  this.$store.state.contents.about.data.contents.aboutSkillCms[0],
+  this.$store.state.contents.about.data.contents.aboutSkillServerSideProgrammingLanguage[0],
+  this.$store.state.contents.about.data.contents.aboutSkillSoftware[0]
+ ]"
 >
 </profile>
 

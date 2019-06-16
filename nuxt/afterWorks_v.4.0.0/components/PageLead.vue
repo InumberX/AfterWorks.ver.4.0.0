@@ -1,9 +1,18 @@
 <template>
+
+<transition
+ name="contents"
+ appear
+>
+
 <div class="page-lead-box">
 <div class="inner">
 <p v-html="replaceNewLine(text)"></p>
 </div><!-- /.inner -->
 </div><!-- /.page-lead-box -->
+
+</transition>
+
 </template>
 
 <script>
@@ -21,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 
-/* ページタイトル
+/* 前文
 *************************************************/
 
 /* SP

@@ -422,7 +422,7 @@ opacity: 1;
  h1 {
   margin: 0;
   img {
-   width: 200px;
+   width: 160px;
    min-width: auto;
    max-width: none;
   }

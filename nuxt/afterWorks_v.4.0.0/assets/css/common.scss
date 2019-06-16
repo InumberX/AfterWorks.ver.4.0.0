@@ -258,6 +258,9 @@ a.btn-arrow-right {
 .icon-pixiv {
  background-image: url('/img/ic_pixiv_1.svg');
 }
+.icon-blank {
+ background-image: url('/img/ic_newtab_1.svg');
+}
 
 /* Vue
 *************************************************/
@@ -276,6 +279,21 @@ opacity: 0;
 }
 .page-transition-enter-to,
 .page-transition-leave {
+opacity: 1;
+}
+
+/* コンテンツ表示用アニメーション */
+.contents-enter-active,
+.contents-leave-active {
+transition: opacity 0.5s ease;
+transition-delay: 0.8s;
+}
+.contents-enter,
+.contents-leave-active {
+opacity: 0;
+}
+.contents-enter-to,
+.contents-leave {
 opacity: 1;
 }
 
@@ -312,4 +330,8 @@ box-sizing: border-box;
 .main-wrap {
 margin: 0 auto;
 padding: 56px 0 0;
+}
+
+.note {
+font-size: 1.2rem;
 }
