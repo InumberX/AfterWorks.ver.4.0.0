@@ -1,5 +1,5 @@
 <template>
-<div class="sns-list">
+<div class="sns-list" v-bind:class="className">
 <ul>
 <li v-for="(list, i) in snsList">
 <a v-bind:href="list.url" v-bind:title="list.name" target="_blank"><i class="icon" v-bind:class="list.class"></i></a>
@@ -10,6 +10,9 @@
 
 <script>
 export default {
+ props: [
+  'className'
+ ],
  data: function () {
   return {
    snsList: [
@@ -92,6 +95,11 @@ export default {
      background-size: contain;
     }
    }
+  }
+ }
+ &.footer {
+  ul {
+   justify-content: center;
   }
  }
 }

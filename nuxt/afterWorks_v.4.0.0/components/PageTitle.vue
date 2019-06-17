@@ -33,17 +33,20 @@ export default {
  methods: {
   // ページタイトル表示アニメーション
   pageTitleBeforeEnter: function(el) {
+   el.style.overflow = 'hidden'
    el.style.width = '0'
   },
   pageTitleEnter: function(el) {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
+    el.style.overflow = ''
     el.style.width = ''
    }, 1500)
   },
   pageSubTitleEnter: function(el) {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
+    el.style.overflow = ''
     el.style.width = ''
    }, 1500)
   }
@@ -69,12 +72,10 @@ export default {
   font-weight: bold;
   span {
    display: inline-block;
-   overflow: hidden;
    white-space: nowrap;
   }
   em {
    display: inline-block;
-   overflow: hidden;
    white-space: nowrap;
    position: absolute;
    font-size: 2.4rem;

@@ -145,7 +145,7 @@ export default {
 /* SP
 *************************************************/
 .header-wrap {
- background: rgba(255, 255, 255, 0.9);
+ background: rgba(255, 255, 255, 0.97);
  box-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
  position: fixed;
  top: 0;

@@ -167,6 +167,10 @@ a {
 
 /* ボタン
 *************************************************/
+button {
+ font-family: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', HGS明朝E, メイリオ, Meiryo, serif;
+ cursor: pointer;
+}
 .btn-m1,
 a.btn-m1 {
  position: relative;

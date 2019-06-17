@@ -113,6 +113,7 @@ export default {
         display: inline-block;
         color: #2E2E2E;
         font-size: 1.6rem;
+        font-weight: bold;
         .icon-blank {
          width: 12px;
          height: 12px;

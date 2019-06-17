@@ -1,9 +1,27 @@
 <?php
  $siteName = 'After Works.';
+ $separator = ' | ';
  $title = $siteName;
- $description = '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のプロフィール、略歴等をご紹介します。';
+ $description = '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。';
+
+ $pathArr = explode('/', dirname($_SERVER['SCRIPT_NAME']));
+ 
+ if(2 <= count($pathArr)) {
+  if($pathArr[1] === 'about') {
+   $title = 'About' . $separator . $siteName;
+   $description .= 'このページでは、私のプロフィールやこれまでの経験、担当業務等をご紹介します。';
+  }
+  else if($pathArr[1] === 'works') {
+   $title = 'Works' . $separator . $siteName;
+   $description .= 'このページでは、私のこれまでの制作物についてご紹介します。';
+  }
+  else if($pathArr[1] === 'contact') {
+   $title = 'Contact' . $separator . $siteName;
+   $description .= 'お問い合わせはこちらのページからお気軽にご連絡ください。';
+  }
+ }
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <head {{ HEAD_ATTRS }}>
 <title><?php echo $title; ?></title>
 <meta name="description" content="<?php echo $description; ?>">
