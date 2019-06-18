@@ -31,6 +31,8 @@
 
 </section>
 
+<contact></contact>
+
 </div>
 </template>
 
@@ -38,6 +40,7 @@
 import PageTitle from '~/components/PageTitle.vue';
 import PageLead from '~/components/PageLead.vue';
 import Profile from '~/components/Profile.vue';
+import Contact from '~/components/Contact.vue'
 
 export default {
  head: {
@@ -46,7 +49,8 @@ export default {
  components: {
   PageTitle: PageTitle,
   PageLead: PageLead,
-  Profile: Profile
+  Profile: Profile,
+  Contact: Contact
  }
 }
 </script>

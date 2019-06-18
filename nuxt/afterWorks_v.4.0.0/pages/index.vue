@@ -46,6 +46,9 @@
 </cardList>
 
 </section>
+
+<contact></contact>
+
 </div>
 </template>
 
@@ -54,6 +57,7 @@ import MainVisual from '~/components/MainVisual.vue'
 import ContentsLead from '~/components/ContentsLead.vue'
 import ContentsTitle from '~/components/ContentsTitle.vue'
 import CardList from '~/components/CardList.vue'
+import Contact from '~/components/Contact.vue'
 
 export default {
  head: {
@@ -63,8 +67,9 @@ export default {
   MainVisual: MainVisual,
   ContentsLead: ContentsLead,
   ContentsTitle: ContentsTitle,
-  CardList: CardList
- },
+  CardList: CardList,
+  Contact: Contact
+ }
 }
 </script>
 

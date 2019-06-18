@@ -33,20 +33,17 @@ export default {
  methods: {
   // ページタイトル表示アニメーション
   pageTitleBeforeEnter: function(el) {
-   el.style.overflow = 'hidden'
    el.style.width = '0'
   },
   pageTitleEnter: function(el) {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
-    el.style.overflow = ''
     el.style.width = ''
    }, 1500)
   },
   pageSubTitleEnter: function(el) {
    el.style.width = el.scrollWidth + 'px'
    setTimeout(function() {
-    el.style.overflow = ''
     el.style.width = ''
    }, 1500)
   }
@@ -64,15 +61,16 @@ export default {
 .page-title-box {
  h2 {
   margin: 24px auto 0;
-  padding: 0 0 10px;
+  padding: 0;
   position: relative;
   font-size: 4.8rem;
   color: #F2F2F2;
-  line-height: 1;
   font-weight: bold;
   span {
    display: inline-block;
    white-space: nowrap;
+   overflow: hidden;
+   line-height: 1;
   }
   em {
    display: inline-block;
@@ -85,6 +83,7 @@ export default {
    bottom: 0;
    font-weight: bold;
    font-style: normal;
+   overflow: hidden;
   }
  }
 }
@@ -111,6 +110,7 @@ transition-delay: 0.4s;
   font-size: 8.0rem;
   em {
    font-size: 4.0rem;
+   bottom: 8px;
   }
  }
 }

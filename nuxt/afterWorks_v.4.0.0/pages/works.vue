@@ -7,6 +7,8 @@
 >
 </pageTitle>
 
+<section>
+
 <pageLead
  v-if="this.$store.state.contents.works.isGet"
  v-bind:text="this.$store.state.contents.works.data.contents.worksAchievementLead[0]"
@@ -26,6 +28,10 @@
  v-bind:texts="this.$store.state.contents.works.data.contents.worksAchievementText"
 >
 </works>
+
+</section>
+
+<section>
 
 <pageLead
  v-if="this.$store.state.contents.works.isGet"
@@ -47,6 +53,10 @@
 >
 </works>
 
+</section>
+
+<contact></contact>
+
 </div>
 </template>
 
@@ -54,6 +64,7 @@
 import PageTitle from '~/components/PageTitle.vue';
 import PageLead from '~/components/PageLead.vue';
 import Works from '~/components/Works.vue';
+import Contact from '~/components/Contact.vue'
 
 export default {
  head: {
@@ -62,7 +73,8 @@ export default {
  components: {
   PageTitle: PageTitle,
   PageLead: PageLead,
-  Works: Works
+  Works: Works,
+  Contact: Contact
  }
 }
 </script>
