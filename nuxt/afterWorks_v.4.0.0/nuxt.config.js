@@ -105,6 +105,10 @@ export default {
   {
    src: '@/plugins/promise.min',
    ssr: false
+  },
+  {
+   src: '@/plugins/ga.js',
+   ssr: false
   }
  ],
  /*

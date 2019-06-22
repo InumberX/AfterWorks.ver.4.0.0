@@ -25,6 +25,15 @@
 <head {{ HEAD_ATTRS }}>
 <title><?php echo $title; ?></title>
 <meta name="description" content="<?php echo $description; ?>">
+<meta content="<?php echo $title; ?>" property="og:title">
+<meta content="website" property="og:type">
+<meta content="https://afterworks.jp<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>" property="og:url">
+<meta content="https://afterworks.jp/img/img_og_1.png" property="og:image">
+<meta content="After Works." property="og:site_name">
+<meta content="<?php echo $description; ?>" property="og:description">
+<meta name="twitter:card" content="summary_large_image">
+<meta content="@InumberX" name="twitter:site">
+<meta content="<?php echo $description; ?>" name="twitter:description">
 {{ HEAD }}
 </head>
 <body {{ BODY_ATTRS }}>

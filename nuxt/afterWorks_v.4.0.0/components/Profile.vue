@@ -24,7 +24,7 @@
 <dt>Certificate</dt>
 <dd>
 <ul>
-<template v-for="(certificateName, i) in certificateNames">
+<template v-for="(certificateName, i) in certificateNames" v-if="certificateName">
 <li v-if="certificateName">
 <a
  v-if="certificateUrls[i]"
@@ -42,7 +42,7 @@
 <dt>Skill</dt>
 <dd>
 <ul>
-<li v-for="(skill, i) in skills">
+<li v-for="(skill, i) in skills" v-if="skill">
 {{ skill }}
 </li>
 </ul>
@@ -143,7 +143,7 @@ export default {
 
 .profile-box {
  .profile-in {
-  margin-top: 40px;
+  margin-top: 80px;
   display: flex;
   align-items: flex-start;
   width: 100%;

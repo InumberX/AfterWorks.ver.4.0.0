@@ -11,43 +11,13 @@
 
 <div class="history-list">
 
-<dl class="name">
-<dt>Name</dt>
-<dd>{{ name }}</dd>
-</dl>
-
-<dl class="certificate">
-<dt>Certificate</dt>
+<dl v-for="(date, i) in dates" v-if="date">
+<dt>{{ date }}</dt>
 <dd>
-<ul>
-<template v-for="(certificateName, i) in certificateNames">
-<li v-if="certificateName">
-<a
- v-if="certificateUrls[i]"
- v-bind:href="certificateUrls[i]"
- target="_blank"
->{{ certificateName }}</a>
-<span v-else>{{ certificateName }}</span>
-</li>
-</template>
-</ul>
+<p v-html="titles[i]" class="main-text description"></p>
+<span v-if="positions[i]" class="sub-text position">{{ combineByComma(positions[i]) }}</span>
+<span v-if="tools[i]" class="sub-text tool">{{ combineByComma(tools[i]) }}</span>
 </dd>
-</dl>
-
-<dl class="skill">
-<dt>Skill</dt>
-<dd>
-<ul>
-<li v-for="(skill, i) in skills">
-{{ skill }}
-</li>
-</ul>
-</dd>
-</dl>
-
-<dl class="sns">
-<dt>SNS</dt>
-<dd><snsList></snsList></dd>
 </dl>
 
 </div><!-- /.history-list -->
@@ -61,8 +31,6 @@
 </template>
 
 <script>
-import SnsList from '~/components/SnsList.vue';
-
 export default {
  props: [
   'dates',
@@ -70,8 +38,20 @@ export default {
   'positions',
   'tools'
  ],
- components: {
-  SnsList: SnsList
+ methods: {
+  combineByComma: function(array) {
+   let text = ""
+   const length = array.length
+
+   for(let i = 0; i < length; i++) {
+    text += array[i]
+    if(i < (length - 1)) {
+     text += ', '
+    }
+   }
+
+   return text
+  }
  }
 }
 </script>
@@ -83,49 +63,60 @@ export default {
 
 /* SP
 *************************************************/
-.profile-box {
- .profile-in {
+.history-box {
+ .history-in {
   margin: 32px 0 0;
-  .profile-image {
-   width: 80px;
-   margin: 0 auto;
-   span {
-    display: block;
-    img {
-     width: 100%;
-    }
-   }
-  }
-  .profile-info {
-   margin: 24px 0 0;
+  .history-list {
    dl {
-    display: flex;
-    align-items: flex-start;
-    margin: 16px 0 0;
+    display: block;
+    margin: 0;
+    padding: 0 0 0 80px;
     width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    &:before {
+     content: '';
+     display: block;
+     width: 8px;
+     height: 8px;
+     background-color: #002984;
+     border-radius: 50%;
+     position: absolute;
+     top: 22px;
+     left: 36px;
+    }
+    &:after {
+     content: '';
+     display: block;
+     width: 2px;
+     height: 100%;
+     background-color: #002984;
+     position: absolute;
+     top: 22px;
+     left: 39px;
+    }
+    &:last-child {
+     overflow: hidden;
+    }
     dt {
-     margin: 0 8px 0 0;
-     padding: 0;
-     width: 80px;
+     margin: 0;
+     padding: 16px 0 0;
+     width: 100%;
+     font-weight: bold;
     }
     dd {
      margin: 0;
-     padding: 0;
-     width: calc(100% - 80px);
-     ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      li {
-       &:first-child {
-        margin-top: 0;
-       }
-      }
+     padding: 0 0 16px;
+     width: 100%;
+     border-bottom: 2px dotted #EAEAEA;
+     .main-text {
+      margin-top: 8px;
      }
-    }
-    &.sns {
-     dt {
-      padding: 12px 0;
+     .sub-text {
+      display: block;
+      margin-top: 8px;
+      font-size: 1.2rem;
+      color: #5F5F5F;
      }
     }
    }
@@ -137,35 +128,33 @@ export default {
 *************************************************/
 @media screen and (min-width: 768px) {
 
-.profile-box {
- .profile-in {
-  margin-top: 40px;
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  .profile-image {
-   width: 120px;
-  }
-  .profile-info {
-   margin-top: 0;
-   width: calc(100% - 200px);
+.history-box {
+ .history-in {
+  margin-top: 56px;
+  .history-list {
    dl {
-    margin-top: 24px;
+    padding-left: 200px;
+    &:before {
+     width: 12px;
+     height: 12px;
+     top: 34px;
+     left: 94px;
+    }
+    &:after {
+     top: 35px;
+     left: 99px;
+    }
+    &:last-child {
+     overflow: hidden;
+    }
     dt {
-     width: 88px;
-     margin-right: 16px;
+     padding-top: 24px;
     }
     dd {
-     margin: 0;
-     width: calc(100% - 104px);
-    }
-    &.sns {
-     dt {
-      padding: 10px 0;
+     padding-bottom: 24px;
+     .sub-text {
+      font-size: 1.4rem;
      }
-    }
-    &:first-child {
-     margin-top: 0;
     }
    }
   }

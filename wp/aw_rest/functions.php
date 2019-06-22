@@ -66,25 +66,24 @@ function createJsonPage($post_id) {
 function getCustomFields($customFields) {
 
  foreach($customFields as $key => $value) {
-  $length = count($customFields[$key]);
   // 末尾が「Img」の場合
   if(mb_substr($key, -3) == 'Img') {
    // 画像IDをパスに変換
-   for($i = 0; $i < $length; $i++) {
-    $imageId = $customFields[$key][$i];
+   foreach($customFields[$key] as $subKey => $subValue) {
+    $imageId = $customFields[$key][$subKey];
     $imageSrc = wp_get_attachment_image_src($imageId, 'full');
     if($imageSrc) {
-      $customFields[$key][$i] = $imageSrc[0];
+     $customFields[$key][$subKey] = $imageSrc[0];
     }
    }
   } else {
    // 末尾が「Img」以外の場合
    // ダブルクォーテーションをエスケープ
-   for($i = 0; $i < $length; $i++) {
-    $value = $customFields[$key][$i];
+   foreach($customFields[$key] as $subKey => $subValue) {
+    $value = $customFields[$key][$subKey];
     $value = str_replace('"', "&quot;", $value);
     $value = str_replace('\\', "", $value);
-    $customFields[$key][$i] = $value;
+    $customFields[$key][$subKey] = $value;
    }
   }
  }

@@ -31,15 +31,29 @@
 
 </section>
 
+<section>
+
+<history
+ v-if="this.$store.state.contents.about.isGet"
+ v-bind:dates="this.$store.state.contents.about.data.contents.aboutHistoryDate"
+ v-bind:titles="this.$store.state.contents.about.data.contents.aboutHistoryTitle"
+ v-bind:positions="this.$store.state.contents.about.data.contents.aboutHistoryPositions"
+ v-bind:tools="this.$store.state.contents.about.data.contents.aboutHistoryTools"
+>
+</history>
+
+</section>
+
 <contact></contact>
 
 </div>
 </template>
 
 <script>
-import PageTitle from '~/components/PageTitle.vue';
-import PageLead from '~/components/PageLead.vue';
-import Profile from '~/components/Profile.vue';
+import PageTitle from '~/components/PageTitle.vue'
+import PageLead from '~/components/PageLead.vue'
+import Profile from '~/components/Profile.vue'
+import History from '~/components/History.vue'
 import Contact from '~/components/Contact.vue'
 
 export default {
@@ -50,6 +64,7 @@ export default {
   PageTitle: PageTitle,
   PageLead: PageLead,
   Profile: Profile,
+  History: History,
   Contact: Contact
  }
 }
