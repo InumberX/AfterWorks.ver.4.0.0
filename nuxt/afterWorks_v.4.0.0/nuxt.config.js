@@ -75,8 +75,13 @@ export default {
  /*
  ** Customize the progress-bar color
  */
- loading: '~/components/common/Loading.vue'
- ,
+ loading: {
+  color: '#002984',
+  height: '4px'
+ },
+ loadingIndicator: {
+  name: '~/components/common/Loading.html'
+ },
  /*
  ** Global CSS
  */

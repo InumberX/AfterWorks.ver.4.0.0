@@ -1,9 +1,18 @@
 <template>
+
+<transition
+ name="contents"
+ appear
+>
+
 <div class="lead-box">
 <div class="inner">
 <p v-html="replaceQuot(text)"></p>
 </div><!-- /.inner -->
 </div><!-- /.lead-box -->
+
+</transition>
+
 </template>
 
 <script>

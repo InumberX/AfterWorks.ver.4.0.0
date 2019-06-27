@@ -2,7 +2,7 @@
 <div class="sns-list" v-bind:class="className">
 <ul>
 <li v-for="(list, i) in snsList">
-<a v-bind:href="list.url" v-bind:title="list.name" target="_blank"><i class="icon" v-bind:class="list.class"></i></a>
+<a v-bind:href="list.url" v-bind:title="list.name" target="_blank" rel="noopener"><i class="icon" v-bind:class="list.class"></i></a>
 </li>
 </ul>
 </div><!-- /.sns-box -->

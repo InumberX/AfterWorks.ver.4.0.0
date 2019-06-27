@@ -1,0 +1,12 @@
+#MIME type
+AddType application/x-font-ttf .ttf
+AddType application/x-font-woff .woff
+
+# CACHE media files
+<ifModule mod_expires.c>
+ ExpiresActive On
+ ExpiresDefault "access plus 1 seconds"
+ ExpiresByType application/javascript "access plus 1 years"
+ ExpiresByType application/x-javascript "access plus 1 years"
+ ExpiresByType text/javascript "access plus 1 years"
+</ifModule>

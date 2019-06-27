@@ -41,7 +41,7 @@ export default {
  top: 0;
  left: 0;
  z-index: 1000;
- background-color: rgba(255, 255, 255, 0.9);
+ background-color: #002984;
  .loading-spinner {
   box-sizing: border-box;
   height: 80px;
@@ -58,7 +58,7 @@ export default {
    top: 0;
    left: 0;
    border-radius: 50%;
-   border: calc(80px * 0.03) solid #4466B1;
+   border: calc(80px * 0.03) solid #fff;
    animation: loading-orbit-animation infinite 1.3s ease;
   }
   .circle {
@@ -68,7 +68,7 @@ export default {
    display: block;
    border-radius: 50%;
    position: relative;
-   border: calc(80px * 0.1) solid #4466B1;
+   border: calc(80px * 0.1) solid #fff;
    animation: loading-circle-animation infinite 1.3s ease;
    transform: rotate(0deg) scale(1);
   }

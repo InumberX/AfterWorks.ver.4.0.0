@@ -17,7 +17,15 @@ export default {
   })
   
   if(isGetNum >= contentsLength) {
-   state.isLoading = false
+   let self = this
+   let $initLoading = document.getElementById('INIT_LOADING')
+   setTimeout(function() {
+    $initLoading.classList.add('off')
+    setTimeout(function() {
+     $initLoading.parentNode.removeChild($initLoading)
+     self.state.isLoading = false
+    }, 300)
+   }, 1000)
   }
  },
  hideLoading(state) {

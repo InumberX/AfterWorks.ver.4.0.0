@@ -1,5 +1,5 @@
 <template>
-<div class="works-wrap">
+<div class="works-wrap" v-if="!this.$store.state.isLoading">
 
 <pageTitle
  titleEn="Works"

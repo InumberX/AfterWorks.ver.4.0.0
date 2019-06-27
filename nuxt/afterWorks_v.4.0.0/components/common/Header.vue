@@ -13,14 +13,14 @@
 
 <div class="head-menu">
 <div class="head-menu-btn">
-<button v-on:click="toggleMenu">
+<button v-on:click="toggleMenu" aria-label="メニュー">
 <span><i></i><i></i><i></i></span>
 </button>
 </div>
 <transition name="header-menu">
 <div class="groval-nav" v-if="!isSp || isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']">
 <div class="head-close-btn">
-<button v-on:click="toggleMenu">
+<button v-on:click="toggleMenu" aria-label="閉じる">
 <span><i></i><i></i></span>
 </button>
 </div>

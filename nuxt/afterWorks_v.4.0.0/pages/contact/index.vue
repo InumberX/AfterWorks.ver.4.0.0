@@ -1,5 +1,5 @@
 <template>
-<div class="contact-wrap">
+<div class="contact-wrap" v-if="!this.$store.state.isLoading">
 
 <pageTitle titleEn="Contact" title="お問い合わせ"></pageTitle>
 

@@ -1,4 +1,10 @@
 <template>
+
+<transition
+ name="contents"
+ appear
+>
+
 <div class="card-list-box">
 <div class="inner">
 <div class="card-list">
@@ -22,6 +28,9 @@
 </div><!-- /.card-list -->
 </div><!-- /.inner -->
 </div><!-- /.card-list-box -->
+
+</transition>
+
 </template>
 
 <script>

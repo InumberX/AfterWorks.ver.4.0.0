@@ -1,5 +1,5 @@
 <template>
-<div class="index-wrap">
+<div class="index-wrap" v-if="!this.$store.state.isLoading">
 
 <mainVisual></mainVisual>
 
