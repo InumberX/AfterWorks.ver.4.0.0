@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+/* 変数
+*************************************************/
+$fontMain: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', HGS明朝E, serif, Times, メイリオ, Meiryo;
+
 /* SP
 *************************************************/
 
@@ -19,7 +23,7 @@ body {
  font-size: 1.4rem;
  line-height: 1.4;
  overflow-y: scroll;
- font-family: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', HGS明朝E, メイリオ, Meiryo, serif;
+ font-family: $fontMain;
  word-break: normal;
  -webkit-text-size-adjust:100%;
 }
@@ -689,7 +693,7 @@ a {
 /* ボタン
 *************************************************/
 button {
- font-family: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', HGS明朝E, メイリオ, Meiryo, serif;
+ font-family: $fontMain;
  cursor: pointer;
 }
 .btn-m1,

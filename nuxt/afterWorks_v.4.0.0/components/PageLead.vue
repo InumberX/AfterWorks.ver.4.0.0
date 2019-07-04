@@ -2,7 +2,6 @@
 
 <transition
  name="contents"
- appear
 >
 
 <div class="page-lead-box">

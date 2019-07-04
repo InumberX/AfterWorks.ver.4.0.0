@@ -2,7 +2,6 @@
 
 <transition
  name="contents"
- appear
 >
 
 <div class="input-box" id="INPUT_BOX">
@@ -185,12 +184,14 @@
 <script>
 import axios from 'axios'
 
-// スムーススクロール
-let smoothScroll = new SmoothScroll()
-const smoothScrollOption = {
- header: '#HEADER',
- offset: 20,
- updateURL: false
+if (process.browser) {
+ // スムーススクロール
+ let smoothScroll = new SmoothScroll()
+ const smoothScrollOption = {
+  header: '#HEADER',
+  offset: 20,
+  updateURL: false
+ }
 }
 
 export default {

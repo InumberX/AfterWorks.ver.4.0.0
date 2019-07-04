@@ -9,7 +9,7 @@
 >
 </contentsLead>
 
-<section>
+<section v-if="this.$store.state.contents.index.isGet">
 
 <contentsTitle
  titleEn="Service"
@@ -18,7 +18,6 @@
 </contentsTitle>
 
 <cardList
- v-if="this.$store.state.contents.index.isGet"
  v-bind:titles="this.$store.state.contents.index.data.contents.indexServiceTitle"
  v-bind:texts="this.$store.state.contents.index.data.contents.indexServiceText"
  v-bind:classes="this.$store.state.contents.index.data.contents.indexServiceClass"
@@ -27,7 +26,7 @@
 
 </section>
 
-<section>
+<section v-if="this.$store.state.contents.index.isGet">
 
 <contentsTitle
  titleEn="Contents"
@@ -36,7 +35,6 @@
 </contentsTitle>
 
 <cardList
- v-if="this.$store.state.contents.index.isGet"
  v-bind:titles="this.$store.state.contents.index.data.contents.indexContentsTitle"
  v-bind:texts="this.$store.state.contents.index.data.contents.indexContentsText"
  v-bind:classes="this.$store.state.contents.index.data.contents.indexContentsClass"
@@ -47,7 +45,7 @@
 
 </section>
 
-<contact></contact>
+<contact v-if="this.$store.state.contents.index.isGet"></contact>
 
 </div>
 </template>

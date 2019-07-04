@@ -1,6 +1,6 @@
 <template>
 
-<div class="main-visual-box">
+<div class="main-visual-box" v-bind:class="[isShow ? 'on' : '']">
 
 <transition
  name="main-visual"
@@ -34,6 +34,16 @@
 
 <script>
 export default {
+ data: function() {
+  return {
+   // 表示フラグ
+   isShow: false,
+  }
+ },
+ // インスタンスがマウントされた後に実行する処理
+ mounted: function() {
+  this.isShow = true
+ },
  // 各処理
  methods: {
   // メインビジュアル表示用アニメーション
@@ -59,6 +69,10 @@ export default {
 *************************************************/
 .main-visual-box {
  height: 450px;
+ opacity: 0;
+ &.on {
+  opacity: 1;
+ }
  .main-visual-bg {
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 <template>
-<div class="contact-wrap" v-if="!this.$store.state.isLoading">
+<div class="contact-wrap">
 
 <pageTitle titleEn="Contact" title="お問い合わせ"></pageTitle>
 
@@ -10,7 +10,9 @@
 
 <section>
 
+<no-ssr>
 <contactInput></contactInput>
+</no-ssr>
 
 </section>
 

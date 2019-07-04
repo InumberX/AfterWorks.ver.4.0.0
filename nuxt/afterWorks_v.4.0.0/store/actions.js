@@ -1,6 +1,12 @@
 import axios from 'axios'
 
 export default {
+ checkProcess({commit}, payload) {
+  if(process.browser) {
+   // isLoadingをtrueに設定
+  commit('setBrowser')
+  }
+ },
  getContents({commit}, payload) {
   // isLoadingをtrueに設定
   commit('showLoading')

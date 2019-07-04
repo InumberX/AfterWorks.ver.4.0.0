@@ -29,12 +29,14 @@
 <script>
 import SnsList from '~/components/SnsList.vue';
 
-// スムーススクロール
-let smoothScroll = new SmoothScroll()
-const smoothScrollOption = {
- header: '#HEADER',
- offset: 20,
- updateURL: false
+if (process.browser) {
+ // スムーススクロール
+ let smoothScroll = new SmoothScroll()
+ const smoothScrollOption = {
+  header: '#HEADER',
+  offset: 20,
+  updateURL: false
+ }
 }
 
 export default {

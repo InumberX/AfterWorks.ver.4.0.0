@@ -1,5 +1,5 @@
 export default {
- mode: 'spa',
+ mode: 'universal',
  
  router: {
   linkActiveClass: 'active',
@@ -133,10 +133,24 @@ export default {
  ** Build configuration
  */
  build: {
+  filenames: {
+   app: () => '[name].js',
+   chunk: () => '[name].js',
+   css: () => '[path][name].css',
+   img: () => '[path][name].[ext]',
+   font: () => '[path][name].[ext]',
+   video: () => '[path][name].[ext]'
+  },
   /*
   ** You can extend webpack config here
   */
   extend(config, ctx) {
   }
+ },
+ /*
+ ** Generate configuration
+ */
+ generate: {
+  fallback: true
  }
 }

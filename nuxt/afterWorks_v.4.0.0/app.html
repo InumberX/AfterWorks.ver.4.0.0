@@ -1,3 +1,5 @@
+<!doctype html>
+<head {{ HEAD_ATTRS }}>
 <?php
  $siteName = 'After Works.';
  $separator = ' | ';
@@ -21,8 +23,6 @@
   }
  }
 ?>
-<!doctype html>
-<head {{ HEAD_ATTRS }}>
 <title><?php echo $title; ?></title>
 <meta name="description" content="<?php echo $description; ?>">
 <meta content="<?php echo $title; ?>" property="og:title">
@@ -37,17 +37,8 @@
 {{ HEAD }}
 </head>
 <body {{ BODY_ATTRS }}>
-{{ APP }}
 
-<div class="init-loading-box" id="INIT_LOADING">
-<div class="init-loading-spinner">
-<div class="circle"></div>
-<div class="orbit"></div>
-</div>
-<div class="init-loading-tx">
-<span>Now loading...</span>
-</div>
-</div>
+{{ APP }}
 
 </body>
 </html>

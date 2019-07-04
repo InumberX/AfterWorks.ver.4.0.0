@@ -28,8 +28,11 @@ export default {
   Footer: Footer
  },
  created: function() {
-  // コンテンツデータを取得
-  this.$store.dispatch('getContents')
+  this.$store.dispatch('checkProcess')
+  if (process.browser) {
+   // コンテンツデータを取得
+   this.$store.dispatch('getContents')
+  }
  }
 }
 </script>

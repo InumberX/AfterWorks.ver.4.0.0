@@ -1,7 +1,8 @@
 <template>
-<div class="works-wrap" v-if="!this.$store.state.isLoading">
+<div class="works-wrap">
 
 <pageTitle
+ v-if="this.$store.state.contents.works.isGet"
  titleEn="Works"
  title="実績紹介"
 >
@@ -55,7 +56,7 @@
 
 </section>
 
-<contact></contact>
+<contact v-if="this.$store.state.contents.works.isGet"></contact>
 
 </div>
 </template>

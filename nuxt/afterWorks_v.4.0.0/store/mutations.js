@@ -1,4 +1,7 @@
 export default {
+ setBrowser(state) {
+  state.isBrowser = true
+ },
  setContents(state, obj) {
   state.contents[obj.name].isGet = true
   state.contents[obj.name].data = obj.data
@@ -17,15 +20,7 @@ export default {
   })
   
   if(isGetNum >= contentsLength) {
-   let self = this
-   let $initLoading = document.getElementById('INIT_LOADING')
-   setTimeout(function() {
-    $initLoading.classList.add('off')
-    setTimeout(function() {
-     $initLoading.parentNode.removeChild($initLoading)
-     self.state.isLoading = false
-    }, 300)
-   }, 1000)
+   state.isLoading = false
   }
  },
  hideLoading(state) {

@@ -72,8 +72,10 @@ export default {
  },
  // インスタンスが作成された後に実行する処理
  created: function() {
-  // リサイズ時にウィンドウサイズを更新する処理を設定
-  window.addEventListener('resize', this.checkSp, false)
+  if (process.browser) {
+   // リサイズ時にウィンドウサイズを更新する処理を設定
+   window.addEventListener('resize', this.checkSp, false)
+  }
  },
  // インスタンスがマウントされた後に実行する処理
  mounted: function() {

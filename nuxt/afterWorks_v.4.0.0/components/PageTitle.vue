@@ -6,7 +6,6 @@
  name="page-title"
  v-on:before-enter="pageTitleBeforeEnter"
  v-on:enter="pageTitleEnter"
- appear
 >
 <span>{{ titleEn }}</span>
 </transition>
@@ -14,7 +13,6 @@
  name="page-sub-title"
  v-on:before-enter="pageTitleBeforeEnter"
  v-on:enter="pageSubTitleEnter"
- appear
 >
 <em>{{ title }}</em>
 </transition>
