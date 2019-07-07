@@ -11,7 +11,7 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - v1-yarn-packages-{{ checksum "yarn.lock" }}
+            - dependency-cache-{{ checksum "package.json" }}
 
       - run: npm install # npm install
 
@@ -21,7 +21,7 @@ jobs:
           paths:
             - ~/.cache/yarn
           key:
-            v1-yarn-packages-{{ checksum "yarn.lock" }}
+            dependency-cache-{{ checksum "package.json" }}
 
       - run: npm run generate
 
