@@ -9,7 +9,7 @@ jobs:
 
       # node-modules のキャッシュが存在すれば復元
       - restore_cache:
-          name: Restore yarn package cache
+          name: Restore package cache
           keys:
             - dependency-cache-{{ checksum "package.json" }}
 
@@ -17,9 +17,9 @@ jobs:
 
       # node-modules をキャッシュ
       - save_cache:
-          name: Save yarn package cache
+          name: Save package cache
           paths:
-            - ~/.cache/yarn
+            - ./node_modules
           key:
             dependency-cache-{{ checksum "package.json" }}
 
