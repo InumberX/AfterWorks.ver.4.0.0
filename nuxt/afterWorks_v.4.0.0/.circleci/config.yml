@@ -1,37 +1,59 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
-  build:
+  generate:
+    working_directory: ~/workspace
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/InumberX/AfterWorks.ver.4.0.0/tree/master/nuxt/afterWorks_v.4.0.0
-
+      - image: node:10.15.3
     steps:
-      - checkout
+      - checkout # レポジトリの取り込み
 
-      # Download and cache dependencies
+      # node-modules のキャッシュが存在すれば復元
       - restore_cache:
+          name: Restore yarn package cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-yarn-packages-{{ checksum "yarn.lock" }}
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile # yarn install
 
+      # node-modules をキャッシュ
       - save_cache:
+          name: Save yarn package cache
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
+          key:
+            v1-yarn-packages-{{ checksum "yarn.lock" }}
 
-      # run tests!
-      - run: yarn test
+      - run: yarn run lint
+      - run: yarn run generate
+
+      # generate の生成物を次の deploy ジョブでも使用できるようにする
+      - persist_to_workspace:
+          root: '.'
+          paths:
+            - dist
+
+  deploy:
+    working_directory: ~/workspace
+
+    # rsync を使用するため machine を有効化
+    machine:
+      enabled: true
+    steps:
+      # persist_to_workspaceで保存したファイルの読み込み
+      - attach_workspace:
+          at: '.'
+
+      # scp でも良い
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv --delete ./dist/ ${DEPLOY_DEST}
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - generate
+      - deploy:
+          requires:
+            - generate
+          filters:
+            branches:
+              only: master # master ブランチ以外では deploy を実行しない
