@@ -1,7 +1,7 @@
 version: 2
 jobs:
   generate:
-    working_directory: ~/workspace
+    working_directory: ~/nuxt/afterWorks_v.4.0.0
     docker:
       - image: node:10.15.3
     steps:
@@ -32,7 +32,7 @@ jobs:
             - dist
 
   deploy:
-    working_directory: ~/workspace
+    working_directory: ~/nuxt/afterWorks_v.4.0.0/
 
     # rsync を使用するため machine を有効化
     machine:
