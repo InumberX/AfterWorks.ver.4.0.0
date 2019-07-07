@@ -59,7 +59,8 @@ import Contact from '~/components/Contact.vue'
 
 export default {
  head: {
-  title: 'After Works.'
+  title: 'After Works.',
+  titleTemplate: ''
  },
  components: {
   MainVisual: MainVisual,

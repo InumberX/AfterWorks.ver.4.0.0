@@ -68,8 +68,49 @@ import Works from '~/components/Works.vue';
 import Contact from '~/components/Contact.vue'
 
 export default {
- head: {
-  title: 'Works | After Works.'
+ head: function() {
+  return {
+   title: 'Works',
+   meta: [
+    {
+     hid: 'description',
+     name: 'description',
+     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のこれまでの制作物についてご紹介します。'
+    },
+    {
+     hid: 'ogTitle',
+     property: 'og:title',
+     content: 'Works | After Works.'
+    },
+    {
+     hid: 'ogUrl',
+     property: 'og:url',
+     content: 'https://afterworks.jp/works/'
+    },
+    {
+     hid: 'ogSiteName',
+     property: 'og:site_name',
+     content: 'Works | After Works.'
+    },
+    {
+     hid: 'ogDescription',
+     property: 'og:description',
+     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のこれまでの制作物についてご紹介します。'
+    },
+    {
+     hid: 'twitterDescription',
+     name: 'twitter:description',
+     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のこれまでの制作物についてご紹介します。'
+    }
+   ],
+   link: [
+    {
+     hid: 'canonical',
+     rel: 'canonical',
+     href: 'https://afterworks.jp/works/'
+    }
+   ]
+  }
  },
  components: {
   PageTitle: PageTitle,
