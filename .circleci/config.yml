@@ -16,7 +16,7 @@ jobs:
       - run:
           name: npm install # npm install
           command: npm install
-          working_directory: docker/docker-images/image1
+          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
       # node-modules をキャッシュ
       - save_cache:
