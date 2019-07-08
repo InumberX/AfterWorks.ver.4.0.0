@@ -51,7 +51,7 @@ jobs:
           at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
 
       # scp でも良い
-      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv --delete ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
 
 workflows:
   version: 2
