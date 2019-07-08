@@ -13,7 +13,10 @@ jobs:
           keys:
             - dependency-cache-{{ checksum "package.json" }}
 
-      - run: npm install # npm install
+      - run:
+          name: npm install # npm install
+          command: npm install
+          working_directory: docker/docker-images/image1
 
       # node-modules をキャッシュ
       - save_cache:
