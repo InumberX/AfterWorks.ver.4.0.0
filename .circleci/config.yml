@@ -35,7 +35,7 @@ jobs:
 
       # generate の生成物を次の deploy ジョブでも使用できるようにする
       - persist_to_workspace:
-          root: '.'
+          root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
           paths:
             - dist
 
@@ -48,7 +48,7 @@ jobs:
     steps:
       # persist_to_workspaceで保存したファイルの読み込み
       - attach_workspace:
-          at: '.'
+          at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
 
       # scp でも良い
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv --delete ./dist/ ${DEPLOY_DEST}
