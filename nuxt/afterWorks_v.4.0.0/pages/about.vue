@@ -115,6 +115,10 @@ export default {
   if(process.server) {
    url = 'https://afterworks.jp' + url
   }
+  else {
+   url = location.protocol + '//' + location.hostname + url
+  }
+  
   const res = await $axios.get(url)
   return {
    response: res.data
