@@ -4,7 +4,7 @@
 
 <div class="page-top">
 <div class="inner">
-<button v-on:click="smoothScroll('body')">PAGE TOP</button>
+<button v-on:click="scroll('body')">PAGE TOP</button>
 </div><!-- /.inner -->
 </div><!-- /.page-top -->
 
@@ -29,16 +29,6 @@
 <script>
 import SnsList from '~/components/SnsList.vue';
 
-if (process.browser) {
- // スムーススクロール
- let smoothScroll = new SmoothScroll()
- const smoothScrollOption = {
-  header: '#HEADER',
-  offset: 20,
-  updateURL: false
- }
-}
-
 export default {
  components: {
   SnsList: SnsList
@@ -46,7 +36,10 @@ export default {
  data: function() {
   return {
    // 現在年
-   currentYear: ''
+   currentYear: '',
+   // スムーススクロール
+   smoothScroll: '',
+   smoothScrollOption: ''
   }
  },
  // インスタンスが作成された後に実行する処理
@@ -55,15 +48,25 @@ export default {
   const now = new Date()
   const year = now.getFullYear()
   this.currentYear = year
+
+  if (process.browser) {
+   // スムーススクロール
+   this.smoothScroll = new SmoothScroll()
+   this.smoothScrollOption = {
+    header: '#HEADER',
+    offset: 20,
+    updateURL: false
+   }
+  }
  },
  // 各処理
  methods: {
   // スムーススクロールを行う処理
-  smoothScroll: function(target) {
+  scroll: function(target) {
    // スクロール先が存在する場合
    if(document.querySelectorAll(target).length > 0) {
     const anchor = document.querySelector(target)
-    smoothScroll.animateScroll(anchor, '', smoothScrollOption)
+    this.smoothScroll.animateScroll(anchor, '', this.smoothScrollOption)
     return false
    }
   }

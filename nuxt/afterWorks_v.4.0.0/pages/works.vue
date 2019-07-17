@@ -2,7 +2,6 @@
 <div class="works-wrap">
 
 <pageTitle
- v-if="this.$store.state.contents.works.isGet"
  titleEn="Works"
  title="実績紹介"
 >
@@ -11,22 +10,20 @@
 <section>
 
 <pageLead
- v-if="this.$store.state.contents.works.isGet"
- v-bind:text="this.$store.state.contents.works.data.contents.worksAchievementLead[0]"
+ v-bind:text="response.contents.worksAchievementLead[0]"
 >
 </pageLead>
 
 <works
- v-if="this.$store.state.contents.works.isGet"
- v-bind:id="this.$store.state.contents.works.data.contents.worksAchievementId"
- v-bind:titles="this.$store.state.contents.works.data.contents.worksAchievementTitle"
- v-bind:images="this.$store.state.contents.works.data.contents.worksAchievementImg"
- v-bind:urls="this.$store.state.contents.works.data.contents.worksAchievementLink"
- v-bind:charge="this.$store.state.contents.works.data.contents.worksAchievementCharge"
- v-bind:language="this.$store.state.contents.works.data.contents.worksAchievementProgrammingLanguage"
- v-bind:cms="this.$store.state.contents.works.data.contents.worksAchievementCms"
- v-bind:software="this.$store.state.contents.works.data.contents.worksAchievementSoftware"
- v-bind:texts="this.$store.state.contents.works.data.contents.worksAchievementText"
+ v-bind:id="response.contents.worksAchievementId"
+ v-bind:titles="response.contents.worksAchievementTitle"
+ v-bind:images="response.contents.worksAchievementImg"
+ v-bind:urls="response.contents.worksAchievementLink"
+ v-bind:charge="response.contents.worksAchievementCharge"
+ v-bind:language="response.contents.worksAchievementProgrammingLanguage"
+ v-bind:cms="response.contents.worksAchievementCms"
+ v-bind:software="response.contents.worksAchievementSoftware"
+ v-bind:texts="response.contents.worksAchievementText"
 >
 </works>
 
@@ -35,28 +32,26 @@
 <section>
 
 <pageLead
- v-if="this.$store.state.contents.works.isGet"
- v-bind:text="this.$store.state.contents.works.data.contents.worksHobbyLead[0]"
+ v-bind:text="response.contents.worksHobbyLead[0]"
 >
 </pageLead>
 
 <works
- v-if="this.$store.state.contents.works.isGet"
- v-bind:id="this.$store.state.contents.works.data.contents.worksHobbyId"
- v-bind:titles="this.$store.state.contents.works.data.contents.worksHobbyTitle"
- v-bind:images="this.$store.state.contents.works.data.contents.worksHobbyImg"
- v-bind:urls="this.$store.state.contents.works.data.contents.worksHobbyLink"
- v-bind:charge="this.$store.state.contents.works.data.contents.worksHobbyCharge"
- v-bind:language="this.$store.state.contents.works.data.contents.worksHobbyProgrammingLanguage"
- v-bind:cms="this.$store.state.contents.works.data.contents.worksHobbyCms"
- v-bind:software="this.$store.state.contents.works.data.contents.worksHobbySoftware"
- v-bind:texts="this.$store.state.contents.works.data.contents.worksHobbyText"
+ v-bind:id="response.contents.worksHobbyId"
+ v-bind:titles="response.contents.worksHobbyTitle"
+ v-bind:images="response.contents.worksHobbyImg"
+ v-bind:urls="response.contents.worksHobbyLink"
+ v-bind:charge="response.contents.worksHobbyCharge"
+ v-bind:language="response.contents.worksHobbyProgrammingLanguage"
+ v-bind:cms="response.contents.worksHobbyCms"
+ v-bind:software="response.contents.worksHobbySoftware"
+ v-bind:texts="response.contents.worksHobbyText"
 >
 </works>
 
 </section>
 
-<contact v-if="this.$store.state.contents.works.isGet"></contact>
+<contact></contact>
 
 </div>
 </template>
@@ -117,6 +112,17 @@ export default {
   PageLead: PageLead,
   Works: Works,
   Contact: Contact
+ },
+ data: function() {
+  return {
+   response: ''
+  }
+ },
+ async asyncData({$axios}) {
+  const res = await $axios.get('/json/page/works.json')
+  return {
+   response: res.data
+  }
  }
 }
 </script>

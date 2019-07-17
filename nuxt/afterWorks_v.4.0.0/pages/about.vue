@@ -2,30 +2,27 @@
 <div class="about-wrap">
 
 <pageTitle
- v-if="this.$store.state.contents.about.isGet"
  titleEn="About"
  title="経歴紹介"
 >
 </pageTitle>
 
 <pageLead
- v-if="this.$store.state.contents.about.isGet"
- v-bind:text="this.$store.state.contents.about.data.contents.aboutLead[0]"
+ v-bind:text="response.contents.aboutLead[0]"
 >
 </pageLead>
 
 <section>
 
 <profile
- v-if="this.$store.state.contents.about.isGet"
- v-bind:name="this.$store.state.contents.about.data.contents.aboutName[0]"
- v-bind:certificateNames="this.$store.state.contents.about.data.contents.aboutCertificateName"
- v-bind:certificateUrls="this.$store.state.contents.about.data.contents.aboutCertificateUrl"
+ v-bind:name="response.contents.aboutName[0]"
+ v-bind:certificateNames="response.contents.aboutCertificateName"
+ v-bind:certificateUrls="response.contents.aboutCertificateUrl"
  v-bind:skills="[
-  this.$store.state.contents.about.data.contents.aboutSkillFrontendProgrammingLanguage[0],
-  this.$store.state.contents.about.data.contents.aboutSkillCms[0],
-  this.$store.state.contents.about.data.contents.aboutSkillServerSideProgrammingLanguage[0],
-  this.$store.state.contents.about.data.contents.aboutSkillSoftware[0]
+  response.contents.aboutSkillFrontendProgrammingLanguage[0],
+  response.contents.aboutSkillCms[0],
+  response.contents.aboutSkillServerSideProgrammingLanguage[0],
+  response.contents.aboutSkillSoftware[0]
  ]"
 >
 </profile>
@@ -35,17 +32,16 @@
 <section>
 
 <history
- v-if="this.$store.state.contents.about.isGet"
- v-bind:dates="this.$store.state.contents.about.data.contents.aboutHistoryDate"
- v-bind:titles="this.$store.state.contents.about.data.contents.aboutHistoryTitle"
- v-bind:positions="this.$store.state.contents.about.data.contents.aboutHistoryPositions"
- v-bind:tools="this.$store.state.contents.about.data.contents.aboutHistoryTools"
+ v-bind:dates="response.contents.aboutHistoryDate"
+ v-bind:titles="response.contents.aboutHistoryTitle"
+ v-bind:positions="response.contents.aboutHistoryPositions"
+ v-bind:tools="response.contents.aboutHistoryTools"
 >
 </history>
 
 </section>
 
-<contact v-if="this.$store.state.contents.about.isGet"></contact>
+<contact></contact>
 
 </div>
 </template>
@@ -108,6 +104,17 @@ export default {
   Profile: Profile,
   History: History,
   Contact: Contact
+ },
+ data: function() {
+  return {
+   response: ''
+  }
+ },
+ async asyncData({$axios}) {
+  const res = await $axios.get('/json/page/about.json')
+  return {
+   response: res.data
+  }
  }
 }
 </script>

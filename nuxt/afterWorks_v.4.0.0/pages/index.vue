@@ -4,12 +4,11 @@
 <mainVisual></mainVisual>
 
 <contentsLead
- v-if="this.$store.state.contents.index.isGet"
- v-bind:text="this.$store.state.contents.index.data.contents.indexMessage[0]"
+ v-bind:text="response.contents.indexMessage[0]"
 >
 </contentsLead>
 
-<section v-if="this.$store.state.contents.index.isGet">
+<section>
 
 <contentsTitle
  titleEn="Service"
@@ -18,15 +17,15 @@
 </contentsTitle>
 
 <cardList
- v-bind:titles="this.$store.state.contents.index.data.contents.indexServiceTitle"
- v-bind:texts="this.$store.state.contents.index.data.contents.indexServiceText"
- v-bind:classes="this.$store.state.contents.index.data.contents.indexServiceClass"
+ v-bind:titles="response.contents.indexServiceTitle"
+ v-bind:texts="response.contents.indexServiceText"
+ v-bind:classes="response.contents.indexServiceClass"
 >
 </cardList>
 
 </section>
 
-<section v-if="this.$store.state.contents.index.isGet">
+<section>
 
 <contentsTitle
  titleEn="Contents"
@@ -35,17 +34,17 @@
 </contentsTitle>
 
 <cardList
- v-bind:titles="this.$store.state.contents.index.data.contents.indexContentsTitle"
- v-bind:texts="this.$store.state.contents.index.data.contents.indexContentsText"
- v-bind:classes="this.$store.state.contents.index.data.contents.indexContentsClass"
- v-bind:links="this.$store.state.contents.index.data.contents.indexContentsLink"
- v-bind:linkTexts="this.$store.state.contents.index.data.contents.indexContentsLinkText"
+ v-bind:titles="response.contents.indexContentsTitle"
+ v-bind:texts="response.contents.indexContentsText"
+ v-bind:classes="response.contents.indexContentsClass"
+ v-bind:links="response.contents.indexContentsLink"
+ v-bind:linkTexts="response.contents.indexContentsLinkText"
 >
 </cardList>
 
 </section>
 
-<contact v-if="this.$store.state.contents.index.isGet"></contact>
+<contact></contact>
 
 </div>
 </template>
@@ -68,6 +67,17 @@ export default {
   ContentsTitle: ContentsTitle,
   CardList: CardList,
   Contact: Contact
+ },
+ data: function() {
+  return {
+   response: ''
+  }
+ },
+ async asyncData({$axios}) {
+  const res = await $axios.get('/json/page/index.json')
+  return {
+   response: res.data
+  }
  }
 }
 </script>

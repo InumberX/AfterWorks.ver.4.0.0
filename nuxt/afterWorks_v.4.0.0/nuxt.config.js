@@ -180,7 +180,7 @@ export default {
  */
  modules: [
   // Doc: https://axios.nuxtjs.org/usage
-  '@nuxtjs/axios',
+  '@nuxtjs/axios'
  ],
  /*
  ** Axios module configuration
@@ -199,20 +199,6 @@ export default {
    img: () => '[name].[ext]',
    font: () => '[name].[ext]',
    video: () => '[name].[ext]'
-  },
-  extractCSS: true,
-  html: {
-   minify: false
-  },
-  optimization: {
-   minimize: false
-  },
-  loaders: {
-   vue: {
-    compilerOptions: {
-     whitespace: 'condense'
-    }
-   }
   },
   /*
   ** You can extend webpack config here

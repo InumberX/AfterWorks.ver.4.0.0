@@ -184,19 +184,12 @@
 <script>
 import axios from 'axios'
 
-if (process.browser) {
- // スムーススクロール
- let smoothScroll = new SmoothScroll()
- const smoothScrollOption = {
-  header: '#HEADER',
-  offset: 20,
-  updateURL: false
- }
-}
-
 export default {
  data: function() {
   return {
+   // スムーススクロール
+   smoothScroll: '',
+   smoothScrollOption: '',
    // モーダル表示フラグ
    isModal: false,
    // モーダル背景表示フラグ
@@ -220,28 +213,80 @@ export default {
    ]
   }
  },
-  // 各処理
-  methods: {
-   // モーダルを開く処理
-   openModal: function() {
-    this.winY = document.documentElement.scrollTop || document.body.scrollTop
-    this.isOverlay = true
-    this.isModal = true
-    $body.classList.add('m-op')
-    $body.setAttribute('style', 'top: -' + this.winY + 'px;')
-   },
-   // モーダルを閉じる処理
-   closeModal: function() {
-    this.isOverlay = false
-    this.isModal = false
-    let $body = document.body
-    $body.classList.remove('m-op')
-    $body.removeAttribute('style')
-    window.scrollTo(0, this.winY)
-   },
-   // 確認画面遷移時の処理
-   checkConfirm: function() {
-    let self = this
+ // インスタンスが作成された後に実行する処理
+ created: function() {
+  // 現在年を取得
+  const now = new Date()
+  const year = now.getFullYear()
+  this.currentYear = year
+
+  if (process.browser) {
+   // スムーススクロール
+   this.smoothScroll = new SmoothScroll()
+   this.smoothScrollOption = {
+    header: '#HEADER',
+    offset: 20,
+    updateURL: false
+   }
+  }
+ },
+ // 各処理
+ methods: {
+  // モーダルを開く処理
+  openModal: function() {
+   this.winY = document.documentElement.scrollTop || document.body.scrollTop
+   this.isOverlay = true
+   this.isModal = true
+   $body.classList.add('m-op')
+   $body.setAttribute('style', 'top: -' + this.winY + 'px;')
+  },
+  // モーダルを閉じる処理
+  closeModal: function() {
+   this.isOverlay = false
+   this.isModal = false
+   let $body = document.body
+   $body.classList.remove('m-op')
+   $body.removeAttribute('style')
+   window.scrollTo(0, this.winY)
+  },
+  // 確認画面遷移時の処理
+  checkConfirm: function() {
+   let self = this
+   // バリデーション
+   this.$validator.validateAll().then(function(result) {
+    // エラーがなかった場合
+    if(result) {
+     self.isFormError = false
+    } else {
+     // エラーがあった場合
+     self.isFormError = true
+    }
+
+    // エラーの場合
+    if(self.isFormError) {
+     self.smoothScroll.animateScroll(document.querySelector('#INPUT_BOX'), '', self.smoothScrollOption)
+     return false
+    }
+    // エラーがない場合
+    else {
+     // 画面を確認用にする
+     self.formMode = 'confirm'
+     self.winY = document.documentElement.scrollTop || document.body.scrollTop
+     self.isOverlay = true
+     self.isModal = true
+     let $body = document.body
+     $body.classList.add('m-op')
+     $body.setAttribute('style', 'top: -' + self.winY + 'px;')
+    }
+    
+   })
+
+  },
+  // 完了画面遷移時の処理
+  checkRegist: function() {
+   let self = this
+   // 送信処理をまだ実行していない場合
+   if(!this.isSend) {
     // バリデーション
     this.$validator.validateAll().then(function(result) {
      // エラーがなかった場合
@@ -252,89 +297,54 @@ export default {
       self.isFormError = true
      }
 
-     // エラーの場合
-     if(self.isFormError) {
-      smoothScroll.animateScroll(document.querySelector('#INPUT_BOX'), '', smoothScrollOption)
-      return false
-     }
      // エラーがない場合
+     if(!self.isFormError) {
+      self.isFormError = false
+      self.isSend = true
+
+      // サーバに入力情報を送信する
+      axios
+      .post('/api/api.php', {
+       'applicant': self.applicant
+      })
+      .then(
+       function(res) {
+        const data = res.data
+
+        setTimeout(function() {
+         self.isSend = false
+        }, 500)
+
+        // 処理に成功した場合
+        if(data.result == 'SUCCESS') {
+         // 完了画面に遷移する
+         let $body = document.body
+         $body.classList.remove('m-op')
+         $body.removeAttribute('style')
+         self.$router.push('/contact/finish')
+        } else {
+         // 処理に失敗した場合
+         console.log(data)
+         alert('送信処理に失敗しました。時間を置いて再度お試しください。')
+        }
+       }
+      ).catch(function (err) {
+       self.isSend = false
+       console.log(err)
+       alert('送信処理に失敗しました。時間を置いて再度お試しください。')
+      })
+
+     }
+     // エラーがあった場合
      else {
-      // 画面を確認用にする
-      self.formMode = 'confirm'
-      self.winY = document.documentElement.scrollTop || document.body.scrollTop
-      self.isOverlay = true
-      self.isModal = true
-      let $body = document.body
-      $body.classList.add('m-op')
-      $body.setAttribute('style', 'top: -' + self.winY + 'px;')
+      self.formMode = 'form'
+      self.closeModal()
      }
      
     })
-
-   },
-   // 完了画面遷移時の処理
-   checkRegist: function() {
-    let self = this
-    // 送信処理をまだ実行していない場合
-    if(!this.isSend) {
-     // バリデーション
-     this.$validator.validateAll().then(function(result) {
-      // エラーがなかった場合
-      if(result) {
-       self.isFormError = false
-      } else {
-       // エラーがあった場合
-       self.isFormError = true
-      }
-
-      // エラーがない場合
-      if(!self.isFormError) {
-       self.isFormError = false
-       self.isSend = true
-
-       // サーバに入力情報を送信する
-       axios
-       .post('/api/api.php', {
-        'applicant': self.applicant
-       })
-       .then(
-        function(res) {
-         const data = res.data
-
-         setTimeout(function() {
-          self.isSend = false
-         }, 500)
-
-         // 処理に成功した場合
-         if(data.result == 'SUCCESS') {
-          // 完了画面に遷移する
-          let $body = document.body
-          $body.classList.remove('m-op')
-          $body.removeAttribute('style')
-          self.$router.push('/contact/finish')
-         } else {
-          // 処理に失敗した場合
-          console.log(data)
-          alert('送信処理に失敗しました。時間を置いて再度お試しください。')
-         }
-        }
-       ).catch(function (err) {
-        self.isSend = false
-        console.log(err)
-        alert('送信処理に失敗しました。時間を置いて再度お試しください。')
-       })
-
-      }
-      // エラーがあった場合
-      else {
-       self.formMode = 'form'
-       self.closeModal()
-      }
-      
-     })
-    }
    }
   }
+ }
 }
 </script>
 
