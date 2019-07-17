@@ -111,7 +111,11 @@ export default {
   }
  },
  async asyncData({$axios}) {
-  const res = await $axios.get('/json/page/about.json')
+  let url = '/json/page/about.json'
+  if(process.server) {
+   url = 'https://afterworks.jp' + url
+  }
+  const res = await $axios.get(url)
   return {
    response: res.data
   }
