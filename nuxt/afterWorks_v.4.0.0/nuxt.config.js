@@ -231,11 +231,5 @@ export default {
  ** hooks
  */
  hooks: {
-  'vue-renderer': {
-   ssr: {
-    prepareContext(renderContext) {
-    }
-   }
-  }
  }
 }
