@@ -136,12 +136,12 @@ export default {
   ],
   script: [
    {
-    src: '/js/scroll-magic.min.js' + process.env.cashBuster,
+    src: '/js/scroll-magic.min.js' + cashBuster,
     type: 'text/javascript',
     body: true
    },
    {
-    src: '/js/smooth-scroll.polyfills.min.js' + process.env.cashBuster,
+    src: '/js/smooth-scroll.polyfills.min.js' + cashBuster,
     type: 'text/javascript',
     body: true
    }
