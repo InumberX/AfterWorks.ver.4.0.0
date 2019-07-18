@@ -207,12 +207,12 @@ export default {
  */
  build: {
   filenames: {
-   app: () => '[name].js',
-   chunk: () => '[name].js',
-   css: () => '[name].css',
-   img: () => '[name].[ext]',
-   font: () => '[name].[ext]',
-   video: () => '[name].[ext]'
+   app: () => 'js/[name].js' + cashBuster,
+   chunk: () => 'js/[name].js' + cashBuster,
+   css: () => 'css/[name].css' + cashBuster,
+   img: () => 'img/[name].[ext]' + cashBuster,
+   font: () => 'font/[name].[ext]' + cashBuster,
+   video: () => 'video/[name].[ext]' + cashBuster
   },
   extractCSS: true,
   /*
@@ -222,9 +222,20 @@ export default {
   }
  },
  /*
- ** Generate configuration
+ ** generate
  */
  generate: {
   fallback: true
+ },
+ /*
+ ** hooks
+ */
+ hooks: {
+  'vue-renderer': {
+   ssr: {
+    prepareContext(renderContext) {
+    }
+   }
+  }
  }
 }
