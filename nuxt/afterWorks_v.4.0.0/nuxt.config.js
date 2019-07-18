@@ -1,3 +1,17 @@
+const now = new Date()
+let year = now.getFullYear()
+let month = now.getMonth() + 1
+month = ('0' + month).slice(-2)
+let day = now.getDate()
+day = ('0' + day).slice(-2)
+let hour = now.getHours()
+hour = ('0' + hour).slice(-2)
+let minute = now.getMinutes()
+minute = ('0' + minute).slice(-2)
+let second = now.getSeconds()
+second = ('0' + second).slice(-2)
+const cashBuster = '?ver=' + year + month + day + hour + minute + second
+
 export default {
  mode: 'universal',
  
@@ -120,12 +134,12 @@ export default {
   ],
   script: [
    {
-    src: '/js/scroll-magic.min.js',
+    src: '/js/scroll-magic.min.js' + cashBuster,
     type: 'text/javascript',
     body: true
    },
    {
-    src: '/js/smooth-scroll.polyfills.min.js',
+    src: '/js/smooth-scroll.polyfills.min.js' + cashBuster,
     type: 'text/javascript',
     body: true
    }
@@ -200,6 +214,7 @@ export default {
    font: () => '[name].[ext]',
    video: () => '[name].[ext]'
   },
+  extractCSS: true,
   /*
   ** You can extend webpack config here
   */
