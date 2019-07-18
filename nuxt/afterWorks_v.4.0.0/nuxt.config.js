@@ -14,7 +14,9 @@ const cashBuster = '?ver=' + year + month + day + hour + minute + second
 
 export default {
  mode: 'universal',
- 
+ env: {
+  cashBuster: cashBuster
+ },
  router: {
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
@@ -134,12 +136,12 @@ export default {
   ],
   script: [
    {
-    src: '/js/scroll-magic.min.js' + cashBuster,
+    src: '/js/scroll-magic.min.js' + process.env.cashBuster,
     type: 'text/javascript',
     body: true
    },
    {
-    src: '/js/smooth-scroll.polyfills.min.js' + cashBuster,
+    src: '/js/smooth-scroll.polyfills.min.js' + process.env.cashBuster,
     type: 'text/javascript',
     body: true
    }
