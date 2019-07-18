@@ -2,6 +2,7 @@
 
 <transition
  name="contents"
+ appear
 >
 
 <div class="profile-box">

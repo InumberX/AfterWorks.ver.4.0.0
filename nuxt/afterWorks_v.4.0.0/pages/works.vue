@@ -124,9 +124,13 @@ export default {
    url = 'https://afterworks.jp' + url
   }
   else {
-   url = location.protocol + '//' + location.hostname + url
+   let hostname = location.hostname
+   if(hostname === 'localhost') {
+    hostname += ':3000'
+   }
+   url = location.protocol + '//' + hostname + url
   }
-  
+
   const res = await $axios.get(url)
   return {
    response: res.data

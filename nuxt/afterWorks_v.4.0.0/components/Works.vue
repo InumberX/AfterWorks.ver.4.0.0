@@ -2,6 +2,7 @@
 
 <transition
  name="contents"
+ appear
 >
 
 <div class="works-box">
