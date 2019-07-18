@@ -119,7 +119,20 @@ export default {
   }
  },
  async asyncData({$axios}) {
-  let url = '/json/page/works.json'
+  const now = new Date()
+  let year = now.getFullYear()
+  let month = now.getMonth() + 1
+  month = ('0' + month).slice(-2)
+  let day = now.getDate()
+  day = ('0' + day).slice(-2)
+  let hour = now.getHours()
+  hour = ('0' + hour).slice(-2)
+  let minute = now.getMinutes()
+  minute = ('0' + minute).slice(-2)
+  let second = now.getSeconds()
+  second = ('0' + second).slice(-2)
+  const cashBuster = '?ver=' + year + month + day + hour + minute + second
+  let url = '/json/page/works.json' + cashBuster
   if(process.server) {
    url = 'https://afterworks.jp' + url
   }
