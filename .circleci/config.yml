@@ -4,6 +4,9 @@ jobs:
     working_directory: ~/afterWorks_v.4.0.0
     docker:
       - image: node:10.15.3
+    # rsync を使用するため machine を有効化
+    machine:
+      enabled: true
     steps:
       - checkout # レポジトリの取り込み
 
