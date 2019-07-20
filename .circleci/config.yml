@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  generate:
+  build:
     working_directory: ~/afterWorks_v.4.0.0
     docker:
       - image: node:10.15.3
@@ -57,10 +57,10 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - generate
+      - build
       - deploy:
           requires:
-            - generate
+            - build
           filters:
             branches:
               only: master # master ブランチ以外では deploy を実行しない
