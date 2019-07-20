@@ -40,8 +40,8 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
-        filters:
-          branches:
-            # master ブランチ以外では deploy を実行しない
-            only: master
+      - build:
+          filters:
+            branches:
+              # master ブランチ以外では deploy を実行しない
+              only: master
