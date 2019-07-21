@@ -30,6 +30,7 @@ jobs:
             dependency-cache-{{ checksum "package.json" }}
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
+
       - run:
           name: npm run generate
           command: npm run generate
