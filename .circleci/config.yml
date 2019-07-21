@@ -35,23 +35,6 @@ jobs:
           command: npm run generate
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
-      # generateの生成物を次のdeployジョブでも使用できるようにする
-      - persist_to_workspace:
-          root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
-          paths:
-            - dist
-
-  deploy:
-    working_directory: ~/afterWorks_v.4.0.0
-
-    # rsync を使用するため machine を有効化
-    machine:
-      enabled: true
-    steps:
-      # persist_to_workspaceで保存したファイルの読み込み
-      - attach_workspace:
-          at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
-
       # 生成物をサーバに配置する
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
 
@@ -59,10 +42,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - build:
           filters:
             branches:
               # master ブランチ以外では deploy を実行しない
