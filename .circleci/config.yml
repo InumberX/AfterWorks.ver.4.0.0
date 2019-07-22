@@ -36,9 +36,7 @@ jobs:
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
       # 生成物を転送
-      - run:
-          name: install rsync
-          command: sudo apt install rsync
+      - run: sudo apt install rsync
 
       - deploy:
           name: rsync
