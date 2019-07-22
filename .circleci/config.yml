@@ -36,7 +36,7 @@ jobs:
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
       # 生成物を転送
-      - run:
+      - deploy:
           name: rsync
           command: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
 
