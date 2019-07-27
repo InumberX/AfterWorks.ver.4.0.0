@@ -1,0 +1,14 @@
+#MIME type
+AddType application/x-font-ttf .ttf
+AddType application/x-font-woff .woff
+
+# CACHE media files
+<ifModule mod_expires.c>
+ ExpiresActive On
+ ExpiresDefault "access plus 1 seconds"
+ ExpiresByType image/png "access plus 1 years"
+ ExpiresByType image/jpeg "access plus 1 years"
+ ExpiresByType image/gif "access plus 1 years"
+ ExpiresByType image/svg+xml "access plus 1 years"
+ ExpiresByType image/x-icon "access plus 1 years"
+</ifModule>
