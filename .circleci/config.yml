@@ -37,7 +37,7 @@ jobs:
 
       # 生成物を次のジョブでも使用できるようにする
       - persist_to_workspace:
-          root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
+          root: '/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
           paths:
             - dist
 
