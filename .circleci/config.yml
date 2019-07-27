@@ -1,10 +1,6 @@
 version: 2
 jobs:
-<<<<<<< HEAD
   generate:
-=======
-  build:
->>>>>>> parent of fdacf4b... test commit 1
     working_directory: ~/afterWorks_v.4.0.0
     docker:
       - image: node:10.15.3
@@ -39,7 +35,6 @@ jobs:
           command: npm run generate
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
-<<<<<<< HEAD
       # 生成物を次のジョブでも使用できるようにする
       - persist_to_workspace:
           root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
@@ -59,27 +54,15 @@ jobs:
 
       # 生成物を転送
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
-=======
-      # 生成物を転送
-      - run: apt-get -y install rsync
-
-      - deploy:
-          name: rsync
-          command: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
->>>>>>> parent of fdacf4b... test commit 1
 
 workflows:
   version: 2
   deploy:
     jobs:
-<<<<<<< HEAD
       - generate
       - deploy:
           requires:
             - generate
-=======
-      - build:
->>>>>>> parent of fdacf4b... test commit 1
           filters:
             branches:
               # masterブランチ以外ではdeployを実行しない
