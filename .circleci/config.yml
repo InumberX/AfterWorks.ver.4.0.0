@@ -1,0 +1,69 @@
+version: 2
+jobs:
+  generate:
+    working_directory: ~/afterWorks_v.4.0.0
+    docker:
+      - image: node:10.15.3
+    steps:
+      # レポジトリの取り込み
+      - checkout
+
+      # node-modulesのキャッシュが存在すれば復元
+      - restore_cache:
+          name: Restore package cache
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+
+      - run:
+          # npm install
+          name: npm install
+          command: npm install
+          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+
+      # node-modules をキャッシュ
+      - save_cache:
+          name: Save package cache
+          paths:
+            - ./node_modules
+          key:
+            dependency-cache-{{ checksum "package.json" }}
+          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+
+      - run:
+          name: npm run generate
+          command: npm run generate
+          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+
+      # 生成物を次のジョブでも使用できるようにする
+      - persist_to_workspace:
+          root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
+          paths:
+            - dist
+
+  deploy:
+    working_directory: ~/afterWorks_v.4.0.0
+
+    # rsyncを使用するためmachineを有効化
+    machine:
+      enabled: true
+    steps:
+      # persist_to_workspaceで保存したファイルの読み込み
+      - attach_workspace:
+          at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
+
+      # 生成物を転送
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST}
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - generate
+      - deploy:
+          requires:
+            - generate
+          filters:
+            branches:
+              # masterブランチ以外ではdeployを実行しない
+              only: master
