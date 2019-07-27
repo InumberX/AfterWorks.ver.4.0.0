@@ -57,7 +57,8 @@ function createJsonPage($post_id) {
   // JSON生成
   $dataJson = json_encode($dataArray, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
   // JSON出力
-  file_put_contents($outputUrl , $dataJson);
+  file_put_contents($outputUrl, $dataJson);
+
  }
 
 }
