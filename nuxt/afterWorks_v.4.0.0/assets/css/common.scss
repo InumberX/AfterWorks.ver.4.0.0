@@ -27,6 +27,31 @@ body {
  word-break: normal;
  -webkit-text-size-adjust:100%;
 }
+body.h-op{
+ .main-wrap {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+ }
+ .header-wrap {
+  .logo-box {
+   filter: blur(2px);
+   -webkit-filter: blur(2px);
+   -moz-filter: blur(2px);
+   -o-filter: blur(2px);
+   -ms-filter: blur(2px);
+  }
+ }
+ .footer-wrap {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+ }
+}
 
 article, aside, details, figcaption, include, footer, header, hgroup, main, nav, section, summary {
  display:block;

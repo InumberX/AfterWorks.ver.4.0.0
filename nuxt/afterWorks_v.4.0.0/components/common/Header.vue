@@ -236,7 +236,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 280px;
   height: 100%;
   background-color: #002984;
   z-index: 1000;
@@ -257,8 +257,8 @@ export default {
      a {
       display: block;
       margin: 0;
-      padding: 16px;
-      text-align: center;
+      padding: 16px 40px;
+      text-align: left;
       color: #fff;
       text-decoration: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.4);
@@ -316,7 +316,7 @@ export default {
    position: fixed;
    top: 0;
    right: 0;
-   width: 300px;
+   width: 280px;
    height: 100%;
    &.on {
     display: block;
@@ -324,12 +324,12 @@ export default {
    &:nth-of-type(1) {
     z-index: 998;
     background-color: #004aef;
-    width: 308px;
+    width: 288px;
    }
    &:nth-of-type(2) {
     z-index: 999;
     background-color: #003cc1;
-    width: 304px;
+    width: 284px;
    }
   }
  }
@@ -343,7 +343,7 @@ export default {
  right: 0;
  width: 100%;
  height: 100%;
- background: rgba(0, 0, 0, 0.5);
+ background-color: rgba(0, 0, 0, 0.2);
  z-index: 700;
 }
 
@@ -357,7 +357,7 @@ transition: all 0.3s;
 }
 .header-menu-enter,
 .header-menu-leave-to {
-right: -300px !important;
+right: -280px !important;
 }
 .header-menu-enter-to,
 .header-menu-leave {
@@ -373,7 +373,7 @@ transition-delay: 0.1s;
 }
 .header-menu-bg1-enter,
 .header-menu-bg1-leave-to {
-right: -300px !important;
+right: -280px !important;
 }
 .header-menu-bg1-enter-to,
 .header-menu-bg1-leave {
@@ -387,7 +387,7 @@ transition-delay: 0.05s;
 }
 .header-menu-bg2-enter,
 .header-menu-bg2-leave-to {
-right: -300px !important;
+right: -280px !important;
 }
 .header-menu-bg2-enter-to,
 .header-menu-bg2-leave {
@@ -458,6 +458,7 @@ opacity: 1;
       padding: 0 12px;
       color: #2E2E2E;
       border-bottom: none;
+      text-align: center;
       &:hover {
        color: #4466B1;
       }
