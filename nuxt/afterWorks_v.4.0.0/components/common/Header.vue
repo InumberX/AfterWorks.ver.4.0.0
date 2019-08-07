@@ -425,6 +425,7 @@ opacity: 1;
   margin: 0;
   img {
    width: 160px;
+   max-height: 46px;
    min-width: auto;
    max-width: none;
   }
