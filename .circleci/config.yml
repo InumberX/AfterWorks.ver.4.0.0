@@ -53,7 +53,7 @@ jobs:
           at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
 
       # 生成物を転送
-      - run: rsync -e --exclude=/json/ "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST_PRD}
+      - run: rsync -e --exclude=~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/json/ "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST_PRD}
 
 workflows:
   version: 2
