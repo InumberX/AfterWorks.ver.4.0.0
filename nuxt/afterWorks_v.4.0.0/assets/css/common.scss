@@ -880,6 +880,17 @@ opacity: 0;
 opacity: 1;
 }
 
+/* Scrooll Magic
+*************************************************/
+/* フェードアニメーション */
+.s-magic-fadein {
+transition: opacity 0.8s ease;
+opacity: 0;
+}
+.s-magic-fadein.s-magic-on {
+opacity: 1;
+}
+
 /* 共通設定
 *************************************************/
 .pc-obj {
@@ -913,7 +924,6 @@ box-sizing: border-box;
 .main-wrap {
 margin: 0 auto;
 padding: 56px 0 0;
-min-height: 90vh;
 box-sizing: border-box;
 }
 

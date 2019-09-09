@@ -1,5 +1,5 @@
 <template>
-<div class="title-box">
+<div class="title-box s-magic-fadein">
 <div class="inner">
 <h3>{{ titleEn }}<em>{{ title }}</em></h3>
 </div><!-- /.inner -->

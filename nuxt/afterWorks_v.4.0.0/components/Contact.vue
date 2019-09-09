@@ -7,7 +7,7 @@
 >
 </contentsTitle>
 
-<div class="contact-box">
+<div class="contact-box s-magic-fadein">
 <div class="inner">
 <div class="contact-tx">
 <p>「ランディングページを制作してほしい」、「Wordpressを使って更新性の高いWebサイトを作りたい」、「JavaScriptを用いてWeb サイトにリッチな表現を取り入れてほしい」などお客様の様々なご要望にお応えいたします。<br>また、デザインのみ、コーディングのみ行ってほしいといったご依頼にも柔軟に対応できます。<br>まずはお気軽にお問い合わせください。</p>

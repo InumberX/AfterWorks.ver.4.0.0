@@ -5,7 +5,7 @@
  appear
 >
 
-<div class="lead-box">
+<div class="lead-box s-magic-fadein">
 <div class="inner">
 <p v-html="replaceQuot(text)"></p>
 </div><!-- /.inner -->

@@ -9,7 +9,7 @@
 <div class="inner">
 <div class="card-list">
 <ul>
-<li v-for="(title, i) in titles" v-if="title">
+<li v-for="(title, i) in titles" v-if="title"  class="s-magic-fadein">
 <div class="card-list-in" v-bind:class="classes[i]">
 <div class="card-list-cnt">
 <div class="title-box">

@@ -11,7 +11,7 @@
 
 <div class="history-list">
 
-<dl v-for="(date, i) in dates" v-if="date">
+<dl v-for="(date, i) in dates" v-if="date" class="s-magic-fadein">
 <dt>{{ date }}</dt>
 <dd>
 <p v-html="titles[i]" class="main-text description"></p>

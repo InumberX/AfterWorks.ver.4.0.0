@@ -5,7 +5,7 @@
  appear
 >
 
-<div class="page-lead-box">
+<div class="page-lead-box s-magic-fadein">
 <div class="inner">
 <p v-html="replaceNewLine(text)"></p>
 </div><!-- /.inner -->

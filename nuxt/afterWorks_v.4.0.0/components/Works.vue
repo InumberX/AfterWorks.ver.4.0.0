@@ -13,7 +13,7 @@
 
 <ul>
 
-<li v-for="(title, i) in titles" v-bind:id="id[i]" v-if="title">
+<li v-for="(title, i) in titles" v-bind:id="id[i]" v-if="title" class="s-magic-fadein">
 <figure class="img-box">
 <img v-bind:src="images[i]" v-bind:alt="title">
 </figure>
