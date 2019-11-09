@@ -119,8 +119,13 @@ export default {
    let $body = document.body
    $body.classList.remove('h-op')
    $body.style.top = ''
+   // メニュー表示前の位置までスクロールさせる場合
    if(isScroll) {
     scrollTo(0, this.winY)
+   }
+   // スクロールさせない（画面遷移する）場合
+   else {
+    document.querySelector('.page-transition-curtain').classList.add('is-active')
    }
   }
  },

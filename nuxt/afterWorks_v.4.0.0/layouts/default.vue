@@ -37,16 +37,16 @@ export default {
  // 各処理
  methods: {
   pageTransitionBeforeEnter: function() {
-   let curtain = document.querySelector(".page-transition-curtain");
-   curtain.classList.remove("is-active"),
-   curtain.classList.remove("is-enter"),
-   curtain.classList.add("is-active"),
+   let curtain = document.querySelector('.page-transition-curtain')
+   curtain.classList.remove('is-active')
+   curtain.classList.remove('is-enter')
+   curtain.classList.add('is-active')
    setTimeout(function() {
-    document.querySelector(".page-transition-curtain").classList.add("is-enter"),
+    document.querySelector('.page-transition-curtain').classList.add('is-enter')
     setTimeout(function() {
-     let curtain = document.querySelector(".page-transition-curtain");
-     curtain.classList.remove("is-active"),
-     curtain.classList.remove("is-enter")
+     let curtain = document.querySelector('.page-transition-curtain')
+     curtain.classList.remove('is-active')
+     curtain.classList.remove('is-enter')
     }, 800)
    }, 400)
   }
