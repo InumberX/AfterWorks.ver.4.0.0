@@ -28,6 +28,10 @@ body {
  -webkit-text-size-adjust:100%;
 }
 body.h-op{
+ position: fixed;
+ left: 0;
+ width: 100%;
+ height: 100%;
  .main-wrap {
   filter: blur(2px);
   -webkit-filter: blur(2px);

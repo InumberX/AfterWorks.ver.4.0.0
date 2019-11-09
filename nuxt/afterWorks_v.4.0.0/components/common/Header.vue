@@ -26,10 +26,10 @@
 </div>
 <nav>
 <ul>
-<li><nuxt-link to="/" exact v-on:click.native="closeMenu">Top</nuxt-link></li>
-<li><nuxt-link to="/about/" v-on:click.native="closeMenu">About</nuxt-link></li>
-<li><nuxt-link to="/works/" v-on:click.native="closeMenu">Works</nuxt-link></li>
-<li><nuxt-link to="/contact/" v-on:click.native="closeMenu">Contact</nuxt-link></li>
+<li><nuxt-link to="/" exact v-on:click.native="closeMenu(false)">Top</nuxt-link></li>
+<li><nuxt-link to="/about/" v-on:click.native="closeMenu(false)">About</nuxt-link></li>
+<li><nuxt-link to="/works/" v-on:click.native="closeMenu(false)">Works</nuxt-link></li>
+<li><nuxt-link to="/contact/" v-on:click.native="closeMenu(false)">Contact</nuxt-link></li>
 </ul>
 </nav>
 </div><!-- /.groval-nav -->
@@ -102,7 +102,7 @@ export default {
     this.openMenu()
    } else {
     // メニューが開いていた場合
-    this.closeMenu()
+    this.closeMenu(true)
    }
   },
   // メニューを開く処理
@@ -110,13 +110,18 @@ export default {
    this.winY = document.documentElement.scrollTop || document.body.scrollTop
    this.isHeaderMenu = true
    let $body = document.body
+   $body.style.top = '-' + this.winY + 'px'
    $body.classList.add('h-op')
   },
   // メニューを閉じる処理
-  closeMenu: function() {
+  closeMenu: function(isScroll) {
    this.isHeaderMenu = false
    let $body = document.body
    $body.classList.remove('h-op')
+   $body.style.top = ''
+   if(isScroll) {
+    scrollTo(0, this.winY)
+   }
   }
  },
  // 監視プロパティ
@@ -249,7 +254,7 @@ export default {
    overflow: auto;
    ul {
     margin: 0;
-    padding: 0;
+    padding: 0 0 104px;
     list-style: none;
     li {
      margin: 0;
@@ -283,6 +288,7 @@ export default {
     z-index: 101;
     border: none;
     outline: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     span {
      position: relative;
      display: block;
@@ -450,6 +456,7 @@ opacity: 1;
    height: 100%;
    overflow: auto;
    ul {
+    padding: 0;
     display: flex;
     align-items: center;
     li {
