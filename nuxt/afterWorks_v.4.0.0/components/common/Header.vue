@@ -18,7 +18,7 @@
 </button>
 </div>
 <transition name="header-menu">
-<div class="groval-nav" v-if="!isSp || isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']">
+<div class="groval-nav" v-if="!isSp() || isHeaderMenu" v-bind:class="[isHeaderMenu ? 'on' : 'off']">
 <div class="head-close-btn">
 <button v-on:click="toggleMenu" aria-label="閉じる">
 <span><i></i><i></i></span>
@@ -59,11 +59,11 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex'
+
 export default {
  data: function() {
   return {
-   // SP判定フラグ
-   isSp: false,
    // ブレイクポイント
    bp: 767,
    // メニュー表示フラグ
@@ -86,12 +86,12 @@ export default {
   // ウィンドウサイズを更新する処理
   checkSp: function() {
    if(window.innerWidth > this.bp) {
-    if(this.isSp) {
-     this.isSp = false
+    if(this.isSp()) {
+     this.$store.commit('is_sp/setIsPc')
     }
    } else {
-    if(!this.isSp) {
-     this.isSp = true
+    if(!this.isSp()) {
+     this.$store.commit('is_sp/setIsSp')
     }
    }
   },
@@ -127,13 +127,16 @@ export default {
    else {
     document.querySelector('.page-transition-curtain').classList.add('is-active')
    }
+  },
+  isSp: function() {
+   return this.$store.state.is_sp.isSp
   }
  },
  // 監視プロパティ
  watch: {
-  isSp: function() {
+  storeIsSp: function() {
    // PC表示になった場合
-   if(!this.isSp) {
+   if(!this.isSp()) {
     // メニューが開いている場合
     if(this.isHeaderMenu) {
      // メニュー表示フラグを初期化する
@@ -142,7 +145,11 @@ export default {
      $body.classList.remove('h-op')
     }
    }
-
+  }
+ },
+ computed: {
+  storeIsSp() {
+   return this.$store.state.is_sp.isSp
   }
  }
 }
