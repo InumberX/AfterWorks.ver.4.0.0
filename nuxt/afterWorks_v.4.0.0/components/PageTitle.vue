@@ -64,20 +64,20 @@ export default {
   padding: 0;
   position: relative;
   font-size: 4.8rem;
-  color: #F2F2F2;
+  color: #2E2E2E;
   font-weight: bold;
   span {
    display: inline-block;
    white-space: nowrap;
    overflow: hidden;
    line-height: 1;
+   color: #e5e9f3;
   }
   em {
    display: inline-block;
    white-space: nowrap;
    position: absolute;
    font-size: 2.4rem;
-   color: #2E2E2E;
    z-index: 1;
    left: 16px;
    bottom: 0;

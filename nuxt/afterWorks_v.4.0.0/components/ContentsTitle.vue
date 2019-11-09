@@ -28,7 +28,7 @@ export default {
   padding: 0 0 10px;
   position: relative;
   font-size: 4.8rem;
-  color: #F2F2F2;
+  color: #e5e9f3;
   line-height: 1;
   font-weight: bold;
   text-align: center;
