@@ -2,11 +2,6 @@
 
 <div class="main-visual-box" v-bind:class="[isShow ? 'on' : '']">
 
-<transition
- name="main-visual"
- appear
->
-
 <div class="inner">
 
 <div class="main-visual-bg">
@@ -25,8 +20,6 @@
 </div>
 
 </div><!-- /.inner -->
-
-</transition>
 
 </div><!-- /.main-visual-box -->
 
@@ -95,18 +88,6 @@ export default {
 }
 
 /* メインビジュアル表示用アニメーション */
-.main-visual-enter-active {
-transition: 0.6s height;
-transition-delay: 0.2s;
-overflow: hidden;
-}
-.main-visual-enter {
-height: 0 !important;
-}
-.main-visual-enter-to {
-height: 450px !important;
-}
-
 .main-visual-title-enter-active {
 transition: 1.0s width;
 transition-delay: 0.8s;

@@ -5,7 +5,10 @@
 
 <main class="main-wrap">
 
-<transition v-on:before-enter="pageTransitionBeforeEnter">
+<transition
+ v-on:before-enter="pageTransitionBeforeEnter"
+ appear
+>
 <nuxt />
 </transition>
 
