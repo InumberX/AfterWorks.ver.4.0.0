@@ -1,16 +1,16 @@
-const now = new Date()
-let year = now.getFullYear()
-let month = now.getMonth() + 1
-month = ('0' + month).slice(-2)
-let day = now.getDate()
-day = ('0' + day).slice(-2)
-let hour = now.getHours()
-hour = ('0' + hour).slice(-2)
-let minute = now.getMinutes()
-minute = ('0' + minute).slice(-2)
-let second = now.getSeconds()
-second = ('0' + second).slice(-2)
-const cashBuster = '?ver=' + year + month + day + hour + minute + second
+const now = new Date();
+let year = now.getFullYear();
+let month = now.getMonth() + 1;
+month = ('0' + month).slice(-2);
+let day = now.getDate();
+day = ('0' + day).slice(-2);
+let hour = now.getHours();
+hour = ('0' + hour).slice(-2);
+let minute = now.getMinutes();
+minute = ('0' + minute).slice(-2);
+let second = now.getSeconds();
+second = ('0' + second).slice(-2);
+const cashBuster = '?ver=' + year + month + day + hour + minute + second;
 
 export default {
  mode: 'universal',
@@ -21,15 +21,22 @@ export default {
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
   // ページ遷移時の設定
-  scrollBehavior: function (to, from, savedPosition) {
+  scrollBehavior: function(to, from, savedPosition) {
    // トップまでスクロールする
-   return { x: 0, y: 0 }
+   return { x: 0, y: 0 };
+  },
+  extendRoutes(routes, resolve) {
+   routes.push({
+    name: 'notFound',
+    path: '*',
+    component: resolve(__dirname, 'pages/index.vue')
+   });
   }
  },
- 
+
  /*
- ** Headers of the page
- */
+  ** Headers of the page
+  */
  head: {
   titleTemplate: '%s | After Works.',
   htmlAttrs: {
@@ -57,12 +64,14 @@ export default {
    {
     hid: 'description',
     name: 'description',
-    content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+    content:
+     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
    },
    {
     hid: 'keywords',
     name: 'keywords',
-    content: 'フロントエンドエンジニア,webデザイン,webデザイナー,ポートフォリオ,東京,html,css,javascript,web制作,フリーランス'
+    content:
+     'フロントエンドエンジニア,webデザイン,webデザイナー,ポートフォリオ,東京,html,css,javascript,web制作,フリーランス'
    },
    {
     hid: 'ogTitle',
@@ -92,7 +101,8 @@ export default {
    {
     hid: 'ogDescription',
     property: 'og:description',
-    content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+    content:
+     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
    },
    {
     hid: 'twitterCard',
@@ -107,7 +117,8 @@ export default {
    {
     hid: 'twitterDescription',
     name: 'twitter:description',
-    content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+    content:
+     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
    }
   ],
   link: [
@@ -148,8 +159,8 @@ export default {
   ]
  },
  /*
- ** Customize the progress-bar color
- */
+  ** Customize the progress-bar color
+  */
  loading: {
   color: '#002984',
   height: '4px'
@@ -158,12 +169,12 @@ export default {
   name: '~/components/common/Loading.html'
  },
  /*
- ** Global CSS
- */
+  ** Global CSS
+  */
  css: [
   {
    src: '@/assets/css/common.scss',
-   lang: 'scss',
+   lang: 'scss'
   },
   {
    src: '@/assets/css/common_pc.scss',
@@ -171,8 +182,8 @@ export default {
   }
  ],
  /*
- ** Plugins to load before mounting the App
- */
+  ** Plugins to load before mounting the App
+  */
  plugins: [
   {
    src: '@/plugins/vee-validate',
@@ -192,21 +203,21 @@ export default {
   }
  ],
  /*
- ** Nuxt.js modules
- */
+  ** Nuxt.js modules
+  */
  modules: [
   // Doc: https://axios.nuxtjs.org/usage
   '@nuxtjs/axios'
  ],
  /*
- ** Axios module configuration
- */
+  ** Axios module configuration
+  */
  axios: {
   // See https://github.com/nuxt-community/axios-module#options
  },
  /*
- ** Build configuration
- */
+  ** Build configuration
+  */
  build: {
   filenames: {
    app: () => 'js/[name].js' + cashBuster,
@@ -218,20 +229,18 @@ export default {
   },
   extractCSS: true,
   /*
-  ** You can extend webpack config here
-  */
-  extend(config, ctx) {
-  }
+   ** You can extend webpack config here
+   */
+  extend(config, ctx) {}
  },
  /*
- ** generate
- */
+  ** generate
+  */
  generate: {
   fallback: true
  },
  /*
- ** hooks
- */
- hooks: {
- }
-}
+  ** hooks
+  */
+ hooks: {}
+};
