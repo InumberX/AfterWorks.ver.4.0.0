@@ -62,6 +62,11 @@ export default {
     content: 'telephone=no'
    },
    {
+    hid: 'googleSiteVerification',
+    name: 'google-site-verification',
+    content: 'kLXEZtzfT83BFaBZNnYYyVaz56QkXd4bWABqFhaCvhk'
+   },
+   {
     hid: 'description',
     name: 'description',
     content:
