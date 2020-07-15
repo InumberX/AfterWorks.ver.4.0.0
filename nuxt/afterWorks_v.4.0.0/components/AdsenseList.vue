@@ -30,9 +30,56 @@ export default {
      slot: "7889882209",
      responsive: "true",
      format: "auto"
+    },
+    {
+     slot: "6465119893",
+     responsive: "true",
+     format: "auto"
+    },
+    {
+     slot: "4704589318",
+     responsive: "true",
+     format: "auto"
     }
    ]
   };
  }
 };
 </script>
+
+<style lang="scss" scoped>
+/* 広告
+*************************************************/
+
+/* SP
+*************************************************/
+.ads-list-box {
+ .ads-list {
+  ul {
+   margin: 40px 0 0;
+   padding: 0;
+   list-style: none;
+   li {
+    margin: 24px 0 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+  }
+ }
+}
+/* PC
+*************************************************/
+@media screen and (min-width: 768px) {
+ .ads-list-box {
+  .ads-list {
+   ul {
+    margin: 40px 0 0;
+    display: flex;
+    li {
+     width: calc(100% / 3);
+    }
+   }
+  }
+ }
+}
+</style>
