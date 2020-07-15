@@ -61,6 +61,9 @@ export default {
    padding: 0;
    list-style: none;
    li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 24px 0 0;
     padding: 0;
     box-sizing: border-box;
@@ -76,6 +79,8 @@ export default {
    ul {
     margin: 40px 0 0;
     display: flex;
+    align-items: center;
+    justify-content: center;
     li {
      width: calc(100% / 3);
     }
