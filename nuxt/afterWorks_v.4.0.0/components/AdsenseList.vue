@@ -28,7 +28,7 @@ export default {
    ads: [
     {
      slot: "7889882209",
-     responsive: "false",
+     responsive: "true",
      format: "auto"
     }
    ]
