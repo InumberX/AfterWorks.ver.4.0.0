@@ -57,7 +57,7 @@ export default {
 .ads-list-box {
  .ads-list {
   ul {
-   margin: 40px 0 0;
+   margin: 56px 0 0;
    padding: 0;
    list-style: none;
    li {
@@ -77,7 +77,7 @@ export default {
  .ads-list-box {
   .ads-list {
    ul {
-    margin: 40px 0 0;
+    margin: 80px 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
