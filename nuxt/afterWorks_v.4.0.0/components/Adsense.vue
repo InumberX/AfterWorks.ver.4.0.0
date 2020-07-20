@@ -27,7 +27,7 @@ export default {
   adFormat: {
    type: String,
    required: false,
-   default: "auto"
+   default: null
   },
   adLayout: {
    type: String,
