@@ -64,13 +64,16 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 24px 0 0;
+    margin: 24px auto 0;
     padding: 0;
     box-sizing: border-box;
     width: 300px;
     max-width: 300px;
     height: 300px;
     max-height: 300px;
+    &:first-of-type {
+     margin-top: 0;
+    }
    }
   }
  }
@@ -88,6 +91,7 @@ export default {
     li {
      width: calc(100% / 3);
      padding: 8px;
+     margin-top: 0;
     }
    }
   }
