@@ -67,6 +67,9 @@ export default {
     margin: 24px 0 0;
     padding: 0;
     box-sizing: border-box;
+    width: 300px;
+    max-width: 300px;
+    height: 300px;
    }
   }
  }
