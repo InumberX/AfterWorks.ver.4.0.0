@@ -66,7 +66,7 @@ export default {
     justify-content: center;
     margin: 24px auto 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: content-box;
     width: 300px;
     max-width: 300px;
     height: 300px;
