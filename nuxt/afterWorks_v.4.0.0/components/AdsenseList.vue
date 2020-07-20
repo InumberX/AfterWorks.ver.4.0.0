@@ -30,17 +30,17 @@ export default {
     {
      slot: "7889882209",
      responsive: "false",
-     style: "display:inline-block;width:300px;height:300px"
+     style: "display:inline-block;width:100%;max-width:300px;height:300px"
     },
     {
      slot: "6465119893",
      responsive: "false",
-     style: "display:inline-block;width:300px;height:300px"
+     style: "display:inline-block;width:100%;max-width:300px;height:300px"
     },
     {
      slot: "4704589318",
      responsive: "false",
-     style: "display:inline-block;width:300px;height:300px"
+     style: "display:inline-block;width:100%;max-width:300px;height:300px"
     }
    ]
   };
@@ -65,7 +65,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin: 24px 0 0;
-    padding: 8px;
+    padding: 0;
     box-sizing: border-box;
     width: 300px;
     max-width: 300px;
@@ -87,6 +87,7 @@ export default {
     justify-content: center;
     li {
      width: calc(100% / 3);
+     padding: 8px;
     }
    }
   }
