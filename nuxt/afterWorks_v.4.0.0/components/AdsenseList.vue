@@ -29,17 +29,17 @@ export default {
    ads: [
     {
      slot: "7889882209",
-     responsive: "true",
+     responsive: "false",
      style: "display:inline-block;width:300px;height:300px"
     },
     {
      slot: "6465119893",
-     responsive: "true",
+     responsive: "false",
      style: "display:inline-block;width:300px;height:300px"
     },
     {
      slot: "4704589318",
-     responsive: "true",
+     responsive: "false",
      style: "display:inline-block;width:300px;height:300px"
     }
    ]
