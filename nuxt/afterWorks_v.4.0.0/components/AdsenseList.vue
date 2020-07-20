@@ -65,11 +65,12 @@ export default {
     align-items: center;
     justify-content: center;
     margin: 24px 0 0;
-    padding: 0;
+    padding: 8px;
     box-sizing: border-box;
     width: 300px;
     max-width: 300px;
     height: 300px;
+    max-height: 300px;
    }
   }
  }
