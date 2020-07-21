@@ -58,8 +58,8 @@ export default {
    this.$nextTick(() => {
     try {
      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-     console.error(error);
+    } catch (e) {
+     console.error(e);
     }
    });
   }
