@@ -1,29 +1,33 @@
 <template>
+ <footer class="footer-wrap">
+  <div class="page-top">
+   <div class="inner">
+    <button v-on:click="scroll('body')">PAGE TOP</button>
+   </div>
+   <!-- /.inner -->
+  </div>
+  <!-- /.page-top -->
 
-<footer class="footer-wrap">
+  <div class="foot-sub">
+   <div class="inner">
+    <snsList v-bind:className="'footer'"></snsList>
+   </div>
+   <!-- /.inner -->
+  </div>
+  <!-- /.foot-sub -->
 
-<div class="page-top">
-<div class="inner">
-<button v-on:click="scroll('body')">PAGE TOP</button>
-</div><!-- /.inner -->
-</div><!-- /.page-top -->
-
-<div class="foot-sub">
-<div class="inner">
-<snsList v-bind:className="'footer'"></snsList>
-</div><!-- /.inner -->
-</div><!-- /.foot-sub -->
-
-<div class="copyright">
-<div class="inner">
-<div class="copyright-info">
-<p>&copy; <i class="c-year">{{ currentYear }}</i> N/NE, All rights reserved.</p>
-</div>
-</div><!-- /.inner -->
-</div><!-- /.copyright -->
-
-</footer>
-
+  <div class="copyright">
+   <div class="inner">
+    <div class="copyright-info">
+     <p>
+      &copy; <i class="c-year">{{ currentYear }}</i> N/NE, All rights reserved.
+     </p>
+    </div>
+   </div>
+   <!-- /.inner -->
+  </div>
+  <!-- /.copyright -->
+ </footer>
 </template>
 
 <script>
@@ -56,6 +60,8 @@ export default {
     header: '#HEADER',
     offset: 20,
     updateURL: false
+    speed: 300,
+    speedAsDuration: true,
    }
   }
  },
@@ -72,11 +78,9 @@ export default {
   }
  }
 }
-
 </script>
 
 <style lang="scss">
-
 /* フッター
 *************************************************/
 
@@ -103,7 +107,7 @@ export default {
   position: relative;
   transition: 0.3s all;
   &:before {
-   content: '';
+   content: "";
    width: 16px;
    height: 16px;
    border: 0px;
@@ -136,7 +140,7 @@ export default {
  padding: 16px 0;
  .copyright-info {
   p {
-   font-size: 1.0rem;
+   font-size: 1rem;
    margin: 0;
   }
   .c-year {
@@ -148,31 +152,28 @@ export default {
 /* PC
 *************************************************/
 @media screen and (min-width: 768px) {
+ .footer-wrap {
+  margin-top: 80px;
+ }
 
-.footer-wrap {
- margin-top: 80px;
-}
+ .page-top {
+  margin-top: 120px;
+ }
 
-.page-top {
- margin-top: 120px;
-}
+ .foot-sub {
+  padding-top: 64px;
+  margin-top: 64px;
+ }
 
-.foot-sub {
- padding-top: 64px;
- margin-top: 64px;
-}
-
-.copyright {
- margin-top: 64px;
- padding: 24px 0;
- .copyright-info {
-  p {
-   font-size: 1.2rem;
-   margin: 0;
+ .copyright {
+  margin-top: 64px;
+  padding: 24px 0;
+  .copyright-info {
+   p {
+    font-size: 1.2rem;
+    margin: 0;
+   }
   }
  }
 }
-
-}
-
 </style>
