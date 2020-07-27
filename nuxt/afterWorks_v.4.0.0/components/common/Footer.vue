@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import SnsList from '~/components/SnsList.vue';
+import SnsList from "~/components/SnsList.vue";
 
 export default {
  components: {
@@ -40,29 +40,29 @@ export default {
  data: function() {
   return {
    // 現在年
-   currentYear: '',
+   currentYear: "",
    // スムーススクロール
-   smoothScroll: '',
-   smoothScrollOption: ''
-  }
+   smoothScroll: "",
+   smoothScrollOption: ""
+  };
  },
  // インスタンスが作成された後に実行する処理
  created: function() {
   // 現在年を取得
-  const now = new Date()
-  const year = now.getFullYear()
-  this.currentYear = year
+  const now = new Date();
+  const year = now.getFullYear();
+  this.currentYear = year;
 
   if (process.browser) {
    // スムーススクロール
-   this.smoothScroll = new SmoothScroll()
+   this.smoothScroll = new SmoothScroll();
    this.smoothScrollOption = {
-    header: '#HEADER',
+    header: "#HEADER",
     offset: 20,
-    updateURL: false
+    updateURL: false,
     speed: 300,
-    speedAsDuration: true,
-   }
+    speedAsDuration: true
+   };
   }
  },
  // 各処理
@@ -70,14 +70,14 @@ export default {
   // スムーススクロールを行う処理
   scroll: function(target) {
    // スクロール先が存在する場合
-   if(document.querySelectorAll(target).length > 0) {
-    const anchor = document.querySelector(target)
-    this.smoothScroll.animateScroll(anchor, '', this.smoothScrollOption)
-    return false
+   if (document.querySelectorAll(target).length > 0) {
+    const anchor = document.querySelector(target);
+    this.smoothScroll.animateScroll(anchor, "", this.smoothScrollOption);
+    return false;
    }
   }
  }
-}
+};
 </script>
 
 <style lang="scss">
