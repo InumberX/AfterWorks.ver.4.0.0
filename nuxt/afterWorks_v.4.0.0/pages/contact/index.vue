@@ -1,115 +1,56 @@
 <template>
-<div class="contact-wrap">
-
-<pageTitle titleEn="Contact" title="お問い合わせ"></pageTitle>
-
-<pageLead
- v-bind:text="'制作の依頼・ご相談などお気軽にお問い合わせください。'"
->
-</pageLead>
-
-<section>
-
-<no-ssr>
-<contactInput></contactInput>
-</no-ssr>
-
-</section>
-
-</div>
+  <main class="mn-wrap" :key="pageKey">
+    <PageTtl :ttl="pageTitle" :ttlEn="pageTitleEn" />
+    <no-ssr>
+      <ContactInput :items="frmItems" />
+    </no-ssr>
+  </main>
 </template>
 
-<script>
-import PageTitle from '~/components/PageTitle.vue'
-import PageLead from '~/components/PageLead.vue'
+<script lang="ts">
+import Vue from 'vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import mixinMeta from '~/mixins/meta'
+import PageTtl from '~/components/PageTtl.vue'
 import ContactInput from '~/components/ContactInput.vue'
 
-export default {
- head: function() {
-  return {
-   title: 'Contact',
-   meta: [
-    {
-     hid: 'description',
-     name: 'description',
-     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。お問い合わせはこちらのページからお気軽にご連絡ください。'
-    },
-    {
-     hid: 'ogTitle',
-     property: 'og:title',
-     content: 'Contact | After Works.'
-    },
-    {
-     hid: 'ogUrl',
-     property: 'og:url',
-     content: 'https://afterworks.jp/contact/'
-    },
-    {
-     hid: 'ogSiteName',
-     property: 'og:site_name',
-     content: 'Contact | After Works.'
-    },
-    {
-     hid: 'ogDescription',
-     property: 'og:description',
-     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。お問い合わせはこちらのページからお気軽にご連絡ください。'
-    },
-    {
-     hid: 'twitterDescription',
-     name: 'twitter:description',
-     content: '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。お問い合わせはこちらのページからお気軽にご連絡ください。'
-    }
-   ],
-   link: [
-    {
-     hid: 'canonical',
-     rel: 'canonical',
-     href: 'https://afterworks.jp/contact/'
-    }
-   ]
-  }
- },
- components: {
-  PageTitle: PageTitle,
-  PageLead: PageLead,
-  ContactInput: ContactInput
- },
- mounted: function() {
-  /*------------------------------------------
-   Scrooll Magic
-  --------------------------------------------*/
-  let sMagicController = new ScrollMagic.Controller()
-  let $sMagicFadeIn = document.querySelectorAll('.s-magic-fadein')
-  const sMagicFadeInLength = $sMagicFadeIn.length
-  if(sMagicFadeInLength > 0) {
-   Array.prototype.forEach.call($sMagicFadeIn, function ($item, i) {
-    let sMagicFadeInScene = new ScrollMagic.Scene({
-     // 対象要素
-     triggerElement: $item,
-     triggerHook: 'onEnter',
-     reverse: false,
-     offset: 150
-    }).addTo(sMagicController)
-    
-    // アニメーション開始時の処理
-    sMagicFadeInScene.on('enter', function() {
-     const delayTime = $sMagicFadeIn[i].dataset.pcIndex * 300
-     $sMagicFadeIn[i].style.transitionDelay = delayTime + 'ms'
-     setTimeout(function() {
-      $sMagicFadeIn[i].style.transitionDelay = ''
-     }, delayTime)
-     $sMagicFadeIn[i].classList.add('s-magic-on')
-    })
-    // アニメーション完了時の処理
-    sMagicFadeInScene.on('end', function() {
-     sMagicFadeInScene.destroy(true)
-    })
-   
-   })
-  }
- }
+interface FrmItems {
+  [key: string]: any
 }
+
+export default Vue.extend({
+  name: 'Contact',
+  mixins: [mixinMeta],
+  components: {
+    PageTtl: PageTtl,
+    ContactInput: ContactInput,
+  },
+  async asyncData({ store, $axios }) {
+    const dataKey = 'contact'
+    let res = await $axios.get('/json/frm_info.json?' + process.env.cashBuster)
+
+    Object.keys(res.data).forEach(function (key) {
+      // 正規表現チェックが設定されている場合
+      if (
+        res.data[key].rules != null &&
+        res.data[key].rules.regex != null &&
+        res.data[key].rules.regex !== ''
+      ) {
+        // 文字列からオブジェクトに変換する
+        res.data[key].rules.regex = new Function(
+          'return ' + res.data[key].rules.regex
+        )()
+      }
+    })
+
+    return {
+      frmItems: res.data,
+    }
+  },
+  data: function () {
+    return {}
+  },
+})
 </script>
 
-<style>
-</style>
+<style lang="scss"></style>

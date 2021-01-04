@@ -1,165 +1,162 @@
 <template>
- <div class="about-wrap">
-  <pageTitle titleEn="About" title="経歴紹介"> </pageTitle>
-
-  <pageLead v-bind:text="response.contents.aboutLead[0]"> </pageLead>
-
-  <section>
-   <profile
-    v-bind:name="response.contents.aboutName[0]"
-    v-bind:certificateNames="response.contents.aboutCertificateName"
-    v-bind:certificateUrls="response.contents.aboutCertificateUrl"
-    v-bind:skills="[
-     response.contents.aboutSkillFrontendProgrammingLanguage[0],
-     response.contents.aboutSkillCms[0],
-     response.contents.aboutSkillServerSideProgrammingLanguage[0],
-     response.contents.aboutSkillSoftware[0]
-    ]"
-   >
-   </profile>
-  </section>
-
-  <section>
-   <history
-    v-bind:dates="response.contents.aboutHistoryDate"
-    v-bind:titles="response.contents.aboutHistoryTitle"
-    v-bind:positions="response.contents.aboutHistoryPositions"
-    v-bind:tools="response.contents.aboutHistoryTools"
-   >
-   </history>
-  </section>
-
-  <contact></contact>
-
-  <section>
-   <AdsenseList></AdsenseList>
-  </section>
- </div>
+  <main class="mn-wrap" :key="pageKey">
+    <PageTtl :ttl="pageTitle" :ttlEn="pageTitleEn" />
+    <PageLead :leadTx="storeLeadTx" />
+    <Profile :items="storeProfile" />
+    <History :items="storeHistory" />
+    <Contact />
+    <AdsenseList />
+  </main>
 </template>
 
-<script>
-import PageTitle from "~/components/PageTitle.vue";
-import PageLead from "~/components/PageLead.vue";
-import Profile from "~/components/Profile.vue";
-import History from "~/components/History.vue";
-import Contact from "~/components/Contact.vue";
-import AdsenseList from "~/components/AdsenseList.vue";
+<script lang="ts">
+import Vue from 'vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import mixinMeta from '~/mixins/meta'
+import PageTtl from '~/components/PageTtl.vue'
+import PageLead from '~/components/PageLead.vue'
+import Profile from '~/components/Profile.vue'
+import History from '~/components/History.vue'
+import Contact from '~/components/Contact.vue'
+import AdsenseList from '~/components/ad/AdsenseList.vue'
 
-export default {
- head: function() {
-  return {
-   title: "About",
-   meta: [
-    {
-     hid: "description",
-     name: "description",
-     content:
-      "東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のプロフィールやこれまでの経験、担当業務等をご紹介します。"
-    },
-    {
-     hid: "ogTitle",
-     property: "og:title",
-     content: "About | After Works."
-    },
-    {
-     hid: "ogUrl",
-     property: "og:url",
-     content: "https://afterworks.jp/about/"
-    },
-    {
-     hid: "ogSiteName",
-     property: "og:site_name",
-     content: "About | After Works."
-    },
-    {
-     hid: "ogDescription",
-     property: "og:description",
-     content:
-      "東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のプロフィールやこれまでの経験、担当業務等をご紹介します。"
-    },
-    {
-     hid: "twitterDescription",
-     name: "twitter:description",
-     content:
-      "東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。このページでは、私のプロフィールやこれまでの経験、担当業務等をご紹介します。"
+export default Vue.extend({
+  name: 'About',
+  mixins: [mixinMeta],
+  components: {
+    PageTtl: PageTtl,
+    PageLead: PageLead,
+    Profile: Profile,
+    History: History,
+    Contact: Contact,
+    AdsenseList: AdsenseList,
+  },
+  async asyncData({ store, $axios }) {
+    const dataKey = 'about'
+    if (
+      store.state.page_info.data[dataKey] == null ||
+      store.state.page_info.data[dataKey].id === ''
+    ) {
+      const res = await $axios.get(
+        '/json/page/' + dataKey + '.json?' + process.env.cashBuster
+      )
+      store.commit('page_info/setData', {
+        key: dataKey,
+        val: res.data,
+      })
     }
-   ],
-   link: [
-    {
-     hid: "canonical",
-     rel: "canonical",
-     href: "https://afterworks.jp/about/"
-    }
-   ]
-  };
- },
- components: {
-  PageTitle: PageTitle,
-  PageLead: PageLead,
-  Profile: Profile,
-  History: History,
-  Contact: Contact,
-  AdsenseList: AdsenseList
- },
- data: function() {
-  return {
-   response: ""
-  };
- },
- async asyncData({ $axios }) {
-  let url = "/json/page/about.json" + process.env.cashBuster;
-  if (process.server) {
-   url = "https://afterworks.jp" + url;
-  } else {
-   let hostname = location.hostname;
-   if (hostname === "localhost") {
-    hostname += ":3000";
-   }
-   url = location.protocol + "//" + hostname + url;
-  }
+  },
+  computed: {
+    // 前文を返す処理
+    storeLeadTx: function () {
+      const data = this.$store.state.page_info.data
+      if (data.about != null && data.about.contents.aboutLead.length > 0) {
+        return data.about.contents.aboutLead[0]
+      } else {
+        return ''
+      }
+    },
+    // プロフィール部分の内容を返す処理
+    storeProfile: function () {
+      const data = this.$store.state.page_info.data
+      interface storeProfileResult {
+        [key: string]: any
+      }
+      const result: storeProfileResult = {
+        name: '',
+        certificate: [],
+        skill: [],
+      }
 
-  const res = await $axios.get(url);
-  return {
-   response: res.data
-  };
- },
- mounted: function() {
-  /*------------------------------------------
-   Scrooll Magic
-  --------------------------------------------*/
-  let sMagicController = new ScrollMagic.Controller();
+      if (data.about != null) {
+        if (data.about.contents.aboutName.length > 0) {
+          result.name = data.about.contents.aboutName[0]
+        }
 
-  let $sMagicFadeIn = document.querySelectorAll(".s-magic-fadein");
-  const sMagicFadeInLength = $sMagicFadeIn.length;
+        if (data.about.contents.aboutCertificateName.length > 0) {
+          for (
+            let i = 0,
+              iLength = data.about.contents.aboutCertificateName.length;
+            i < iLength;
+            i = (i + 1) | 0
+          ) {
+            let certificateInfo = {
+              tx: data.about.contents.aboutCertificateName[i],
+              url: '',
+            }
 
-  if (sMagicFadeInLength > 0) {
-   Array.prototype.forEach.call($sMagicFadeIn, function($item, i) {
-    let sMagicFadeInScene = new ScrollMagic.Scene({
-     // 対象要素
-     triggerElement: $item,
-     triggerHook: "onEnter",
-     reverse: false,
-     offset: 150
-    }).addTo(sMagicController);
+            if (data.about.contents.aboutCertificateUrl.length > i) {
+              certificateInfo.url = data.about.contents.aboutCertificateUrl[i]
+            }
 
-    // アニメーション開始時の処理
-    sMagicFadeInScene.on("enter", function() {
-     const delayTime = $sMagicFadeIn[i].dataset.pcIndex * 300;
-     $sMagicFadeIn[i].style.transitionDelay = delayTime + "ms";
-     setTimeout(function() {
-      $sMagicFadeIn[i].style.transitionDelay = "";
-     }, delayTime);
-     $sMagicFadeIn[i].classList.add("s-magic-on");
-    });
+            result.certificate.push(certificateInfo)
+          }
+        }
 
-    // アニメーション完了時の処理
-    sMagicFadeInScene.on("end", function() {
-     sMagicFadeInScene.destroy(true);
-    });
-   });
-  }
- }
-};
+        if (
+          data.about.contents.aboutSkillFrontendProgrammingLanguage.length > 0
+        ) {
+          result.skill.push(
+            data.about.contents.aboutSkillFrontendProgrammingLanguage[0]
+          )
+        }
+
+        if (data.about.contents.aboutSkillCms.length > 0) {
+          result.skill.push(data.about.contents.aboutSkillCms[0])
+        }
+
+        if (
+          data.about.contents.aboutSkillServerSideProgrammingLanguage.length > 0
+        ) {
+          result.skill.push(
+            data.about.contents.aboutSkillServerSideProgrammingLanguage[0]
+          )
+        }
+
+        if (data.about.contents.aboutSkillSoftware.length > 0) {
+          result.skill.push(data.about.contents.aboutSkillSoftware[0])
+        }
+      }
+
+      return result
+    },
+    // 経歴部分の内容を返す処理
+    storeHistory: function () {
+      const data = this.$store.state.page_info.data
+      interface storeHistoryResult {
+        [key: string]: any
+      }
+      const result: storeHistoryResult = {}
+
+      if (
+        data.about != null &&
+        data.about.contents.aboutHistoryDate.length > 0
+      ) {
+        for (
+          let i = 0, iLength = data.about.contents.aboutHistoryDate.length;
+          i < iLength;
+          i = (i + 1) | 0
+        ) {
+          const key = data.about.contents.aboutHistoryDate[i]
+
+          if (result[key] == null) {
+            result[key] = []
+          }
+
+          let historyInfo = {
+            ttl: data.about.contents.aboutHistoryTitle[i],
+            pos: data.about.contents.aboutHistoryPositions[i],
+            tools: data.about.contents.aboutHistoryTools[i],
+          }
+
+          result[key].push(historyInfo)
+        }
+      }
+
+      return result
+    },
+  },
+})
 </script>
 
-<style></style>
+<style lang="scss"></style>

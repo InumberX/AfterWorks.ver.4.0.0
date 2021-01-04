@@ -1,121 +1,136 @@
 <template>
- <div class="index-wrap" v-if="!this.$store.state.isLoading">
-  <mainVisual></mainVisual>
-
-  <contentsLead v-bind:text="response.contents.indexMessage[0]"> </contentsLead>
-
-  <section>
-   <contentsTitle titleEn="Service" title="提供サービス"> </contentsTitle>
-
-   <cardList
-    v-bind:titles="response.contents.indexServiceTitle"
-    v-bind:texts="response.contents.indexServiceText"
-    v-bind:classes="response.contents.indexServiceClass"
-   >
-   </cardList>
-  </section>
-
-  <section>
-   <contentsTitle titleEn="Contents" title="コンテンツ"> </contentsTitle>
-
-   <cardList
-    v-bind:titles="response.contents.indexContentsTitle"
-    v-bind:texts="response.contents.indexContentsText"
-    v-bind:classes="response.contents.indexContentsClass"
-    v-bind:links="response.contents.indexContentsLink"
-    v-bind:linkTexts="response.contents.indexContentsLinkText"
-   >
-   </cardList>
-  </section>
-
-  <contact></contact>
-
-  <section>
-   <AdsenseList></AdsenseList>
-  </section>
- </div>
+  <main class="mn-wrap" :key="pageKey">
+    <IdxMainVisual />
+    <IdxLead :leadTx="storeLeadTx" />
+    <template v-for="(item, i) in cntData">
+      <IdxCnt
+        :ttl="item.ttl"
+        :ttlEn="item.ttlEn"
+        :key="item.id"
+        :cnt="storeCnt(item.id)"
+      />
+    </template>
+    <Contact />
+    <AdsenseList />
+  </main>
 </template>
 
-<script>
-import MainVisual from "~/components/MainVisual.vue";
-import ContentsLead from "~/components/ContentsLead.vue";
-import ContentsTitle from "~/components/ContentsTitle.vue";
-import CardList from "~/components/CardList.vue";
-import Contact from "~/components/Contact.vue";
-import AdsenseList from "~/components/AdsenseList.vue";
+<script lang="ts">
+import Vue from 'vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import mixinMeta from '~/mixins/meta'
+import IdxMainVisual from '~/components/IdxMainVisual.vue'
+import IdxLead from '~/components/IdxLead.vue'
+import IdxCnt from '~/components/IdxCnt.vue'
+import Contact from '~/components/Contact.vue'
+import AdsenseList from '~/components/ad/AdsenseList.vue'
 
-export default {
- head: {
-  title: "After Works.",
-  titleTemplate: ""
- },
- components: {
-  MainVisual: MainVisual,
-  ContentsLead: ContentsLead,
-  ContentsTitle: ContentsTitle,
-  CardList: CardList,
-  Contact: Contact,
-  AdsenseList: AdsenseList
- },
- data: function() {
-  return {
-   response: ""
-  };
- },
- async asyncData({ $axios }) {
-  let url = "/json/page/index.json" + process.env.cashBuster;
-  if (process.server) {
-   url = "https://afterworks.jp" + url;
-  } else {
-   let hostname = location.hostname;
-   if (hostname === "localhost") {
-    hostname += ":3000";
-   }
-   url = location.protocol + "//" + hostname + url;
-  }
+export default Vue.extend({
+  name: 'Index',
+  mixins: [mixinMeta],
+  components: {
+    IdxMainVisual: IdxMainVisual,
+    IdxLead: IdxLead,
+    IdxCnt: IdxCnt,
+    Contact: Contact,
+    AdsenseList: AdsenseList,
+  },
+  async asyncData({ store, $axios }) {
+    const dataKey = 'index'
+    if (
+      store.state.page_info.data[dataKey] == null ||
+      store.state.page_info.data[dataKey].id === ''
+    ) {
+      const res = await $axios.get(
+        '/json/page/' + dataKey + '.json?' + process.env.cashBuster
+      )
+      store.commit('page_info/setData', {
+        key: dataKey,
+        val: res.data,
+      })
+    }
+  },
+  data: function () {
+    return {
+      cntData: [
+        {
+          id: 'Service',
+          ttl: '提供サービス',
+          ttlEn: 'Service',
+        },
+        {
+          id: 'Contents',
+          ttl: 'コンテンツ',
+          ttlEn: 'Contents',
+        },
+      ],
+    }
+  },
+  computed: {
+    // 前文を返す処理
+    storeLeadTx: function () {
+      const data = this.$store.state.page_info.data
+      if (data.index != null && data.index.contents.indexMessage.length > 0) {
+        return data.index.contents.indexMessage[0]
+      } else {
+        return ''
+      }
+    },
+    // コンテンツ部分の内容を返す処理
+    storeCnt: function () {
+      const self = this
+      return function (type: String) {
+        const targets = [
+          {
+            key: 'ttl',
+            name: 'index' + type + 'Title',
+          },
+          {
+            key: 'tx',
+            name: 'index' + type + 'Text',
+          },
+          {
+            key: 'className',
+            name: 'index' + type + 'Class',
+          },
+          {
+            key: 'link',
+            name: 'index' + type + 'Link',
+          },
+          {
+            key: 'linkTx',
+            name: 'index' + type + 'LinkText',
+          },
+        ]
+        interface storeCntResult {
+          [key: string]: any
+        }
+        const result: storeCntResult = {}
+        const data = self.$store.state.page_info.data
 
-  const res = await $axios.get(url);
-  return {
-   response: res.data
-  };
- },
- mounted: function() {
-  /*------------------------------------------
-   Scrooll Magic
-  --------------------------------------------*/
-  let sMagicController = new ScrollMagic.Controller();
+        if (data.index != null) {
+          for (
+            let i = 0, iLength = targets.length;
+            i < iLength;
+            i = (i + 1) | 0
+          ) {
+            const target = targets[i]
+            const key = target.key
+            const name = target.name
 
-  let $sMagicFadeIn = document.querySelectorAll(".s-magic-fadein");
-  const sMagicFadeInLength = $sMagicFadeIn.length;
-
-  if (sMagicFadeInLength > 0) {
-   Array.prototype.forEach.call($sMagicFadeIn, function($item, i) {
-    let sMagicFadeInScene = new ScrollMagic.Scene({
-     // 対象要素
-     triggerElement: $item,
-     triggerHook: "onEnter",
-     reverse: false,
-     offset: 150
-    }).addTo(sMagicController);
-
-    // アニメーション開始時の処理
-    sMagicFadeInScene.on("enter", function() {
-     const delayTime = $sMagicFadeIn[i].dataset.pcIndex * 300;
-     $sMagicFadeIn[i].style.transitionDelay = delayTime + "ms";
-     setTimeout(function() {
-      $sMagicFadeIn[i].style.transitionDelay = "";
-     }, delayTime);
-     $sMagicFadeIn[i].classList.add("s-magic-on");
-    });
-
-    // アニメーション完了時の処理
-    sMagicFadeInScene.on("end", function() {
-     sMagicFadeInScene.destroy(true);
-    });
-   });
-  }
- }
-};
+            if (
+              data.index.contents[name] != null &&
+              data.index.contents[name].length > 0
+            ) {
+              result[key] = data.index.contents[name]
+            }
+          }
+        }
+        return result
+      }
+    },
+  },
+})
 </script>
 
-<style></style>
+<style lang="scss"></style>

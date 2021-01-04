@@ -1,181 +1,205 @@
 <template>
-
-<transition
- name="contents"
- appear
->
-
-<div class="profile-box">
-<div class="inner">
-<div class="profile-in">
-
-<div class="profile-image">
-<span><img src="/img/img_logo_nine.svg" alt="N/NE"></span>
-</div><!-- /.profile-image -->
-
-<div class="profile-info">
-
-<dl class="name">
-<dt>Name</dt>
-<dd>{{ name }}</dd>
-</dl>
-
-<dl class="certificate">
-<dt>Certificate</dt>
-<dd>
-<ul>
-<template v-for="(certificateName, i) in certificateNames" v-if="certificateName">
-<li v-if="certificateName">
-<a
- v-if="certificateUrls[i]"
- v-bind:href="certificateUrls[i]"
- target="_blank"
->{{ certificateName }}</a>
-<span v-else>{{ certificateName }}</span>
-</li>
+  <div class="cnt-wrap">
+    <div class="cnt-box">
+      <div class="inner">
+        <div class="prof-box">
+          <div class="prof">
+            <figure class="prof-img-box animelm animelm-scale-in">
+              <img
+                :src="imgLogo.url"
+                alt="N/NE"
+                class="prof-img"
+                width="80px"
+                height="80px"
+              />
+            </figure>
+            <div
+              class="prof-cnt-box animelm animelm-fade-in"
+              data-animelm-delay="400"
+            >
+              <dl class="prof-list">
+                <dt class="prof-ttl">名前</dt>
+                <dt class="prof-cnt">
+                  <span class="prof-tx">{{ items.name }}</span>
+                </dt>
+              </dl>
+              <dl class="prof-list" v-if="items.certificate.length > 0">
+                <dt class="prof-ttl">資格</dt>
+                <dt class="prof-cnt">
+                  <ul class="prof-items">
+                    <li
+                      class="prof-item"
+                      v-for="(item, i) in items.certificate"
+                    >
+                      <a
+                        v-if="item.url != ''"
+                        :href="item.url"
+                        class="prof-link"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <span class="prof-link-tx">{{ item.tx }}</span>
+                      </a>
+                      <span v-else class="prof-tx">{{ item.tx }}</span>
+                    </li>
+                  </ul>
+                </dt>
+              </dl>
+              <dl class="prof-list" v-if="items.skill.length > 0">
+                <dt class="prof-ttl">スキル</dt>
+                <dt class="prof-cnt">
+                  <ul class="prof-items">
+                    <li class="prof-item" v-for="(item, i) in items.skill">
+                      <span class="prof-tx">{{ item }}</span>
+                    </li>
+                  </ul>
+                </dt>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-</ul>
-</dd>
-</dl>
 
-<dl class="skill">
-<dt>Skill</dt>
-<dd>
-<ul>
-<li v-for="(skill, i) in skills" v-if="skill">
-{{ skill }}
-</li>
-</ul>
-</dd>
-</dl>
+<script lang="ts">
+import Vue from 'vue'
 
-<dl class="sns">
-<dt>SNS</dt>
-<dd><snsList></snsList></dd>
-</dl>
-
-</div><!-- /.profile-info -->
-
-</div><!-- /.profile-in -->
-</div><!-- /.inner -->
-</div><!-- /.profile-box -->
-
-</transition>
-
-</template>
-
-<script>
-import SnsList from '~/components/SnsList.vue';
-
-export default {
- props: [
-  'name',
-  'certificateNames',
-  'certificateUrls',
-  'skills'
- ],
- components: {
-  SnsList: SnsList
- }
-}
+export default Vue.extend({
+  name: 'Profile',
+  props: {
+    items: {},
+  },
+  data: function () {
+    return {
+      imgLogo: {
+        url: '/img/img_logo_nine.svg?' + process.env.cashBuster,
+      },
+    }
+  },
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+// 変数
+@import '~assets/css/_common/variable';
 
-/* プロフィール
-*************************************************/
-
-/* SP
-*************************************************/
-.profile-box {
- .profile-in {
-  margin: 32px 0 0;
-  .profile-image {
-   width: 80px;
-   margin: 0 auto;
-   span {
+.prof-box {
+  margin-top: 40px;
+}
+.prof-img-box {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 120px;
+  margin: 0 auto;
+  border: 4px solid $palette-gray--4;
+  overflow: hidden;
+  position: relative;
+  z-index: $z-index--2;
+}
+.prof-img {
+  width: 80px;
+  height: 80px;
+}
+.prof-cnt-box {
+  background-color: $palette-gray--4;
+  margin-top: -40px;
+  padding: 56px 16px 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: $z-index--1;
+  .prof-list {
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+.prof-list {
+  margin: 16px 0 0;
+}
+.prof-ttl {
+  margin: 0;
+  font-weight: 700;
+}
+.prof-cnt {
+  margin: 8px 0 0;
+}
+.prof-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .prof-item {
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+.prof-item {
+  position: relative;
+  margin: 8px 0 0;
+  padding: 0 0 0 16px;
+  &:before {
+    content: '';
     display: block;
-    img {
-     width: 100%;
-    }
-   }
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background-color: $palette-blue--1;
+    position: absolute;
+    top: 8px;
+    left: 0;
   }
-  .profile-info {
-   margin: 24px 0 0;
-   dl {
+}
+@media screen and (min-width: $bp--sm), print {
+  .prof-box {
+    margin-top: 56px;
+  }
+  .prof-img-box {
+    width: 120px;
+    height: 120px;
+  }
+  .prof-img {
+    width: 120px;
+    height: 120px;
+  }
+  .prof-cnt-box {
+    margin-top: -60px;
+    padding: 84px 24px 24px;
+  }
+  .prof-list {
+    margin: 24px 0 0;
     display: flex;
-    align-items: flex-start;
-    margin: 16px 0 0;
-    width: 100%;
-    dt {
-     margin: 0 8px 0 0;
-     padding: 0;
-     width: 80px;
-    }
-    dd {
-     margin: 0;
-     padding: 0;
-     width: calc(100% - 80px);
-     ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      li {
-       &:first-child {
-        margin-top: 0;
-       }
-      }
-     }
-    }
-    &.sns {
-     dt {
-      padding: 12px 0;
-     }
-    }
-   }
   }
- }
-}
-
-/* PC
-*************************************************/
-@media screen and (min-width: 768px) {
-
-.profile-box {
- .profile-in {
-  margin-top: 80px;
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  .profile-image {
-   width: 120px;
+  .prof-ttl {
+    min-width: 80px;
   }
-  .profile-info {
-   margin-top: 0;
-   width: calc(100% - 200px);
-   dl {
-    margin-top: 24px;
-    dt {
-     width: 88px;
-     margin-right: 16px;
-    }
-    dd {
-     margin: 0;
-     width: calc(100% - 104px);
-    }
-    &.sns {
-     dt {
-      padding: 10px 0;
-     }
-    }
-    &:first-child {
-     margin-top: 0;
-    }
-   }
+  .prof-cnt {
+    margin: 0;
+    padding-left: 16px;
   }
- }
+  .prof-item {
+    &:before {
+      top: 10px;
+    }
+  }
 }
-
+@media screen and (min-width: $bp--md), print {
+  .prof-box {
+    margin-top: 80px;
+  }
+  .prof {
+    display: flex;
+  }
+  .prof-img-box {
+    margin: 0;
+  }
+  .prof-cnt-box {
+    margin: 60px 0 0 -60px;
+    padding: 40px 40px 40px 84px;
+    width: calc(100% - 60px);
+  }
 }
-
 </style>

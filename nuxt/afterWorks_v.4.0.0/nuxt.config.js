@@ -1,251 +1,357 @@
-const now = new Date();
-let year = now.getFullYear();
-let month = now.getMonth() + 1;
-month = ('0' + month).slice(-2);
-let day = now.getDate();
-day = ('0' + day).slice(-2);
-let hour = now.getHours();
-hour = ('0' + hour).slice(-2);
-let minute = now.getMinutes();
-minute = ('0' + minute).slice(-2);
-let second = now.getSeconds();
-second = ('0' + second).slice(-2);
-const cashBuster = '?ver=' + year + month + day + hour + minute + second;
+const now = new Date()
+const nowDatetime =
+ now.getFullYear() +
+ ('0' + (now.getMonth() + 1)).slice(-2) +
+ ('0' + now.getDate()).slice(-2) +
+ ('0' + now.getHours()).slice(-2) +
+ ('0' + now.getMinutes()).slice(-2) +
+ ('0' + now.getSeconds()).slice(-2)
+
+const cashBuster = 'v=' + nowDatetime
+
+const title = 'After Works.'
+const protocol = 'https://'
+const domain = 'afterworks.jp'
+const url = protocol + domain
+const description =
+ '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
 
 export default {
- mode: 'universal',
  env: {
-  cashBuster: cashBuster
+  cashBuster: cashBuster,
+  title: title,
+  protocol: protocol,
+  domain: domain,
+  url: url,
+  urlLocal: 'http://localhost:3000',
+  description: description,
  },
+
+ // Target (https://go.nuxtjs.dev/config-target)
+ target: 'static',
+
  router: {
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
-  // ページ遷移時の設定
-  scrollBehavior: function(to, from, savedPosition) {
-   // トップまでスクロールする
-   return { x: 0, y: 0 };
-  },
   extendRoutes(routes, resolve) {
    routes.push({
     name: 'notFound',
     path: '*',
-    component: resolve(__dirname, 'pages/index.vue')
-   });
-  }
+    component: resolve(__dirname, 'pages/index.vue'),
+   })
+  },
  },
 
- /*
-  ** Headers of the page
-  */
+ // ページ遷移の設定
+ pageTransition: {
+  name: 'va-page',
+  mode: 'out-in',
+ },
+
+ // Global page headers (https://go.nuxtjs.dev/config-head)
  head: {
-  titleTemplate: '%s | After Works.',
+  titleTemplate: '%s | ' + title,
   htmlAttrs: {
    lang: 'ja',
-   prefix: 'og: http://ogp.me/ns#'
   },
   meta: [
    {
-    charset: 'utf-8'
+    charset: 'utf-8',
    },
    {
     name: 'viewport',
-    content: 'width=device-width, initial-scale=1'
+    content:
+     'width=device-width, initial-scale=1.0, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover',
    },
    {
-    hid: 'xUaCompatible',
+    hid: 'X-UA-Compatible',
     'http-equiv': 'X-UA-Compatible',
-    content: 'IE=edge'
+    content: 'IE=edge',
    },
    {
-    hid: 'telephone',
+    hid: 'format-detection',
     name: 'format-detection',
-    content: 'telephone=no'
-   },
-   {
-    hid: 'googleSiteVerification',
-    name: 'google-site-verification',
-    content: 'kLXEZtzfT83BFaBZNnYYyVaz56QkXd4bWABqFhaCvhk'
+    content: 'telephone=no',
    },
    {
     hid: 'description',
     name: 'description',
-    content:
-     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+    content: description,
    },
    {
-    hid: 'keywords',
-    name: 'keywords',
-    content:
-     'フロントエンドエンジニア,webデザイン,webデザイナー,ポートフォリオ,東京,html,css,javascript,web制作,フリーランス'
-   },
-   {
-    hid: 'ogTitle',
-    property: 'og:title',
-    content: 'After Works.'
-   },
-   {
-    hid: 'ogType',
+    hid: 'og:type',
     property: 'og:type',
-    content: 'website'
+    content: 'website',
    },
    {
-    hid: 'ogUrl',
-    property: 'og:url',
-    content: 'https://afterworks.jp/'
-   },
-   {
-    hid: 'ogImage',
+    hid: 'og:image',
     property: 'og:image',
-    content: 'https://afterworks.jp/img/img_og_1.png'
+    content: url + '/img/img_og.png',
    },
    {
-    hid: 'ogSiteName',
+    hid: 'og:site_name',
     property: 'og:site_name',
-    content: 'After Works.'
+    content: title,
    },
    {
-    hid: 'ogDescription',
+    hid: 'og:description',
     property: 'og:description',
-    content:
-     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+    content: description,
    },
    {
-    hid: 'twitterCard',
+    hid: 'twitter:card',
     name: 'twitter:card',
-    content: 'summary_large_image'
+    content: 'summary',
    },
    {
-    hid: 'twitterSite',
+    hid: 'twitter:site',
     name: 'twitter:site',
-    content: '@InumberX'
+    content: '@InumberX',
    },
    {
-    hid: 'twitterDescription',
+    hid: 'twitter:description',
     name: 'twitter:description',
-    content:
-     '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
-   }
+    content: description,
+   },
+   {
+    hid: 'theme-color',
+    name: 'theme-color',
+    content: '#12c2e9',
+   },
   ],
   link: [
    {
-    hid: 'faviconIco',
-    rel: 'shortcut icon',
-    type: 'image/x-icon',
-    href: '/img/favicon.ico'
-   },
-   {
-    hid: 'faviconPng',
+    hid: 'icon',
     rel: 'icon',
-    type: 'image/png',
-    href: '/img/favicon.png'
+    href: '/img/favicon.ico',
    },
    {
-    hid: 'appleTouchIcon',
+    hid: 'apple-touch-icon',
     rel: 'apple-touch-icon',
-    href: '/img/favicon.png'
+    href: '/img/favicon_180.png',
    },
-   {
-    hid: 'canonical',
-    rel: 'canonical',
-    href: 'https://afterworks.jp/'
-   }
   ],
   script: [
    {
-    src: '/js/scroll-magic.min.js' + cashBuster,
-    type: 'text/javascript',
-    body: true
+    src: '/js/closest.polyfill.min.js?' + cashBuster,
+    body: false,
+    defer: true,
    },
    {
-    src: '/js/smooth-scroll.polyfills.min.js' + cashBuster,
-    type: 'text/javascript',
-    body: true
-   }
-  ]
+    src: '/js/object-assign.polyfill.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/intersection-observer.polyfill.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/promise.polyfills.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/smooth-scroll.polyfills.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/gsap.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/wavify.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/event-delegate.min.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+   {
+    src: '/js/common.js?' + cashBuster,
+    body: false,
+    defer: true,
+   },
+  ],
  },
+
+ // Global CSS (https://go.nuxtjs.dev/config-css)
+ css: [
+  {
+   src: '@/assets/css/common.scss',
+   lang: 'scss',
+  },
+ ],
+
  /*
   ** Customize the progress-bar color
   */
  loading: {
   color: '#002984',
-  height: '4px'
+  height: '4px',
  },
- loadingIndicator: {
-  name: '~/components/common/Loading.html'
- },
- /*
-  ** Global CSS
-  */
- css: [
-  {
-   src: '@/assets/css/common.scss',
-   lang: 'scss'
-  },
-  {
-   src: '@/assets/css/common_pc.scss',
-   lang: 'scss'
-  }
- ],
- /*
-  ** Plugins to load before mounting the App
-  */
+
+ // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
  plugins: [
   {
    src: '@/plugins/vee-validate',
-   ssr: false
-  },
-  {
-   src: '@/plugins/object-assign',
-   ssr: false
-  },
-  {
-   src: '@/plugins/promise.min',
-   ssr: false
+   mode: 'client',
   },
   {
    src: '@/plugins/ga.js',
-   ssr: false
-  }
+   mode: 'client',
+  },
  ],
- /*
-  ** Nuxt.js modules
-  */
+
+ // Auto import components (https://go.nuxtjs.dev/config-components)
+ components: true,
+
+ // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+ buildModules: [
+  // https://go.nuxtjs.dev/typescript
+  '@nuxt/typescript-build',
+ ],
+
+ // Modules (https://go.nuxtjs.dev/config-modules)
  modules: [
-  // Doc: https://axios.nuxtjs.org/usage
-  '@nuxtjs/axios'
+  // https://go.nuxtjs.dev/axios
+  '@nuxtjs/axios',
+  '@nuxtjs/proxy',
+  // https://go.nuxtjs.dev/pwa
+  '@nuxtjs/pwa',
  ],
- /*
-  ** Axios module configuration
-  */
- axios: {
-  // See https://github.com/nuxt-community/axios-module#options
+
+ proxy: {
+  '/json/': {
+   target: url,
+  },
+  '/api/': {
+   target: url,
+  },
  },
- /*
-  ** Build configuration
-  */
+
+ // Axios module configuration (https://go.nuxtjs.dev/config-axios)
+ axios: {
+  proxy: true,
+ },
+
+ // Build Configuration (https://go.nuxtjs.dev/config-build)
  build: {
   filenames: {
-   app: () => 'js/[name].js' + cashBuster,
-   chunk: () => 'js/[name].js' + cashBuster,
-   css: () => 'css/[name].css' + cashBuster,
-   img: () => 'img/[name].[ext]' + cashBuster,
-   font: () => 'font/[name].[ext]' + cashBuster,
-   video: () => 'video/[name].[ext]' + cashBuster
+   app: () => 'js/[name].js?' + cashBuster,
+   chunk: () => 'js/[name].js?' + cashBuster,
+   css: () => 'css/[name].css?' + cashBuster,
+   img: () => 'img/[name].[ext]?' + cashBuster,
+   font: () => 'font/[name].[ext]?' + cashBuster,
+   video: () => 'video/[name].[ext]?' + cashBuster,
   },
-  extractCSS: true,
-  /*
-   ** You can extend webpack config here
-   */
-  extend(config, ctx) {}
  },
- /*
-  ** generate
-  */
- generate: {
-  fallback: true
+
+ // PWA
+ pwa: {
+  icon: false,
  },
- /*
-  ** hooks
-  */
- hooks: {}
-};
+ manifest: {
+  name: title,
+  title: title,
+  lang: 'ja',
+  theme_color: '#002984',
+  background_color: '#ffffff',
+  display: 'standalone',
+  scope: '/',
+  start_url: url + '/',
+  icons: [
+   {
+    src: '/img/favicon_72.png',
+    sizes: '72x72',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_96.png',
+    sizes: '96x96',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_128.png',
+    sizes: '128x128',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_144.png',
+    sizes: '144x144',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_152.png',
+    sizes: '152x152',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_192.png',
+    sizes: '192x192',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_384.png',
+    sizes: '384x384',
+    type: 'image/png',
+   },
+   {
+    src: '/img/favicon_512.png',
+    sizes: '512x512',
+    type: 'image/png',
+   },
+  ],
+ },
+ workbox: {
+  offline: false,
+  cacheAssets: false,
+  skipWaiting: true,
+  clientsClaim: true,
+  cleanupOutdatedCaches: true,
+  cacheOptions: {
+   revision: nowDatetime,
+  },
+  cacheNames: {
+   precache: 'afterworks-precache-v' + nowDatetime,
+  },
+  preCaching: [
+   {
+    url: '/json/page/index.json',
+    revision: nowDatetime,
+   },
+   {
+    url: '/json/page/about.json',
+    revision: nowDatetime,
+   },
+   {
+    url: '/json/page/works.json',
+    revision: nowDatetime,
+   },
+   {
+    url: '/json/frm_info.json',
+    revision: nowDatetime,
+   },
+  ],
+  runtimeCaching: [
+   {
+    urlPattern: '/*',
+    handler: 'networkFirst',
+    method: 'GET',
+    strategyOptions: {
+     cacheExpiration: {
+      maxAgeSeconds: 0,
+     },
+     cacheableResponse: {
+      statuses: [200],
+     },
+    },
+   },
+  ],
+ },
+}

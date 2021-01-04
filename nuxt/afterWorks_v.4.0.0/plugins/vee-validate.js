@@ -1,12 +1,12 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import {
  ValidationProvider,
  ValidationObserver,
  extend,
  localize,
- setInteractionMode
-} from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+ setInteractionMode,
+} from 'vee-validate'
+import { required, email, max, regex } from 'vee-validate/dist/rules'
 
 localize({
  ja: {
@@ -58,18 +58,19 @@ localize({
    required_if:
     '<span class="frm-err-field-name">{_field_}</span>は必須項目です',
    size:
-    '<span class="frm-err-field-name">{_field_}</span>は{size}KB以内でなければなりません'
-  }
- }
-});
+    '<span class="frm-err-field-name">{_field_}</span>は{size}KB以内でなければなりません',
+  },
+ },
+})
 
-localize('ja');
+localize('ja')
 
-setInteractionMode('eager');
+setInteractionMode('eager')
 
-extend('required', required);
+extend('required', required)
+extend('email', email)
+extend('max', max)
+extend('regex', regex)
 
-extend('email', email);
-
-Vue.component('ValidationProvider', ValidationProvider);
-Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider)
+Vue.component('ValidationObserver', ValidationObserver)

@@ -1,397 +1,321 @@
 <template>
- <transition name="contents" appear>
-  <div class="input-box" id="INPUT_BOX">
-   <div class="inner">
-    <transition name="fade">
-     <div class="error-topbox" v-show="isFormError" v-cloak>
-      <p>入力項目に誤りがあります。</p>
-     </div>
-    </transition>
-
-    <validation-observer
-     ref="validationObs"
-     v-slot="validationObsProps"
-     tag="div"
-     class="input-list"
-    >
-     <dl class="inset">
-      <dt>お名前<span class="required"></span></dt>
-      <dd>
-       <validation-provider
-        name="お名前"
-        :rules="{ required: true }"
-        tag="div"
-        class="frm-provider-box"
-       >
-        <fieldset class="form-text" slot-scope="validationProviderProps">
-         <label :class="{ error: validationProviderProps.errors[0] }">
-          <input
-           name="appName"
-           type="text"
-           placeholder="例：田中　太郎"
-           v-model="applicant[0].name"
-          />
-         </label>
-         <transition name="fade">
-          <div
-           class="error-box"
-           v-if="validationProviderProps.errors[0]"
-           v-cloak
-          >
-           <p v-html="validationProviderProps.errors[0]"></p>
+  <div class="cnt-wrap is-frm">
+    <div class="cnt-box">
+      <div class="inner">
+        <div class="frm-box" :class="[{ 'is-active': flgShowContact }]">
+          <div class="frm-top-mes-box">
+            <p class="frm-top-mes">
+              下記フォームにご入力の上、お気軽にお問い合わせください。
+            </p>
           </div>
-         </transition>
-        </fieldset>
-       </validation-provider>
-      </dd>
-     </dl>
-
-     <dl class="inset">
-      <dt>メールアドレス<span class="required"></span></dt>
-      <dd>
-       <validation-provider
-        name="メールアドレス"
-        :rules="{ required: true, email: true }"
-        tag="div"
-        class="frm-provider-box"
-       >
-        <fieldset class="form-text" slot-scope="validationProviderProps">
-         <label :class="{ error: validationProviderProps.errors[0] }">
-          <input
-           name="appMail"
-           type="text"
-           placeholder="例：abc@xyz.com"
-           v-model="applicant[0].mail"
-          />
-         </label>
-         <transition name="fade">
-          <div
-           class="error-box"
-           v-if="validationProviderProps.errors[0]"
-           v-cloak
-          >
-           <p v-html="validationProviderProps.errors[0]"></p>
-          </div>
-         </transition>
-        </fieldset>
-       </validation-provider>
-      </dd>
-     </dl>
-
-     <dl class="inset">
-      <dt>お問い合わせ内容<span class="required"></span></dt>
-      <dd>
-       <validation-provider
-        name="お問い合せ内容"
-        :rules="{ required: true }"
-        tag="div"
-        class="frm-provider-box"
-       >
-        <fieldset class="form-textarea" slot-scope="validationProviderProps">
-         <label :class="{ error: validationProviderProps.errors[0] }">
-          <textarea
-           name="appInquiry"
-           placeholder="例：Webサイト制作について"
-           v-model="applicant[0].inquiry"
-          ></textarea>
-         </label>
-
-         <transition name="fade">
-          <div
-           class="error-box"
-           v-if="validationProviderProps.errors[0]"
-           v-cloak
-          >
-           <p v-html="validationProviderProps.errors[0]"></p>
-          </div>
-         </transition>
-        </fieldset>
-       </validation-provider>
-      </dd>
-     </dl> </validation-observer
-    ><!-- /.input-list -->
-
-    <div class="form-btn-box">
-     <div class="form-btn-next">
-      <button name="formSubmitConfirm" class="btn-m1" v-on:click="checkConfirm">
-       確認する
-      </button>
-     </div>
-    </div>
-    <!-- /.form-btn-box -->
-
-    <transition name="fade">
-     <div class="overlay-box" v-if="isModal" v-cloak>
-      <div class="modal-wrap">
-       <div class="modal-box">
-        <div class="modal-box-in">
-         <div class="title-box">
-          <h2 class="tt">お問い合せ内容確認</h2>
-         </div>
-         <!-- /.title-box -->
-         <div class="input-box confirm">
-          <div class="lead-box">
-           <p class="lead">以下の内容で送信します。よろしいですか？</p>
-          </div>
-          <!-- /.lead-box -->
-          <div class="input-list">
-           <dl class="inset">
-            <dt>お名前</dt>
-            <dd>{{ applicant[0].name }}</dd>
-           </dl>
-           <dl class="inset">
-            <dt>メールアドレス</dt>
-            <dd>{{ applicant[0].mail }}</dd>
-           </dl>
-           <dl class="inset">
-            <dt>お問い合わせ内容</dt>
-            <dd>{{ applicant[0].inquiry }}</dd>
-           </dl>
-          </div>
-          <!-- /.input-list -->
-
-          <div class="form-btn-box">
-           <div class="form-btn-next">
-            <button
-             name="formSubmitConfirm"
-             class="btn-m1"
-             v-on:click="checkRegist"
+          <transition name="va-fade">
+            <div
+              class="frm-err-mes-box"
+              v-show="flgErrorMes"
+              v-cloak
+              id="frm-err-mes"
             >
-             <i class="icon icon-mail"></i>送信する
-            </button>
-           </div>
-           <div class="form-bottom-link back">
-            <button class="form-link-back" v-on:click="closeModal">戻る</button>
-           </div>
+              <p class="frm-err-mes">入力項目に誤りがあります。</p>
+            </div>
+          </transition>
+          <validation-observer
+            ref="validationObs"
+            v-slot="validationObsProps"
+            tag="div"
+            class="frm"
+          >
+            <dl
+              v-for="(item, i) in items"
+              class="frm-set"
+              :class="item.className"
+              :key="item.fieldName"
+            >
+              <dt class="frm-ttl">
+                {{ item.name
+                }}<span class="frm-required" v-if="isRequired(item.rules)"
+                  >必須</span
+                >
+              </dt>
+              <dd class="frm-cnt">
+                <InputText v-if="item.type === 'text'" :item="item" />
+                <InputMail v-if="item.type === 'mail'" :item="item" />
+                <InputTel v-if="item.type === 'tel'" :item="item" />
+                <InputTextArea v-if="item.type === 'textarea'" :item="item" />
+                <InputRadio v-if="item.type === 'radio'" :item="item" />
+                <InputCheck v-if="item.type === 'checkbox'" :item="item" />
+                <InputSelect v-if="item.type === 'select'" :item="item" />
+              </dd>
+            </dl>
+          </validation-observer>
+          <div class="frm-btm-box">
+            <div class="frm-btm-next-wrap">
+              <div class="frm-btn-next">
+                <button
+                  type="button"
+                  name="frmConfirm"
+                  class="sbmt-btn"
+                  @click="confirm"
+                >
+                  <span class="sbmt-btn-tx">確認</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <!-- /.form-btn-box -->
-         </div>
-         <!-- /.input-box -->
+          <transition name="va-fade">
+            <div class="overlay-wrap" v-if="flgShowModal">
+              <div
+                class="overlay-box"
+                v-if="flgShowModal"
+                :class="[{ 'is-active': flgShowModal }]"
+              >
+                <div class="modal-wrap">
+                  <div class="modal-box">
+                    <div class="modal">
+                      <div class="modal-ttl-box">
+                        <p class="modal-ttl">お問い合わせ内容確認</p>
+                      </div>
+                      <div class="modal-cnt-box">
+                        <div class="frm-conf-box">
+                          <div class="frm-top-mes-box">
+                            <p class="frm-top-mes">
+                              以下の内容で送信します。よろしいですか？
+                            </p>
+                          </div>
+                          <div class="frm">
+                            <dl
+                              v-for="(item, i) in items"
+                              class="frm-set"
+                              v-if="isNotEmpty(item.val)"
+                            >
+                              <dt class="frm-ttl">{{ item.name }}</dt>
+                              <dd class="frm-cnt">
+                                <span
+                                  class="frm-cnt-tx"
+                                  v-html="getCntTx(item.val)"
+                                  >{{ item.val }}</span
+                                >
+                              </dd>
+                            </dl>
+                          </div>
+                          <div class="frm-btm-box">
+                            <div class="frm-btm-next-wrap">
+                              <div class="frm-btn-next">
+                                <button
+                                  type="button"
+                                  name="frmSbmt"
+                                  class="sbmt-btn"
+                                  @click="sbmt()"
+                                  :class="{ 'is-sending': flgSend }"
+                                >
+                                  <span class="sbmt-btn-tx">送信</span>
+                                </button>
+                              </div>
+                              <div class="frm-btn-back">
+                                <button
+                                  type="button"
+                                  name="frmBack"
+                                  class="back-btn"
+                                  @click="back()"
+                                >
+                                  <span class="back-btn-tx">戻る</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.modal-cnt-box -->
+                    </div>
+                    <!-- /.modal -->
+                  </div>
+                  <!-- /.modal-box -->
+                </div>
+                <!-- /.modal-wrap -->
+              </div>
+              <!-- /.overlay-box -->
+              <div
+                class="overlay-bg"
+                v-if="flgShowModal"
+                :class="[{ 'is-active': flgShowModal }]"
+              ></div>
+            </div>
+          </transition>
         </div>
-        <!-- /.modal-box-in -->
-       </div>
-       <!-- /.modal-box -->
       </div>
-      <!-- /.modal-wrap -->
-     </div>
-     <!-- /.overlay-box -->
-    </transition>
-
-    <transition name="fade">
-     <div
-      class="overlay-bg"
-      v-if="isOverlay"
-      v-on:click="closeModal"
-      v-cloak
-     ></div>
-    </transition>
-
-    <transition name="fade">
-     <div class="loader-bg" v-if="isSend" v-cloak>
-      <div class="loader"></div>
-     </div>
-    </transition>
-   </div>
-   <!-- /.inner -->
+    </div>
   </div>
-  <!-- /.input-box -->
- </transition>
 </template>
 
 <script>
-import axios from "axios";
+import Vue from 'vue'
+import axios from 'axios'
+import mixinUtils from '~/mixins/utils'
+import InputText from '~/components/input/InputText.vue'
+import InputMail from '~/components/input/InputMail.vue'
+import InputTel from '~/components/input/InputTel.vue'
+import InputTextArea from '~/components/input/InputTextArea.vue'
+import InputRadio from '~/components/input/InputRadio.vue'
+import InputCheck from '~/components/input/InputCheck.vue'
+import InputSelect from '~/components/input/InputSelect.vue'
 
-export default {
- data: function() {
-  return {
-   // スムーススクロール
-   smoothScroll: "",
-   smoothScrollOption: "",
-   // モーダル表示フラグ
-   isModal: false,
-   // モーダル背景表示フラグ
-   isOverlay: false,
-   // 入力エラー
-   isFormError: false,
-   // 送信処理状態の判定
-   isSend: false,
-   // 入力フォームの画面遷移判定
-   formMode: "form",
-   // 申込者情報
-   applicant: [
-    {
-     // お名前
-     name: "",
-     // メールアドレス
-     mail: "",
-     // お問い合わせ内容
-     inquiry: ""
-    }
-   ]
-  };
- },
- // インスタンスが作成された後に実行する処理
- created: function() {
-  // 現在年を取得
-  const now = new Date();
-  const year = now.getFullYear();
-  this.currentYear = year;
-
-  if (process.browser) {
-   // スムーススクロール
-   this.smoothScroll = new SmoothScroll();
-   this.smoothScrollOption = {
-    header: "#HEADER",
-    offset: 20,
-    updateURL: false
-   };
-  }
- },
- // 各処理
- methods: {
-  // モーダルを開く処理
-  openModal: function() {
-   this.winY = document.documentElement.scrollTop || document.body.scrollTop;
-   this.isOverlay = true;
-   this.isModal = true;
-   $body.classList.add("m-op");
-   $body.setAttribute("style", "top: -" + this.winY + "px;");
+export default Vue.extend({
+  name: 'ContactInput',
+  mixins: [mixinUtils],
+  components: {
+    InputText: InputText,
+    InputMail: InputMail,
+    InputTel: InputTel,
+    InputTextArea: InputTextArea,
+    InputRadio: InputRadio,
+    InputCheck: InputCheck,
+    InputSelect: InputSelect,
   },
-  // モーダルを閉じる処理
-  closeModal: function() {
-   this.isOverlay = false;
-   this.isModal = false;
-   let $body = document.body;
-   $body.classList.remove("m-op");
-   $body.removeAttribute("style");
-   window.scrollTo(0, this.winY);
+  props: {
+    items: {},
   },
-  // 確認画面遷移時の処理
-  checkConfirm: function() {
-   let self = this;
-   // バリデーション
-   this.$refs.validationObs.validate().then(function(result) {
-    // エラーがなかった場合
-    if (result) {
-     self.isFormError = false;
-    } else {
-     // エラーがあった場合
-     self.isFormError = true;
+  data: function () {
+    return {
+      winY: 0,
+      flgErrorMes: false,
+      flgShowModal: false,
+      flgSend: false,
+      flgShowContact: false,
     }
-
-    // エラーの場合
-    if (self.isFormError) {
-     self.smoothScroll.animateScroll(
-      document.querySelector("#INPUT_BOX"),
-      "",
-      self.smoothScrollOption
-     );
-     return false;
-    }
-    // エラーがない場合
-    else {
-     // 画面を確認用にする
-     self.formMode = "confirm";
-     self.winY = document.documentElement.scrollTop || document.body.scrollTop;
-     self.isOverlay = true;
-     self.isModal = true;
-     let $body = document.body;
-     $body.classList.add("m-op");
-     $body.setAttribute("style", "top: -" + self.winY + "px;");
-    }
-   });
   },
-  // 完了画面遷移時の処理
-  checkRegist: function() {
-   let self = this;
-   // 送信処理をまだ実行していない場合
-   if (!this.isSend) {
-    // バリデーション
-    this.$refs.validationObs.validate().then(function(result) {
-     // エラーがなかった場合
-     if (result) {
-      self.isFormError = false;
-     } else {
-      // エラーがあった場合
-      self.isFormError = true;
-     }
+  methods: {
+    // モーダルを開く処理
+    openModal: function () {
+      this.winY = document.documentElement.scrollTop || document.body.scrollTop
+      this.flgShowModal = true
+      const body = document.body
+      body.style.top = '-' + this.winY + 'px'
+      body.classList.add('is-fixed')
+    },
+    // モーダルを閉じる処理
+    closeModal: function () {
+      this.flgShowModal = false
+      const body = document.body
+      body.classList.remove('is-fixed')
+      body.style.top = ''
+      scrollTo(0, this.winY)
+    },
+    // バリデーションをリセットする処理
+    validReset: function () {
+      this.flgErrorMes = false
+      if (this.$refs.validationObs != null) {
+        this.$refs.validationObs.reset()
+      }
+    },
+    // 確認ボタンを押下した時の処理
+    confirm: function () {
+      const self = this
+      this.validReset()
+      // バリデーション
+      this.$refs.validationObs
+        .validate()
+        .then(function (res) {
+          let validate = true
+          // エラーがなかった場合
+          if (res) {
+            validate = false
+          }
 
-     // エラーがない場合
-     if (!self.isFormError) {
-      self.isFormError = false;
-      self.isSend = true;
+          // エラーがない場合
+          if (!validate) {
+            self.openModal()
+          } // エラーがある場合
+          else {
+            self.flgErrorMes = true
+            actSmoothScroll('#frm-err-mes')
+          }
+        })
+        .catch(function (err) {})
+    },
+    // 送信ボタンを押下した時の処理
+    sbmt: function () {
+      const self = this
+      if (!this.flgSend) {
+        this.validReset()
+        // バリデーションチェックを行う
+        this.$refs.validationObs
+          .validate()
+          .then(function (res) {
+            let validate = true
+            // エラーがない場合
+            if (res) {
+              validate = false
+            }
 
-      // サーバに入力情報を送信する
-      axios
-       .post("/api/api.php", {
-        applicant: self.applicant
-       })
-       .then(function(res) {
-        const data = res.data;
+            // エラーがない場合
+            if (!validate) {
+              self.flgSend = true
+              // サーバに入力情報を送信する
+              axios
+                .post('/api/send_mail.php', {
+                  frmData: self.items,
+                })
+                .then(function (res) {
+                  const data = res.data
+                  const result = data.result
 
-        setTimeout(function() {
-         self.isSend = false;
-        }, 500);
-
-        // 処理に成功した場合
-        if (data.result == "SUCCESS") {
-         // 完了画面に遷移する
-         let $body = document.body;
-         $body.classList.remove("m-op");
-         $body.removeAttribute("style");
-         self.$router.push("/contact/finish");
-        } else {
-         // 処理に失敗した場合
-         console.log(data);
-         alert("送信処理に失敗しました。時間を置いて再度お試しください。");
+                  // 送信に成功した場合
+                  if (result.actStatus === 'success') {
+                    setTimeout(function () {
+                      const body = document.body
+                      body.classList.remove('is-fixed')
+                      body.style.top = ''
+                      self.$router.push({ path: '/contact/finish/' })
+                    }, 1000)
+                  }
+                  // 失敗した場合
+                  else {
+                    setTimeout(function () {
+                      self.flgSend = false
+                      alert(
+                        '送信処理に失敗しました。お手数をおかけしますが、時間をおいて再度お試しください。'
+                      )
+                    }, 1000)
+                  }
+                })
+                .catch(function (err) {
+                  self.flgSend = false
+                  alert(
+                    '送信処理に失敗しました。お手数をおかけしますが、時間をおいて再度お試しください。'
+                  )
+                })
+            } // エラーがある場合
+            else {
+              self.flgSend = false
+              self.flgErrorMes = true
+              self.closeModal()
+            }
+          })
+          .catch(function (err) {})
+      }
+    },
+    // 戻るボタンを押下した時の処理
+    back: function () {
+      this.closeModal()
+    },
+  },
+  mounted: function () {
+    const self = this
+    setTimeout(function () {
+      self.flgShowContact = true
+    }, 2800)
+  },
+  computed: {
+    isRequired: function () {
+      return function (rules) {
+        let result = false
+        if (typeof rules.required != null && rules.required) {
+          result = true
         }
-       })
-       .catch(function(err) {
-        self.isSend = false;
-        console.log(err);
-        alert("送信処理に失敗しました。時間を置いて再度お試しください。");
-       });
-     }
-     // エラーがあった場合
-     else {
-      self.formMode = "form";
-      self.closeModal();
-     }
-    });
-   }
-  }
- }
-};
+        return result
+      }
+    },
+  },
+})
 </script>
 
-<style lang="scss" scoped>
-/* 入力フォーム
-*************************************************/
-
-/* SP
-*************************************************/
-.input-box {
- .btn-m1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
- }
- .icon-mail {
-  width: 24px;
-  height: 24px;
-  background-size: 24px 24px;
-  vertical-align: middle;
-  margin-right: 8px;
- }
-}
-
-/* PC
-*************************************************/
-@media screen and (min-width: 768px) {
- .input-box {
-  .input-list {
-   margin-top: 40px;
-  }
- }
-}
-</style>
+<style lang="scss"></style>

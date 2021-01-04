@@ -1,0 +1,101 @@
+// フォント ==========
+// デフォルト
+$font--main: 游明朝, 'Yu Mincho', YuMincho, 'Hiragino Mincho ProN',
+  'Hiragino Mincho Pro', HGS明朝E, serif, Times, メイリオ, Meiryo;
+
+// ブレイクポイント ==========
+$bp--sm: 520px;
+$bp--md: 768px;
+$bp--lg: 960px;
+$bp--xl: 1280px;
+
+// カラーパレット ==========
+$palette-white--0: #fff;
+
+$palette-black--0: #000;
+$palette-black--1: #2e2e2e;
+$palette-black--2: #3c3c3c;
+
+$palette-gray--1: #7b7b7b;
+$palette-gray--2: #d0d0d0;
+$palette-gray--3: #eaeaea;
+$palette-gray--4: #f1f1f1;
+$palette-gray--5: #6f6f6f;
+$palette-gray--6: #c8c8c8;
+$palette-gray--7: #cdcdcd;
+
+$palette-yellow--1: #f1f10a;
+
+$palette-blue--1: #002984;
+$palette-blue--2: #4466b1;
+$palette-blue--3: #00133e;
+
+$palette-red--1: #e11e32;
+
+$palette-pink--1: #fdeef0;
+
+$palette-orange--1: #f98900;
+
+// 文字カラー ==========
+$color-tx--main: $palette-black--1;
+$color-tx--web-font: $palette-black--1;
+
+$color-tx--mark: $palette-black--2;
+
+$color-tx--link: $palette-blue--1;
+$color-tx--link-hover: $palette-blue--2;
+
+// 背景カラー ==========
+$color-bg--main: $palette-white--0;
+
+$color-bg--mark: $palette-yellow--1;
+
+// ボタンカラー ==========
+$btn-color-bg--main: $palette-blue--1;
+$btn-color-bg--hover: $palette-blue--2;
+$btn-color-bg--disabled: $palette-gray--3;
+
+$btn-color-border--main: $palette-blue--1;
+
+$btn-color-tx--main: $palette-white--0;
+$btn-color-tx--hover: $palette-white--0;
+$btn-color-tx--disabled: $palette-gray--5;
+
+// 入力項目カラー ==========
+$frm-color-bg--main: $palette-white--0;
+$frm-color-bg--disabled: $palette-gray--3;
+$frm-color-bg--readonly: $palette-white--0;
+$frm-color-bg--placeholder: $palette-gray--7;
+$frm-color-bg--required: $palette-orange--1;
+$frm-color-bg--error: $palette-pink--1;
+
+$frm-color-tx--main: $palette-black--1;
+$frm-color-tx--disabled: $palette-gray--5;
+$frm-color-tx--required: $palette-white--0;
+$frm-color-tx--error: $palette-red--1;
+$frm-color-tx--supplement: $palette-gray--1;
+
+$frm-color-border--main: $palette-gray--2;
+$frm-color-border--readonly: $palette-gray--6;
+$frm-color-border--active: $palette-blue--1;
+$frm-color-border--error: $palette-red--1;
+
+// z-index ==========
+// 汎用
+$z-index--1: 1;
+$z-index--2: 2;
+$z-index--3: 3;
+$z-index--4: 4;
+$z-index--5: 5;
+
+// ヘッダー
+$z-index--header-1: 10000;
+$z-index--header-2: 10100;
+
+// フッター
+$z-index--footer-1: 5000;
+
+// モーダル
+$z-index--modal-1: 20000;
+$z-index--modal-2: 20100;
+$z-index--modal-3: 20200;

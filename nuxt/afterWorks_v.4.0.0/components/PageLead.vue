@@ -1,56 +1,47 @@
 <template>
-
-<transition
- name="contents"
- appear
->
-
-<div class="page-lead-box s-magic-fadein">
-<div class="inner">
-<p v-html="replaceNewLine(text)"></p>
-</div><!-- /.inner -->
-</div><!-- /.page-lead-box -->
-
-</transition>
-
+  <div class="cnt-wrap">
+    <div class="cnt-box">
+      <div class="inner">
+        <div
+          class="page-lead-box animelm animelm-fade-in"
+          data-animelm-delay="300"
+        >
+          <p class="page-lead-tx" v-html="replaceNewLine(leadTx)"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
- props: [
-  'text'
- ],
- methods: {
-  replaceNewLine: function(value) {
-   return value.replace(/\r?\n/g, '<br>')
-  }
- }
-}
+<script lang="ts">
+import Vue from 'vue'
+import mixinUtils from '~/mixins/utils'
+
+export default Vue.extend({
+  name: 'PageLead',
+  mixins: [mixinUtils],
+  props: {
+    leadTx: { type: String },
+  },
+  data: function () {
+    return {}
+  },
+})
 </script>
 
-<style lang="scss" scoped>
-
-/* 前文
-*************************************************/
-
-/* SP
-*************************************************/
-.page-lead-box {
- p {
-  margin: 32px auto 0;
- }
-}
-
-/* PC
-*************************************************/
-@media screen and (min-width: 768px) {
+<style lang="scss">
+// 変数
+@import '~assets/css/_common/variable';
 
 .page-lead-box {
- p {
-  margin-top: 40px;
- }
+  margin-top: 8px;
 }
-
+.page-lead-tx {
+  margin: 0;
 }
-
+@media screen and (min-width: $bp--sm), print {
+  .page-lead-box {
+    margin-top: 16px;
+  }
+}
 </style>
