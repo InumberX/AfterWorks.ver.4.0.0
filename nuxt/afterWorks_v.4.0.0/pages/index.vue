@@ -41,9 +41,14 @@ export default Vue.extend({
       store.state.page_info.data[dataKey] == null ||
       store.state.page_info.data[dataKey].id === ''
     ) {
-      const res = await $axios.get(
-        '/json/page/' + dataKey + '.json?' + process.env.cashBuster
-      )
+      let url = '/json/page/' + dataKey + '.json?' + process.env.cashBuster
+
+      if (process.server) {
+        url = process.env.url + url
+      }
+
+      const res = await $axios.get(url)
+
       store.commit('page_info/setData', {
         key: dataKey,
         val: res.data,

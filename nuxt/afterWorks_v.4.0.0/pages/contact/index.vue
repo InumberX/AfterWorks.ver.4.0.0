@@ -27,7 +27,13 @@ export default Vue.extend({
   },
   async asyncData({ store, $axios }) {
     const dataKey = 'contact'
-    let res = await $axios.get('/json/frm_info.json?' + process.env.cashBuster)
+    let url = '/json/frm_info.json?' + process.env.cashBuster
+
+    if (process.server) {
+      url = process.env.url + url
+    }
+
+    let res = await $axios.get(url)
 
     Object.keys(res.data).forEach(function (key) {
       // 正規表現チェックが設定されている場合
