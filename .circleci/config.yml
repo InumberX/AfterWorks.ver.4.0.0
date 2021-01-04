@@ -27,7 +27,7 @@ jobs:
           paths:
             - ./node_modules
           key:
-            dependency-cache-{{ checksum "package.json" }}
+            dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "package.json" }}
           working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
 
       - run:
