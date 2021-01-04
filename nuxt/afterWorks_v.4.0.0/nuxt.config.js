@@ -255,58 +255,59 @@ export default {
  // PWA
  pwa: {
   icon: false,
- },
- manifest: {
-  name: title,
-  title: title,
-  lang: 'ja',
-  theme_color: '#002984',
-  background_color: '#ffffff',
-  display: 'standalone',
-  scope: '/',
-  start_url: url + '/',
-  icons: [
-   {
-    src: '/img/favicon_72.png',
-    sizes: '72x72',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_96.png',
-    sizes: '96x96',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_128.png',
-    sizes: '128x128',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_144.png',
-    sizes: '144x144',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_152.png',
-    sizes: '152x152',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_192.png',
-    sizes: '192x192',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_384.png',
-    sizes: '384x384',
-    type: 'image/png',
-   },
-   {
-    src: '/img/favicon_512.png',
-    sizes: '512x512',
-    type: 'image/png',
-   },
-  ],
+  manifest: {
+   name: title,
+   short_name: title,
+   description: description,
+   lang: 'ja',
+   theme_color: '#002984',
+   background_color: '#ffffff',
+   display: 'standalone',
+   scope: '/',
+   start_url: url + '/',
+   icons: [
+    {
+     src: '/img/favicon_72.png',
+     sizes: '72x72',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_96.png',
+     sizes: '96x96',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_128.png',
+     sizes: '128x128',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_144.png',
+     sizes: '144x144',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_152.png',
+     sizes: '152x152',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_192.png',
+     sizes: '192x192',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_384.png',
+     sizes: '384x384',
+     type: 'image/png',
+    },
+    {
+     src: '/img/favicon_512.png',
+     sizes: '512x512',
+     type: 'image/png',
+    },
+   ],
+  },
  },
  workbox: {
   offline: false,
