@@ -1,7 +1,7 @@
 version: 2
 jobs:
   generate:
-    working_directory: ~/afterWorks_v.4.0.0
+    working_directory: ~/AfterWorks
     docker:
       - image: node:10.15.3
     steps:
@@ -13,13 +13,13 @@ jobs:
           name: Restore package cache
           keys:
             - dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "package.json" }}
-          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+          working_directory: ~/AfterWorks/nuxt/afterWorks_v.4.0.0/
 
       - run:
           # npm install
           name: npm install
           command: npm install
-          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+          working_directory: ~/AfterWorks/nuxt/afterWorks_v.4.0.0/
 
       # node-modules をキャッシュ
       - save_cache:
@@ -28,21 +28,21 @@ jobs:
             - ./node_modules
           key:
             dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "package.json" }}
-          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+          working_directory: ~/AfterWorks/nuxt/afterWorks_v.4.0.0/
 
       - run:
           name: npm run generate
           command: npm run generate
-          working_directory: ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/
+          working_directory: ~/AfterWorks/nuxt/afterWorks_v.4.0.0/
 
       # 生成物を次のジョブでも使用できるようにする
       - persist_to_workspace:
-          root: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
+          root: '~/AfterWorks/nuxt/afterWorks_v.4.0.0/'
           paths:
             - dist
 
   deploy:
-    working_directory: ~/afterWorks_v.4.0.0
+    working_directory: ~/AfterWorks
 
     # rsyncを使用するためmachineを有効化
     machine:
@@ -50,10 +50,10 @@ jobs:
     steps:
       # persist_to_workspaceで保存したファイルの読み込み
       - attach_workspace:
-          at: '~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/'
+          at: '~/AfterWorks/nuxt/afterWorks_v.4.0.0/'
 
       # 生成物を転送
-      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/afterWorks_v.4.0.0/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST_PRD}
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -ahv ~/AfterWorks/nuxt/afterWorks_v.4.0.0/dist/ ${DEPLOY_DEST_PRD}
 
 workflows:
   version: 2
