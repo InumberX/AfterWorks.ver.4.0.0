@@ -308,51 +308,51 @@ export default {
     },
    ],
   },
- },
- workbox: {
-  offline: false,
-  cacheAssets: false,
-  skipWaiting: true,
-  clientsClaim: true,
-  cleanupOutdatedCaches: true,
-  cacheOptions: {
-   revision: nowDatetime,
-  },
-  cacheNames: {
-   precache: 'afterworks-precache-v' + nowDatetime,
-  },
-  preCaching: [
-   {
-    url: '/json/page/index.json',
+  workbox: {
+   offline: false,
+   cacheAssets: false,
+   skipWaiting: true,
+   clientsClaim: true,
+   cleanupOutdatedCaches: true,
+   cacheOptions: {
     revision: nowDatetime,
    },
-   {
-    url: '/json/page/about.json',
-    revision: nowDatetime,
+   cacheNames: {
+    precache: 'afterworks-precache-v' + nowDatetime,
    },
-   {
-    url: '/json/page/works.json',
-    revision: nowDatetime,
-   },
-   {
-    url: '/json/frm_info.json',
-    revision: nowDatetime,
-   },
-  ],
-  runtimeCaching: [
-   {
-    urlPattern: '/*',
-    handler: 'networkFirst',
-    method: 'GET',
-    strategyOptions: {
-     cacheExpiration: {
-      maxAgeSeconds: 0,
-     },
-     cacheableResponse: {
-      statuses: [200],
+   preCaching: [
+    {
+     url: '/json/page/index.json',
+     revision: nowDatetime,
+    },
+    {
+     url: '/json/page/about.json',
+     revision: nowDatetime,
+    },
+    {
+     url: '/json/page/works.json',
+     revision: nowDatetime,
+    },
+    {
+     url: '/json/frm_info.json',
+     revision: nowDatetime,
+    },
+   ],
+   runtimeCaching: [
+    {
+     urlPattern: '/*',
+     handler: 'networkFirst',
+     method: 'GET',
+     strategyOptions: {
+      cacheExpiration: {
+       maxAgeSeconds: 0,
+      },
+      cacheableResponse: {
+       statuses: [200],
+      },
      },
     },
-   },
-  ],
+   ],
+  },
  },
 }
