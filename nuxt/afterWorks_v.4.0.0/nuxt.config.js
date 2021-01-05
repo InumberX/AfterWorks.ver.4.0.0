@@ -34,11 +34,11 @@ export default {
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
   extendRoutes(routes, resolve) {
-   routes.push({
+   /*routes.push({
     name: 'notFound',
     path: '*',
     component: resolve(__dirname, 'pages/index.vue'),
-   })
+   })*/
   },
  },
 
@@ -250,6 +250,10 @@ export default {
    font: () => 'font/[name].[ext]?' + cashBuster,
    video: () => 'video/[name].[ext]?' + cashBuster,
   },
+ },
+
+ generate: {
+  fallback: '404.html',
  },
 
  // PWA
