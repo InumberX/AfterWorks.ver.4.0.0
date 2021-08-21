@@ -4,33 +4,47 @@
       <div class="inner">
         <div class="his-box">
           <ul class="his-items">
-            <li
-              class="his-item animelm animelm-his"
-              v-for="(item, key) in items"
-            >
+            <li class="his-item animelm animelm-his" v-for="(item, i) in items">
               <dl
                 class="his-list-box animelm animelm-slide-in-top"
                 data-animelm-delay="600"
               >
-                <dt class="his-list-ttl">{{ key }}</dt>
+                <dt class="his-list-ttl">
+                  <template v-if="item.date">
+                    <time class="his-list-ttl-date">{{ item.date }}</time>
+                  </template>
+                  <template v-else>
+                    <time
+                      v-if="item.startDate"
+                      class="his-list-ttl-date is-start"
+                      >{{ item.startDate }}</time
+                    >
+                    <span class="his-list-ttl-date-separator">〜</span>
+                    <time
+                      v-if="item.endDate"
+                      class="his-list-ttl-date is-end"
+                      >{{ item.endDate }}</time
+                    >
+                  </template>
+                </dt>
                 <dd class="his-list-cnt">
                   <ul class="his-cnt-items">
-                    <li class="his-cnt-item" v-for="(cnt, j) in item">
+                    <li class="his-cnt-item">
                       <div class="his-cnt-box">
-                        <p class="his-ttl">{{ cnt.ttl }}</p>
+                        <p class="his-ttl">{{ item.ttl }}</p>
                         <ul
                           class="his-tx-items is-pos"
-                          v-if="cnt.pos.length > 0"
+                          v-if="item.pos.length > 0"
                         >
-                          <li class="his-tx-item" v-for="(tx, k) in cnt.pos">
+                          <li class="his-tx-item" v-for="(tx, k) in item.pos">
                             {{ tx }}
                           </li>
                         </ul>
                         <ul
                           class="his-tx-items is-tools"
-                          v-if="cnt.tools.length > 0"
+                          v-if="item.tools.length > 0"
                         >
-                          <li class="his-tx-item" v-for="(tx, k) in cnt.tools">
+                          <li class="his-tx-item" v-for="(tx, k) in item.tools">
                             {{ tx }}
                           </li>
                         </ul>

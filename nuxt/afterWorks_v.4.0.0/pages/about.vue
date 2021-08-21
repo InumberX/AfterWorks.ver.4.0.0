@@ -129,33 +129,28 @@ export default Vue.extend({
     storeHistory: function () {
       const data = this.$store.state.page_info.data
       interface storeHistoryResult {
-        [key: string]: any
+        date: string
+        startDate: string
+        endDate: string
+        ttl: string
+        pos: string
+        tools: string
       }
-      const result: storeHistoryResult = {}
+      const result: storeHistoryResult[] = []
 
-      if (
-        data.about != null &&
-        data.about.contents.aboutHistoryDate.length > 0
-      ) {
-        for (
-          let i = 0, iLength = data.about.contents.aboutHistoryDate.length;
-          i < iLength;
-          i = (i + 1) | 0
+      if (data.about != null && data.about.contents.aboutHistoryTitle != null) {
+        Object.keys(data.about.contents.aboutHistoryTitle).forEach(function (
+          key
         ) {
-          const key = data.about.contents.aboutHistoryDate[i]
-
-          if (result[key] == null) {
-            result[key] = []
+          const historyInfo = {
+            date: data.about.contents.aboutHistoryDate[key],
+            startDate: data.about.contents.aboutHistoryStartDate[key],
+            endDate: data.about.contents.aboutHistoryEndDate[key],
+            ttl: data.about.contents.aboutHistoryTitle[key],
+            pos: data.about.contents.aboutHistoryPositions[key],
+            tools: data.about.contents.aboutHistoryTools[key],
           }
-
-          let historyInfo = {
-            ttl: data.about.contents.aboutHistoryTitle[i],
-            pos: data.about.contents.aboutHistoryPositions[i],
-            tools: data.about.contents.aboutHistoryTools[i],
-          }
-
-          result[key].push(historyInfo)
-        }
+        })
       }
 
       return result

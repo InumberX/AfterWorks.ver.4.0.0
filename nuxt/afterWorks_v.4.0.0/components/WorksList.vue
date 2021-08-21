@@ -42,7 +42,7 @@
                     <span class="works-ttl-tx" v-else>{{ items.ttl[i] }}</span>
                   </h3>
                   <dl class="works-info-box">
-                    <dt class="works-info-ttl">役割</dt>
+                    <dt class="works-info-ttl">担当箇所</dt>
                     <dd class="works-info-cnt">
                       <ul
                         class="works-info-items is-charge"
