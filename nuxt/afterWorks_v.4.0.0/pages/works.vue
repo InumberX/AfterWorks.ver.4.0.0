@@ -105,6 +105,14 @@ export default Vue.extend({
             key: 'software',
             name: 'works' + type + 'Software',
           },
+          {
+            key: 'startDate',
+            name: 'works' + type + 'StartDate',
+          },
+          {
+            key: 'endDate',
+            name: 'works' + type + 'EndDate',
+          },
         ]
         interface storeCntResult {
           [key: string]: any

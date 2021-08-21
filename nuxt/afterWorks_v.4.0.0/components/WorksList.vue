@@ -33,52 +33,96 @@
                       rel="noopener"
                       v-if="items.link[i] != ''"
                     >
-                      <span class="works-ttl-tx">{{ items.ttl[i] }}</span
-                      ><i class="icon is-new-tab"></i>
+                      <span class="works-link-tx-box">
+                        <span class="works-ttl-tx">{{ items.ttl[i] }}</span
+                        ><i class="icon is-new-tab"></i>
+                      </span>
+                      <span class="works-link-url">{{ items.link[i] }}</span>
                     </a>
                     <span class="works-ttl-tx" v-else>{{ items.ttl[i] }}</span>
                   </h3>
-                  <ul
-                    class="works-info-items is-charge"
-                    v-if="items.charge[i].length > 0"
+                  <dl class="works-info-box">
+                    <dt class="works-info-ttl">役割</dt>
+                    <dd class="works-info-cnt">
+                      <ul
+                        class="works-info-items is-charge"
+                        v-if="items.charge[i].length > 0"
+                      >
+                        <li
+                          class="works-info-item"
+                          v-for="(tx, j) in items.charge[i]"
+                        >
+                          {{ tx }}
+                        </li>
+                      </ul>
+                    </dd>
+                  </dl>
+                  <dl
+                    class="works-info-box"
+                    v-if="
+                      items.programming[i].length > 0 ||
+                      items.cms[i].length > 0 ||
+                      items.software[i].length > 0
+                    "
                   >
-                    <li
-                      class="works-info-item"
-                      v-for="(tx, j) in items.charge[i]"
-                    >
-                      {{ tx }}
-                    </li>
-                  </ul>
-                  <ul
-                    class="works-info-items is-programming"
-                    v-if="items.programming[i].length > 0"
+                    <dt class="works-info-ttl">使用技術</dt>
+                    <dd class="works-info-cnt">
+                      <ul
+                        class="works-info-items is-programming"
+                        v-if="items.programming[i].length > 0"
+                      >
+                        <li
+                          class="works-info-item"
+                          v-for="(tx, j) in items.programming[i]"
+                        >
+                          {{ tx }}
+                        </li>
+                      </ul>
+                      <ul
+                        class="works-info-items is-cms"
+                        v-if="items.cms[i].length > 0"
+                      >
+                        <li
+                          class="works-info-item"
+                          v-for="(tx, j) in items.cms[i]"
+                        >
+                          {{ tx }}
+                        </li>
+                      </ul>
+                      <ul
+                        class="works-info-items is-software"
+                        v-if="items.software[i].length > 0"
+                      >
+                        <li
+                          class="works-info-item"
+                          v-for="(tx, j) in items.software[i]"
+                        >
+                          {{ tx }}
+                        </li>
+                      </ul>
+                    </dd>
+                  </dl>
+                  <dl
+                    class="works-info-box"
+                    v-if="items.startDate[i] !== '' || items.endDate[i] !== ''"
                   >
-                    <li
-                      class="works-info-item"
-                      v-for="(tx, j) in items.programming[i]"
-                    >
-                      {{ tx }}
-                    </li>
-                  </ul>
-                  <ul
-                    class="works-info-items is-cms"
-                    v-if="items.cms[i].length > 0"
-                  >
-                    <li class="works-info-item" v-for="(tx, j) in items.cms[i]">
-                      {{ tx }}
-                    </li>
-                  </ul>
-                  <ul
-                    class="works-info-items is-software"
-                    v-if="items.software[i].length > 0"
-                  >
-                    <li
-                      class="works-info-item"
-                      v-for="(tx, j) in items.software[i]"
-                    >
-                      {{ tx }}
-                    </li>
-                  </ul>
+                    <dt class="works-info-ttl">制作期間</dt>
+                    <dd class="works-info-cnt">
+                      <div class="works-info-date-box">
+                        <time
+                          class="works-info-date is-start"
+                          v-if="items.startDate[i] !== ''"
+                          >{{ items.startDate[i] }}</time
+                        >
+                        <span class="works-info-date-separator">〜</span>
+                        <time
+                          class="works-info-date is-end"
+                          v-if="items.endDate[i] !== ''"
+                          >{{ items.endDate[i] }}</time
+                        >
+                      </div>
+                    </dd>
+                  </dl>
                   <p class="works-tx" v-html="replaceQuot(items.tx[i])"></p>
                 </div>
               </div>
@@ -149,6 +193,15 @@ export default Vue.extend({
   font-weight: 700;
   color: $color-tx--main;
 }
+.works-link-tx-box {
+  display: block;
+}
+.works-link-url {
+  display: block;
+  font-size: 1.4rem;
+  color: $palette-gray--1;
+  font-weight: 400;
+}
 .works-link:not(:root) {
   display: block;
   color: $color-tx--main;
@@ -166,7 +219,7 @@ export default Vue.extend({
 }
 .works-info-items {
   position: relative;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0 0 0 16px;
   list-style: none;
   display: flex;
@@ -181,6 +234,9 @@ export default Vue.extend({
     position: absolute;
     top: 7px;
     left: 0;
+  }
+  + .works-info-items {
+    margin-top: 8px;
   }
   .works-info-item {
     &:last-of-type {
@@ -201,12 +257,27 @@ export default Vue.extend({
   }
 }
 .works-tx {
-  margin: 8px 0 0;
+  margin: 16px 0 0;
   .note {
     display: block;
     color: $palette-gray--1;
     font-size: 1.4rem;
   }
+}
+.works-info-box {
+  margin: 16px 0 0;
+}
+.works-info-ttl {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.works-info-cnt {
+  margin: 8px 0 0;
+  font-size: 1.4rem;
+}
+.works-info-date-box {
+  color: $palette-gray--1;
 }
 @media screen and (min-width: $bp--sm), print {
   .works-list-box {
@@ -244,6 +315,20 @@ export default Vue.extend({
     .note {
       font-size: 1.6rem;
     }
+  }
+  .works-info-box {
+    display: flex;
+  }
+  .works-info-ttl {
+    padding-right: 16px;
+    font-size: 1.6rem;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+  .works-info-cnt {
+    margin: 0;
+    font-size: 1.6rem;
   }
 }
 @media screen and (min-width: $bp--md), print {
