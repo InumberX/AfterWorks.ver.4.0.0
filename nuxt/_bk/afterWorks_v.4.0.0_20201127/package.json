@@ -1,0 +1,24 @@
+{
+ "name": "after_works_v.4.0.0",
+ "version": "1.0.0",
+ "description": "ポートフォリオサイト用プロジェクト",
+ "author": "InumberX",
+ "private": true,
+ "scripts": {
+  "dev": "nuxt",
+  "build": "nuxt build",
+  "start": "nuxt start",
+  "generate": "nuxt generate"
+ },
+ "dependencies": {
+  "@nuxtjs/axios": "^5.12.0",
+  "cross-env": "^7.0.2",
+  "nuxt": "^2.13.3",
+  "vee-validate": "^3.3.7"
+ },
+ "devDependencies": {
+  "node-sass": "^4.14.1",
+  "nodemon": "^2.0.4",
+  "sass-loader": "^9.0.2"
+ }
+}

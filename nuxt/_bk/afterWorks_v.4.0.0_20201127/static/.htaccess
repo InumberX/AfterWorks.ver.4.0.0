@@ -1,0 +1,44 @@
+Action myphp-script /php.cgi
+AddHandler myphp-script .php .html
+
+RewriteEngine On
+RewriteCond %{ENV:HTTPS} !^on$
+RewriteCond %{HTTP:X-SAKURA-FORWARDED-FOR} ^$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{THE_REQUEST} ^.*/index.(html|php)
+RewriteRule ^(.*)index.(html|php)$ https://%{HTTP_HOST}/$1 [R=301,L]
+RewriteCond %{THE_REQUEST} ^.*/history.html
+RewriteRule ^(.*)history.html$ https://%{HTTP_HOST}/history/ [R=301,L]
+RewriteCond %{THE_REQUEST} ^.*/skill.html
+RewriteRule ^(.*)skill.html$ https://%{HTTP_HOST}/skill/ [R=301,L]
+RewriteCond %{THE_REQUEST} ^.*/works.html
+RewriteRule ^(.*)works.html$ https://%{HTTP_HOST}/works/ [R=301,L]
+RewriteCond %{THE_REQUEST} ^.*/contact.html
+RewriteRule ^(.*)contact.html$ https://%{HTTP_HOST}/contact/ [R=301,L]
+RewriteRule ^(.*)contactaw$ https://%{HTTP_HOST}/contact/ [R=301,L]
+RewriteRule ^(.*)contactaw/$ https://%{HTTP_HOST}/contact/ [R=301,L]
+
+RewriteRule ^https://%{HTTP_HOST}%history$ https://%{HTTP_HOST}/v3/history/ [R=301,L]
+RewriteRule ^https://%{HTTP_HOST}%history/$ https://%{HTTP_HOST}/v3/history/ [R=301,L]
+RewriteRule ^https://%{HTTP_HOST}%skill$ https://%{HTTP_HOST}/v3/skill/ [R=301,L]
+RewriteRule ^https://%{HTTP_HOST}%skill/$ https://%{HTTP_HOST}/v3/skill/ [R=301,L]
+
+DirectoryIndex index.html index.htm index.php
+Options -Indexes
+AuthUserFile /home/inumberx/www/.htpasswd
+AuthType Basic
+AuthName "Web access"
+Satisfy all
+Order deny,allow
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+</IfModule>
+
+# END WordPress
