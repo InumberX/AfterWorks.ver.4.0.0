@@ -150,6 +150,8 @@ export default Vue.extend({
             pos: data.about.contents.aboutHistoryPositions[key],
             tools: data.about.contents.aboutHistoryTools[key],
           }
+
+          result.push(historyInfo)
         })
       }
 
