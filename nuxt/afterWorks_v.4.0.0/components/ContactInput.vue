@@ -251,7 +251,7 @@ export default Vue.extend({
               self.flgSend = true
               // サーバに入力情報を送信する
               axios
-                .post('/api/send_mail.php', {
+                .post('/api/send_mail/', {
                   frmData: self.items,
                 })
                 .then(function (res) {

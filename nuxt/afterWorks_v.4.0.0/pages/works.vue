@@ -33,7 +33,8 @@ export default Vue.extend({
       store.state.page_info.data[dataKey] == null ||
       store.state.page_info.data[dataKey].id === ''
     ) {
-      let url = '/json/page/' + dataKey + '.json?' + process.env.cashBuster
+      let url =
+        '/uploads/json/page/' + dataKey + '.json?' + process.env.cashBuster
 
       if (process.server) {
         url = process.env.url + url
@@ -130,10 +131,7 @@ export default Vue.extend({
             const key = target.key
             const name = target.name
 
-            if (
-              data.works.contents[name] != null &&
-              data.works.contents[name].length > 0
-            ) {
+            if (data.works.contents[name] != null) {
               result[key] = data.works.contents[name]
             }
           }

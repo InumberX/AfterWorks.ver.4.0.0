@@ -1,3 +1,5 @@
+import env from 'dotenv'
+
 const now = new Date()
 const nowDatetime =
  now.getFullYear() +
@@ -8,27 +10,30 @@ const nowDatetime =
  ('0' + now.getSeconds()).slice(-2)
 
 const cashBuster = 'v=' + nowDatetime
-
 const title = 'After Works.'
-const protocol = 'https://'
-const domain = 'afterworks.jp'
-const url = protocol + domain
 const description =
  '東京都在住のフロントエンドエンジニア：N/NE（ナイン）のポートフォリオ用Webサイトです。'
+const { url, port } = process.env
 
 export default {
  env: {
   cashBuster: cashBuster,
   title: title,
-  protocol: protocol,
-  domain: domain,
-  url: url,
-  urlLocal: 'http://localhost:3000',
   description: description,
  },
 
+ server: {
+  port: port,
+ },
+
+ basic: {
+  name: 'aw-admin',
+  pass: 'aw-admin001',
+  enabled: process.env.flgBasicAuth === 'true',
+ },
+
  // Target (https://go.nuxtjs.dev/config-target)
- target: 'static',
+ target: 'server',
 
  router: {
   linkActiveClass: 'active',
@@ -223,11 +228,13 @@ export default {
   '@nuxtjs/axios',
   '@nuxtjs/proxy',
   // https://go.nuxtjs.dev/pwa
-  '@nuxtjs/pwa',
+  // '@nuxtjs/pwa',
+  '@nuxtjs/dotenv',
+  'nuxt-basic-auth-module',
  ],
 
  proxy: {
-  '/json/': {
+  '/uploads/': {
    target: url,
   },
   '/api/': {

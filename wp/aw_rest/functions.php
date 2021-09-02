@@ -1,106 +1,174 @@
 <?php
 
+include(get_template_directory() . '/template-parts/env.php');
+
 // 固定ページ投稿時の処理
-function createJsonPage($post_id) {
- // ドキュメントルート
- $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
- // JSON格納ディレクトリ 
- $JSON_DIR = $DOCUMENT_ROOT . 'json/page/';
+function createJsonPage($post_id)
+{
+    global $json_path_page;
 
- // JSONを出力するページのタイトル
- $PAGE_TITLE_ARRAY = array(
-  'INDEX',
-  'ABOUT',
-  'WORKS'
- );
- $PAGE_TITLE_ARRAY_LENGTH = count($PAGE_TITLE_ARRAY);
+    // データを取得
+    $post = get_post($post_id);
+    // タイトル
+    $title = $post->post_title;
 
- // JSON出力ディレクトリ
- $outputDir = '';
- // JSON出力判定
- $isOutput = false;
+    // カスタムフィールドを取得
+    $smart_custom_fields = getCustomFields($_POST['smart-custom-fields']);
 
- // 配列データ
- $dataArray = '';
- // JSONデータ
- $dataJson = '';
+    // 記事データ（配列）
+    $data_array = array(
+        'id' => $post_id,
+        'title' => $title,
+        'createDate' => mysql2date('Y/m/d H:i', $post->post_date),
+        'updateDate' => mysql2date('Y/m/d H:i', $post->post_modified),
+        'contents' => $smart_custom_fields
+    );
 
- // データを取得
- $post = get_post($post_id);
- // タイトル
- $title = $post->post_title;
+    // JSONファイル名を設定
+    $json_output_dir = $json_path_page . '/' . mb_strtolower($title) . '.json';
 
- for($i = 0; $i < $PAGE_TITLE_ARRAY_LENGTH; $i++) {
-  // JSON出力を行うページの場合
-  if($PAGE_TITLE_ARRAY[$i] == $title) {
-   // カスタムフィールドを取得
-   $smartCustomFields = getCustomFields($_POST['smart-custom-fields']);
-
-   $dataArray = array(
-    'id' => $post_id,
-    'title' => $title,
-    'createDate' => mysql2date('Y/m/d H:i:s', $post->post_date),
-    'updateDate' => mysql2date('Y/m/d H:i:s', $post->post_modified),
-    'contents' => $smartCustomFields
-   );
-
-   // JSON出力ディレクトリを設定
-   $outputUrl = $JSON_DIR . mb_strtolower($title) . '.json';
-   $isOutput = true;
-
-   break;
-  }
- }
- 
- // JSON出力を行う場合
- if($isOutput) {
-  // JSON生成
-  $dataJson = json_encode($dataArray, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-  // JSON出力
-  file_put_contents($outputUrl, $dataJson);
-
-  // ビルド実行
-  while(true){
-   if(is_readable($outputUrl)) {
-    shell_exec('nohup sh /xxx/xxx/xxx/deploy.sh > /xxx/xxx/xxx/deploy.log 2>&1 &');
-    break;
-   }
-  }
- }
-
+    // JSON生成
+    $data_json = json_encode($data_array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    // JSON出力
+    file_put_contents($json_output_dir, $data_json);
 }
 
 // カスタムフィールドを加工する処理
-function getCustomFields($customFields) {
-
- foreach($customFields as $key => $value) {
-  // 末尾が「Img」の場合
-  if(mb_substr($key, -3) == 'Img') {
-   // 画像IDをパスに変換
-   foreach($customFields[$key] as $subKey => $subValue) {
-    $imageId = $customFields[$key][$subKey];
-    $imageSrc = wp_get_attachment_image_src($imageId, 'full');
-    if($imageSrc) {
-     $customFields[$key][$subKey] = $imageSrc[0];
+function getCustomFields($custom_fields)
+{
+    foreach ($custom_fields as $key => $value) {
+        // 末尾が「Img」の場合
+        if (mb_substr($key, -3) == 'Img') {
+            // 画像IDをパスに変換
+            foreach ($custom_fields[$key] as $sub_key => $sub_value) {
+                $image_id = $custom_fields[$key][$sub_key];
+                $image_src = wp_get_attachment_image_src($image_id, 'full');
+                if ($image_src) {
+                    $custom_fields[$key][$sub_key] = $image_src[0];
+                }
+            }
+        } else {
+            // 末尾が「Img」以外の場合
+            // ダブルクォーテーションをエスケープ
+            foreach ($custom_fields[$key] as $sub_key => $sub_value) {
+                $value = $custom_fields[$key][$sub_key];
+                $value = str_replace('"', "&quot;", $value);
+                $value = str_replace('\\', "", $value);
+                $custom_fields[$key][$sub_key] = $value;
+            }
+        }
     }
-   }
-  } else {
-   // 末尾が「Img」以外の場合
-   // ダブルクォーテーションをエスケープ
-   foreach($customFields[$key] as $subKey => $subValue) {
-    $value = $customFields[$key][$subKey];
-    $value = str_replace('"', "&quot;", $value);
-    $value = str_replace('\\', "", $value);
-    $customFields[$key][$subKey] = $value;
-   }
-  }
- }
 
- return $customFields;
-
+    return $custom_fields;
 }
 
 // 固定ページ更新時
 add_action('publish_page', 'createJsonPage');
 
-?>
+/* ---------------------------------------
+  管理画面カスタマイズ
+--------------------------------------- */
+function remove_dashboard_widgets()
+{
+    global $wp_meta_boxes;
+    // 現在の状況
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+    // アクティビティ
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+    // 最近のコメント
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
+    // 被リンク
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+    // プラグイン
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+    // サイトヘルス
+    // unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_site_health']);
+    // クイック投稿
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+    // 最近の下書き
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+    // WordPressブログ
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+    // WordPressフォーラム
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+}
+add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
+remove_action('welcome_panel', 'wp_welcome_panel');
+
+function remove_menus()
+{
+    // ダッシュボード
+    // remove_menu_page('index.php');
+    // 投稿
+    // remove_menu_page('edit.php');
+    // メディア
+    // remove_menu_page('upload.php');
+    // 固定
+    // remove_menu_page('edit.php?post_type=page');
+    // コメント
+    remove_menu_page('edit-comments.php');
+
+    if (!current_user_can('administrator')) {
+        // 外観
+        remove_menu_page('themes.php');
+        // プラグイン
+        remove_menu_page('plugins.php');
+        // ユーザー
+        remove_menu_page('users.php');
+        // ツール
+        remove_menu_page('tools.php');
+        // 設定
+        remove_menu_page('options-general.php');
+    }
+}
+add_action('admin_menu', 'remove_menus');
+
+function my_remove_post_support()
+{
+    // タイトル
+    // remove_post_type_support('post', 'title');
+    // 本文
+    // remove_post_type_support('post', 'editor');
+    // 作成者
+    // remove_post_type_support('post', 'author');
+    // アイキャッチ画像
+    // remove_post_type_support('post', 'thumbnail');
+    // 抜粋
+    // remove_post_type_support('post', 'excerpt');
+    // トラックバック
+    remove_post_type_support('post', 'trackbacks');
+    // カスタムフィールド
+    // remove_post_type_support('post', 'custom-fields');
+    // コメント
+    remove_post_type_support('post', 'comments');
+    // リビジョン
+    // remove_post_type_support('post', 'revisions');
+    // 表示順
+    // remove_post_type_support('post', 'page-attributes');
+    // 投稿フォーマット
+    // remove_post_type_support('post', 'post-formats');
+
+    // タイトル
+    // remove_post_type_support('page', 'title');
+    // 本文
+    // remove_post_type_support('page', 'editor');
+    // 作成者
+    // remove_post_type_support('page', 'author');
+    // アイキャッチ画像
+    // remove_post_type_support('page', 'thumbnail');
+    // 抜粋
+    // remove_post_type_support('page', 'excerpt');
+    // トラックバック
+    remove_post_type_support('page', 'trackbacks');
+    // カスタムフィールド
+    // remove_post_type_support('page', 'custom-fields');
+    // コメント
+    remove_post_type_support('page', 'comments');
+    // リビジョン
+    // remove_post_type_support('page', 'revisions');
+    // 表示順
+    // remove_post_type_support('page', 'page-attributes');
+    // 投稿フォーマット
+    // remove_post_type_support('page', 'post-formats');
+}
+add_action('init', 'my_remove_post_support');

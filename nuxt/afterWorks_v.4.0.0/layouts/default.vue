@@ -14,6 +14,10 @@ import Footer from '~/components/common/Footer.vue'
 
 export default Vue.extend({
   name: 'Default',
+  components: {
+    Header: Header,
+    Footer: Footer,
+  },
 })
 </script>
 

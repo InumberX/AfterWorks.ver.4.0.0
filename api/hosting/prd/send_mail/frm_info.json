@@ -1,0 +1,357 @@
+{
+ "companyName": {
+  "name": "会社名",
+  "fieldName": "company_name",
+  "val": "",
+  "type": "text",
+  "rules": { "max": 100 },
+  "placeholder": "例）株式会社○○○○",
+  "className": "",
+  "selectVal": [],
+  "supplement": ""
+ },
+ "name": {
+  "name": "お名前",
+  "fieldName": "name",
+  "val": "",
+  "type": "text",
+  "rules": { "required": true, "max": 100 },
+  "placeholder": "例）田中 太郎",
+  "className": "",
+  "selectVal": [],
+  "supplement": ""
+ },
+ "mail": {
+  "name": "メールアドレス",
+  "fieldName": "mail",
+  "val": "",
+  "type": "mail",
+  "rules": { "required": true, "max": 256, "email": true },
+  "placeholder": "例）xxxxxx@abcde.com",
+  "className": "",
+  "selectVal": [],
+  "supplement": ""
+ },
+ "tel": {
+  "name": "電話番号",
+  "fieldName": "tel",
+  "val": "",
+  "type": "tel",
+  "rules": { "regex": "/^[0-9０-９-ー―－‐]+$/", "max": 13 },
+  "placeholder": "例）0312345678",
+  "className": "",
+  "selectVal": [],
+  "supplement": "*「全角半角数字」「-（ハイフン）」で入力してください"
+ },
+ "pref": {
+  "name": "都道府県",
+  "fieldName": "pref",
+  "val": "",
+  "type": "select",
+  "rules": {},
+  "placeholder": "",
+  "className": "",
+  "selectVal": [
+   {
+    "id": "",
+    "val": "",
+    "tx": ""
+   },
+   {
+    "id": "hokkaido",
+    "val": "北海道",
+    "tx": "北海道"
+   },
+   {
+    "id": "aomori",
+    "val": "青森県",
+    "tx": "青森県"
+   },
+   {
+    "id": "iwate",
+    "val": "岩手県",
+    "tx": "岩手県"
+   },
+   {
+    "id": "miyagi",
+    "val": "宮城県",
+    "tx": "宮城県"
+   },
+   {
+    "id": "akita",
+    "val": "秋田県",
+    "tx": "秋田県"
+   },
+   {
+    "id": "yamagata",
+    "val": "山形県",
+    "tx": "山形県"
+   },
+   {
+    "id": "fukushima",
+    "val": "福島県",
+    "tx": "福島県"
+   },
+   {
+    "id": "ibaraki",
+    "val": "茨城県",
+    "tx": "茨城県"
+   },
+   {
+    "id": "tochigi",
+    "val": "栃木県",
+    "tx": "栃木県"
+   },
+   {
+    "id": "gunma",
+    "val": "群馬県",
+    "tx": "群馬県"
+   },
+   {
+    "id": "saitama",
+    "val": "埼玉県",
+    "tx": "埼玉県"
+   },
+   {
+    "id": "chiba",
+    "val": "千葉県",
+    "tx": "千葉県"
+   },
+   {
+    "id": "tokyo",
+    "val": "東京都",
+    "tx": "東京都"
+   },
+   {
+    "id": "kanagawa",
+    "val": "神奈川県",
+    "tx": "神奈川県"
+   },
+   {
+    "id": "niigata",
+    "val": "新潟県",
+    "tx": "新潟県"
+   },
+   {
+    "id": "toyama",
+    "val": "富山県",
+    "tx": "富山県"
+   },
+   {
+    "id": "ishikawa",
+    "val": "石川県",
+    "tx": "石川県"
+   },
+   {
+    "id": "fukui",
+    "val": "福井県",
+    "tx": "福井県"
+   },
+   {
+    "id": "yamanashi",
+    "val": "山梨県",
+    "tx": "山梨県"
+   },
+   {
+    "id": "nagano",
+    "val": "長野県",
+    "tx": "長野県"
+   },
+   {
+    "id": "gifu",
+    "val": "岐阜県",
+    "tx": "岐阜県"
+   },
+   {
+    "id": "shizuoka",
+    "val": "静岡県",
+    "tx": "静岡県"
+   },
+   {
+    "id": "aichi",
+    "val": "愛知県",
+    "tx": "愛知県"
+   },
+   {
+    "id": "mie",
+    "val": "三重県",
+    "tx": "三重県"
+   },
+   {
+    "id": "shiga",
+    "val": "滋賀県",
+    "tx": "滋賀県"
+   },
+   {
+    "id": "kyoto",
+    "val": "京都府",
+    "tx": "京都府"
+   },
+   {
+    "id": "osaka",
+    "val": "大阪府",
+    "tx": "大阪府"
+   },
+   {
+    "id": "hyogo",
+    "val": "兵庫県",
+    "tx": "兵庫県"
+   },
+   {
+    "id": "nara",
+    "val": "奈良県",
+    "tx": "奈良県"
+   },
+   {
+    "id": "wakayama",
+    "val": "和歌山県",
+    "tx": "和歌山県"
+   },
+   {
+    "id": "shimane",
+    "val": "島根県",
+    "tx": "島根県"
+   },
+   {
+    "id": "okayama",
+    "val": "岡山県",
+    "tx": "岡山県"
+   },
+   {
+    "id": "hiroshima",
+    "val": "広島県",
+    "tx": "広島県"
+   },
+   {
+    "id": "yamaguchi",
+    "val": "山口県",
+    "tx": "山口県"
+   },
+   {
+    "id": "tokushima",
+    "val": "徳島県",
+    "tx": "徳島県"
+   },
+   {
+    "id": "kagawa",
+    "val": "香川県",
+    "tx": "香川県"
+   },
+   {
+    "id": "ehime",
+    "val": "愛媛県",
+    "tx": "愛媛県"
+   },
+   {
+    "id": "kochi",
+    "val": "高知県",
+    "tx": "高知県"
+   },
+   {
+    "id": "fukuoka",
+    "val": "福岡県",
+    "tx": "福岡県"
+   },
+   {
+    "id": "saga",
+    "val": "佐賀県",
+    "tx": "佐賀県"
+   },
+   {
+    "id": "nagasaki",
+    "val": "長崎県",
+    "tx": "長崎県"
+   },
+   {
+    "id": "kumamoto",
+    "val": "熊本県",
+    "tx": "熊本県"
+   },
+   {
+    "id": "oita",
+    "val": "大分県",
+    "tx": "大分県"
+   },
+   {
+    "id": "miyazaki",
+    "val": "宮崎県",
+    "tx": "宮崎県"
+   },
+   {
+    "id": "kagoshima",
+    "val": "鹿児島県",
+    "tx": "鹿児島県"
+   },
+   {
+    "id": "okinawa",
+    "val": "沖縄県",
+    "tx": "沖縄県"
+   }
+  ],
+  "supplement": ""
+ },
+ "address": {
+  "name": "ご住所",
+  "fieldName": "address",
+  "val": "",
+  "type": "text",
+  "rules": { "max": 1000 },
+  "placeholder": "例）千代田区丸の内1-1-1　○○ビル1F",
+  "className": "",
+  "selectVal": [],
+  "supplement": ""
+ },
+ "inquiryType": {
+  "name": "お問い合わせ項目",
+  "fieldName": "inquiry_type",
+  "val": [],
+  "type": "checkbox",
+  "rules": { "required": true },
+  "placeholder": "",
+  "className": "",
+  "selectVal": [
+   {
+    "id": "inquiry_type_hp",
+    "val": "ホームページ制作",
+    "tx": "ホームページ制作",
+    "className": ""
+   },
+   {
+    "id": "inquiry_type_lp",
+    "val": "ランディングページ制作",
+    "tx": "ランディングページ制作",
+    "className": ""
+   },
+   {
+    "id": "inquiry_type_web_design",
+    "val": "Webデザイン",
+    "tx": "Webデザイン",
+    "className": ""
+   },
+   {
+    "id": "inquiry_type_coding",
+    "val": "コーディング",
+    "tx": "コーディング",
+    "className": ""
+   },
+   {
+    "id": "inquiry_type_other",
+    "val": "その他",
+    "tx": "その他",
+    "className": ""
+   }
+  ],
+  "supplement": ""
+ },
+ "inquiry": {
+  "name": "お問い合わせ内容",
+  "fieldName": "inquiry",
+  "val": "",
+  "type": "textarea",
+  "rules": { "required": true },
+  "placeholder": "例）Webサイト制作について",
+  "className": "",
+  "selectVal": [],
+  "supplement": ""
+ }
+}

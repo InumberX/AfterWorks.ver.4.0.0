@@ -7,22 +7,30 @@
           <ul class="idx-cnt-items">
             <li
               class="idx-cnt-item animelm animelm-slide-in-top"
-              v-for="(ttl, i) in cnt.ttl"
-              :key="cnt.className[i]"
+              v-for="(ttl, key, i) in cnt.ttl"
+              :key="cnt.className[key]"
               :data-animelm-delay="(i + 1) * 300"
             >
               <div class="idx-cnt">
                 <div class="idx-cnt-icon-box">
-                  <i class="icon" :class="cnt.className[i]"></i>
+                  <i class="icon" :class="cnt.className[key]"></i>
                 </div>
                 <h3 class="idx-cnt-ttl">{{ ttl }}</h3>
-                <p class="idx-cnt-tx">{{ cnt.tx[i] }}</p>
+                <p class="idx-cnt-tx">{{ cnt.tx[key] }}</p>
                 <div
                   class="idx-cnt-link-box"
-                  v-if="cnt.link != null && cnt.link.length > i"
+                  v-if="
+                    cnt.link != null &&
+                    cnt.linkTx != null &&
+                    cnt.link[key] != null &&
+                    cnt.linkTx[key] != null
+                  "
                 >
-                  <nuxt-link :to="'/' + cnt.link[i] + '/'" class="idx-cnt-link">
-                    <span>{{ cnt.linkTx[i] }}</span>
+                  <nuxt-link
+                    :to="'/' + cnt.link[key] + '/'"
+                    class="idx-cnt-link"
+                  >
+                    <span>{{ cnt.linkTx[key] }}</span>
                   </nuxt-link>
                 </div>
               </div>

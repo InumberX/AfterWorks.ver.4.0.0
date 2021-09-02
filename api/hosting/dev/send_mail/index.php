@@ -6,7 +6,10 @@
 mb_language('ja');
 mb_internal_encoding("UTF-8");
 mb_http_output("UTF-8");
-require_once("convert.php");
+require_once("../convert.php");
+require_once("../env.php");
+
+date_default_timezone_set('Asia/Tokyo');
 
 // Content-TypeをJSONに指定する
 header('Content-Type: application/json');
@@ -18,27 +21,33 @@ $result = new stdClass;
 $mail_values = array();
 
 // 入力項目を展開する
-$request_body = file_get_contents('php://input');
-$post_data = json_decode($request_body, true);
+$post_data = $_POST;
 $frm_data = null;
 
+// 認証キーが一致した場合
+if (!$is_error && isset($post_data['authKey']) && $post_data['authKey'] === $auth_key) {
+}
+// 一致しない場合
+else {
+    $is_error = true;
+}
+
+
 // 入力情報が存在する場合
-if (isset($post_data['frmData'])) {
-    $frm_data = $post_data['frmData'];
+if (!$is_error && isset($post_data['frmData'])) {
+    $frm_data = json_decode($post_data['frmData'], true);
 }
 // 存在しない場合
 else {
     $is_error = true;
 }
 
-// ルート
-$DOCUMENT_ROOT = dirname(__FILE__) . '/';
 // JSON格納ディレクトリ
-$JSON_DIR_FRM_INFO = $DOCUMENT_ROOT . '../json/frm_info.json';
+$json_dir_frm_info = $json_path_frm_info;
 
 // 入力項目JSONを取得する
-if (file_exists($JSON_DIR_FRM_INFO) && !$is_error) {
-    $frm_info_data = json_decode(file_get_contents($JSON_DIR_FRM_INFO), true);
+if (file_exists($json_dir_frm_info) && !$is_error) {
+    $frm_info_data = json_decode(file_get_contents($json_dir_frm_info), true);
 } else {
     $is_error = true;
 }
@@ -141,13 +150,13 @@ if (!$is_error) {
     // -----------------------------------------------
     $ret_mail = '';
 
-    $mail_to_address = "inumberx@gmail.com";
-    $mail_to_name = "N/NE";
-    $mail_from_adress = "inumberx@gmail.com";
-    $mail_from_name = "N/NE";
+    $mail_to_address = $mail_info_to_address;
+    $mail_to_name = $mail_info_to_name;
+    $mail_from_adress = $mail_info_from_adress;
+    $mail_from_name = $mail_info_from_name;
 
     // タイトル
-    $m_subject = "お問い合わせ完了のお知らせ";
+    $m_subject = "【開発】お問い合わせ完了のお知らせ";
 
     // 送信日時
     $send_date  = date("Y/m/d-H:i:s");
@@ -183,9 +192,9 @@ if (!$is_error) {
     $m_body .= "ご不明な点がありましたら、下記連絡先までお問い合わせください。\n";
     $m_body .= "\n";
     $m_body .= "--------------------------------------------------\n";
-    $m_body .= "Name      ： N/NE\n";
-    $m_body .= "Mail      ： inumberx@gmail.com\n";
-    $m_body .= "Home Page ： https://afterworks.jp/\n";
+    $m_body .= "Name      ： {$mail_info_footer_name}\n";
+    $m_body .= "Mail      ： {$mail_info_footer_address}\n";
+    $m_body .= "Home Page ： {$mail_info_footer_url}\n";
     $m_body .= "--------------------------------------------------\n";
 
     // メール送信
@@ -196,8 +205,8 @@ if (!$is_error) {
     $ret_mail = mb_send_mail($m_to, $m_subject, $m_body, $m_header) ? 'OK' : '';
 
     // お知らせメール
-    $m_subject = "お問い合わせのお知らせ";
     $ret_mail = '';
+    $m_subject = "【開発】お問い合わせのお知らせ";
 
     // 本文
     $m_body  = "";
