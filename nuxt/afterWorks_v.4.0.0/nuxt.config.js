@@ -228,7 +228,7 @@ export default {
   '@nuxtjs/axios',
   '@nuxtjs/proxy',
   // https://go.nuxtjs.dev/pwa
-  // '@nuxtjs/pwa',
+  '@nuxtjs/pwa',
   '@nuxtjs/dotenv',
   'nuxt-basic-auth-module',
  ],
@@ -333,15 +333,15 @@ export default {
    },
    preCaching: [
     {
-     url: '/json/page/index.json',
+     url: '/uploads/json/page/index.json',
      revision: nowDatetime,
     },
     {
-     url: '/json/page/about.json',
+     url: '/uploads/json/page/about.json',
      revision: nowDatetime,
     },
     {
-     url: '/json/page/works.json',
+     url: '/uploads/json/page/works.json',
      revision: nowDatetime,
     },
     {
