@@ -4,7 +4,7 @@
       <div class="page-ttl animelm animelm-page-ttl">
         <small class="page-ttl-en">{{ ttlEn }}</small>
         <br />
-        <h2 class="page-ttl-tx">{{ ttl }}</h2>
+        <h1 class="page-ttl-tx">{{ ttl }}</h1>
       </div>
     </div>
   </div>

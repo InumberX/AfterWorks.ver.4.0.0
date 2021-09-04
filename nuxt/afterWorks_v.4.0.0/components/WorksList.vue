@@ -25,7 +25,7 @@
                   />
                 </figure>
                 <div class="works-cnt-box">
-                  <h3 class="works-ttl">
+                  <h2 class="works-ttl">
                     <a
                       :href="items.link[i]"
                       class="works-link"
@@ -40,7 +40,7 @@
                       <span class="works-link-url">{{ items.link[i] }}</span>
                     </a>
                     <span class="works-ttl-tx" v-else>{{ items.ttl[i] }}</span>
-                  </h3>
+                  </h2>
                   <dl class="works-info-box">
                     <dt class="works-info-ttl">担当箇所</dt>
                     <dd class="works-info-cnt">

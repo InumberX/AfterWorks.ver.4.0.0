@@ -7,6 +7,8 @@
     :data-ad-format="adFormat"
     :data-full-width-responsive="adResponsive"
     :data-ad-layout-key="adLayoutKey"
+    :data-ad-title="'ads-' + adSlot"
+    :title="'ads-' + adSlot"
     :style="adStyle"
   />
 </template>

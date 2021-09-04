@@ -10,28 +10,30 @@
                 data-animelm-delay="600"
               >
                 <dt class="his-list-ttl">
-                  <template v-if="item.date">
-                    <time class="his-list-ttl-date">{{ item.date }}</time>
-                  </template>
-                  <template v-else>
-                    <time
-                      v-if="item.startDate"
-                      class="his-list-ttl-date is-start"
-                      >{{ item.startDate }}</time
-                    >
-                    <span class="his-list-ttl-date-separator">〜</span>
-                    <time
-                      v-if="item.endDate"
-                      class="his-list-ttl-date is-end"
-                      >{{ item.endDate }}</time
-                    >
-                  </template>
+                  <h2 class="his-list-ttl-tx">
+                    <template v-if="item.date">
+                      <time class="his-list-ttl-date">{{ item.date }}</time>
+                    </template>
+                    <template v-else>
+                      <time
+                        v-if="item.startDate"
+                        class="his-list-ttl-date is-start"
+                        >{{ item.startDate }}</time
+                      >
+                      <span class="his-list-ttl-date-separator">〜</span>
+                      <time
+                        v-if="item.endDate"
+                        class="his-list-ttl-date is-end"
+                        >{{ item.endDate }}</time
+                      >
+                    </template>
+                  </h2>
                 </dt>
                 <dd class="his-list-cnt">
                   <ul class="his-cnt-items">
                     <li class="his-cnt-item">
                       <div class="his-cnt-box">
-                        <p class="his-ttl">{{ item.ttl }}</p>
+                        <h3 class="his-ttl">{{ item.ttl }}</h3>
                         <ul
                           class="his-tx-items is-pos"
                           v-if="item.pos.length > 0"
@@ -132,6 +134,11 @@ export default Vue.extend({
   margin: 0;
   font-weight: 700;
 }
+.his-list-ttl-tx {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
 .his-list-cnt {
   margin: 8px 0 0;
 }
@@ -154,6 +161,8 @@ export default Vue.extend({
 }
 .his-ttl {
   margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 .his-tx-items {
   margin: 0;
@@ -213,7 +222,13 @@ export default Vue.extend({
       left: 19px;
     }
   }
+  .his-list-ttl-tx {
+    font-size: 1.8rem;
+  }
   .his-tx-item {
+    font-size: 1.6rem;
+  }
+  .his-ttl {
     font-size: 1.6rem;
   }
 }
