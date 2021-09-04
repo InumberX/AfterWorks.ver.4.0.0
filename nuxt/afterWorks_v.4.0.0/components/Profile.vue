@@ -19,13 +19,13 @@
             >
               <dl class="prof-list">
                 <dt class="prof-ttl">名前</dt>
-                <dt class="prof-cnt">
+                <dd class="prof-cnt">
                   <span class="prof-tx">{{ items.name }}</span>
-                </dt>
+                </dd>
               </dl>
               <dl class="prof-list" v-if="items.certificate.length > 0">
                 <dt class="prof-ttl">資格</dt>
-                <dt class="prof-cnt">
+                <dd class="prof-cnt">
                   <ul class="prof-items">
                     <li
                       class="prof-item"
@@ -43,17 +43,17 @@
                       <span v-else class="prof-tx">{{ item.tx }}</span>
                     </li>
                   </ul>
-                </dt>
+                </dd>
               </dl>
               <dl class="prof-list" v-if="items.skill.length > 0">
                 <dt class="prof-ttl">スキル</dt>
-                <dt class="prof-cnt">
+                <dd class="prof-cnt">
                   <ul class="prof-items">
                     <li class="prof-item" v-for="(item, i) in items.skill">
                       <span class="prof-tx">{{ item }}</span>
                     </li>
                   </ul>
-                </dt>
+                </dd>
               </dl>
             </div>
           </div>
