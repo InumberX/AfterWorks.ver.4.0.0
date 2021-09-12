@@ -228,7 +228,7 @@ export default {
   '@nuxtjs/axios',
   '@nuxtjs/proxy',
   // https://go.nuxtjs.dev/pwa
-  '@nuxtjs/pwa',
+  // '@nuxtjs/pwa',
   '@nuxtjs/dotenv',
   'nuxt-basic-auth-module',
  ],
@@ -264,6 +264,7 @@ export default {
  },
 
  // PWA
+ /*
  pwa: {
   icon: false,
   manifest: {
@@ -366,4 +367,5 @@ export default {
    ],
   },
  },
+ */
 }
